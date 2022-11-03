@@ -12,7 +12,11 @@ $('.sidebar-navbar ul li').on('click',function(event){
         $(this).addClass('active')
     })
 
-    event.preventDefault();
-    return false;
+    // event.preventDefault();
+    // return false;
+})
+
+$('.sidebar-navbar ul li a').on('click',function(event){
+    console.log('123')
 })
 
