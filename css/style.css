@@ -1,0 +1,119 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+.container {
+  width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+nav {
+  background-color: #20202c !important;
+}
+nav .nav-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+nav .nav-wrapper .logo a {
+  padding: 20px;
+  display: block;
+  padding-left: 8px;
+}
+nav .nav-wrapper .logo a span {
+  font-size: 1.25rem;
+  color: white;
+}
+nav .nav-wrapper .sidebar-hamburger {
+  display: block;
+}
+nav .nav-wrapper .sidebar-hamburger .navbar-toggler {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+nav .nav-wrapper .sidebar-hamburger .navbar-toggler i {
+  color: rgb(243, 239, 239);
+}
+
+main .wrapper {
+  display: flex;
+  flex-direction: row;
+}
+main .wrapper .sidebar {
+  background-color: #11101d;
+  color: white;
+}
+main .wrapper .sidebar .sidebar-navbar {
+  width: 0;
+  min-height: calc(100vh - 56px);
+  transition: all 0.5s ease;
+}
+main .wrapper .sidebar .sidebar-navbar ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+main .wrapper .sidebar .sidebar-navbar ul li {
+  display: block;
+  border-radius: 8px;
+  transition: all 0.1s ease;
+}
+main .wrapper .sidebar .sidebar-navbar ul li a {
+  text-align: left;
+  color: white;
+  flex-direction: column;
+  padding: 15px;
+}
+main .wrapper .sidebar .sidebar-navbar ul li a i {
+  font-size: 20px;
+}
+main .wrapper .sidebar .sidebar-navbar ul li a span {
+  font-size: 10px;
+}
+main .wrapper .sidebar .sidebar-navbar.toggle {
+  width: 130px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+main .wrapper .sidebar .sidebar-navbar.toggle ul li.active {
+  background-color: white;
+}
+main .wrapper .sidebar .sidebar-navbar.toggle ul li.active a {
+  color: #11101d;
+}
+
+@media screen and (min-width: 768px) {
+  main .wrapper .sidebar .sidebar-navbar {
+    width: 130px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  main .wrapper .sidebar .sidebar-navbar ul li.active {
+    background-color: white;
+  }
+  main .wrapper .sidebar .sidebar-navbar ul li.active a {
+    color: #11101d;
+  }
+  main .wrapper .sidebar .sidebar-navbar.toggle {
+    width: 200px;
+  }
+  main .wrapper .sidebar .sidebar-navbar.toggle ul li a {
+    flex-direction: row;
+  }
+  main .wrapper .sidebar .sidebar-navbar.toggle ul li a span {
+    margin-left: 1rem;
+    font-size: 1rem;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */
