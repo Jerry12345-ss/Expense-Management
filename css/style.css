@@ -112,6 +112,8 @@ main .wrapper .sidebar .sidebar-navbar.toggle ul li.active a {
 main .wrapper .content-wrapper {
   width: 100%;
   padding: 15px;
+
+  overflow-x: hidden;
 }
 
 /* Main Content Breadcrumb */
@@ -124,54 +126,7 @@ main .wrapper .content-wrapper nav {
 main .wrapper .content-wrapper nav ol {
   margin-bottom: 0;
 }
-
-/* Main Content Total Div ( Income / Expense ) */
-main .wrapper .content-wrapper .add-record {
-  border-radius: 4px;
-}
-main .wrapper .content-wrapper .add-record .item {
-  padding: 0.5rem;
-}
-main .wrapper .content-wrapper .add-record .total-text {
-  font-size: 1.25rem;
-  border-bottom: 1px solid rgb(225, 223, 223);
-}
-main .wrapper .content-wrapper .add-record .add-button .new-btn {
-  background-color: rgb(89, 89, 231);
-  border: none;
-}
-main .wrapper .content-wrapper .add-record .add-button .new-btn:hover {
-  background-color: rgb(72, 72, 194);
-}
-main .wrapper .content-wrapper .add-record .add-button .mb-3 {
-  text-align: left;
-}
-main .wrapper .content-wrapper .add-record .add-button .modal-footer {
-  border-top: none;
-  padding-left: 0;
-  padding-right: 0;
-}
-
-/* Main Content Total Div ( Sum ) */
-main .wrapper .content-wrapper .sum-data{
-  font-size: 1rem;
-}
-main .wrapper .content-wrapper .sum-data ul{
-  padding-left: 0;
-  margin-bottom: 0;
-}
-main .wrapper .content-wrapper .sum-data ul .title{
-  background-color: rgb(55, 180, 139);
-  color: white;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  font-size: 1.25rem;
-}
-main .wrapper .content-wrapper .sum-data ul li{
-  padding: 0.75rem 1.25rem;
-  border: 1px solid #dee2e6;
-  border-top: none;
-}
+/* 以上是原先用 SCSS 編譯出之結果 */
 
 /* Main Content Total Div Sum / Balance Color */
 main .wrapper .content-wrapper .total-div .income-total{
@@ -213,4 +168,4 @@ main .wrapper .content-wrapper .total-div .expense-total{
   }
 }
 
-/* 以上是原先用 SCSS 編譯出之結果 */
+
