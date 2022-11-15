@@ -1,0 +1,20 @@
+{
+  "name": "expense-management",
+  "version": "1.0.0",
+  "description": "Expense-Management",
+  "main": "",
+  "type" : "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jerry12345-ss/Expense-Management.git"
+  },
+  "author": "Jerry",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jerry12345-ss/Expense-Management/issues"
+  },
+  "homepage": "https://github.com/Jerry12345-ss/Expense-Management#readme"
+}

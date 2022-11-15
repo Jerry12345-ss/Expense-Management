@@ -17,6 +17,11 @@ a {
   margin-right: auto;
 }
 
+ul{
+  list-style: none;
+}
+
+/* Navbar */
 nav {
   background-color: #20202c !important;
 }
@@ -45,10 +50,13 @@ nav .nav-wrapper .sidebar-hamburger .navbar-toggler i {
   color: rgb(243, 239, 239);
 }
 
+/* Main Wrapper*/
 main .wrapper {
   display: flex;
   flex-direction: row;
 }
+
+/* Main Sidebar */
 main .wrapper .sidebar {
   background-color: #11101d;
   color: white;
@@ -75,7 +83,9 @@ main .wrapper .sidebar .sidebar-navbar ul li a {
   padding: 15px;
 }
 main .wrapper .sidebar .sidebar-navbar ul li a i {
-  font-size: 20px;
+  width: 30px;
+  text-align: center;
+  font-size: 23px;
 }
 main .wrapper .sidebar .sidebar-navbar ul li a span {
   font-size: 10px;
@@ -87,9 +97,9 @@ main .wrapper .sidebar .sidebar-navbar ul li:hover a {
   color: rgba(255, 255, 255, 0.6);
 }
 main .wrapper .sidebar .sidebar-navbar.toggle {
-  width: 130px;
-  padding-left: 15px;
-  padding-right: 15px;
+  width: 100px;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 main .wrapper .sidebar .sidebar-navbar.toggle ul li.active {
   background-color: white;
@@ -98,11 +108,85 @@ main .wrapper .sidebar .sidebar-navbar.toggle ul li.active a {
   color: #11101d;
 }
 
+/* Main Content Wrapper */
+main .wrapper .content-wrapper {
+  width: 100%;
+  padding: 15px;
+}
+
+/* Main Content Breadcrumb */
+main .wrapper .content-wrapper nav {
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  background-color: rgb(240, 238, 238) !important;
+}
+main .wrapper .content-wrapper nav ol {
+  margin-bottom: 0;
+}
+
+/* Main Content Total Div ( Income / Expense ) */
+main .wrapper .content-wrapper .add-record {
+  border-radius: 4px;
+}
+main .wrapper .content-wrapper .add-record .item {
+  padding: 0.5rem;
+}
+main .wrapper .content-wrapper .add-record .total-text {
+  font-size: 1.25rem;
+  border-bottom: 1px solid rgb(225, 223, 223);
+}
+main .wrapper .content-wrapper .add-record .add-button .new-btn {
+  background-color: rgb(89, 89, 231);
+  border: none;
+}
+main .wrapper .content-wrapper .add-record .add-button .new-btn:hover {
+  background-color: rgb(72, 72, 194);
+}
+main .wrapper .content-wrapper .add-record .add-button .mb-3 {
+  text-align: left;
+}
+main .wrapper .content-wrapper .add-record .add-button .modal-footer {
+  border-top: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Main Content Total Div ( Sum ) */
+main .wrapper .content-wrapper .sum-data{
+  font-size: 1rem;
+}
+main .wrapper .content-wrapper .sum-data ul{
+  padding-left: 0;
+  margin-bottom: 0;
+}
+main .wrapper .content-wrapper .sum-data ul .title{
+  background-color: rgb(55, 180, 139);
+  color: white;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  font-size: 1.25rem;
+}
+main .wrapper .content-wrapper .sum-data ul li{
+  padding: 0.75rem 1.25rem;
+  border: 1px solid #dee2e6;
+  border-top: none;
+}
+
+/* Main Content Total Div Sum / Balance Color */
+main .wrapper .content-wrapper .total-div .income-total{
+  color:rgb(85, 130, 214);
+}
+main .wrapper .content-wrapper .total-div .expense-total{
+  color: rgb(219, 17, 17);
+}
+
 @media screen and (min-width: 768px) {
+  /* Main Sidebar */
   main .wrapper .sidebar .sidebar-navbar {
-    width: 130px;
-    padding-left: 15px;
-    padding-right: 15px;
+    width: 100px;
+    padding-left: 8px;
+    padding-right: 8px;
   }
   main .wrapper .sidebar .sidebar-navbar ul li.active {
     background-color: white;
@@ -120,6 +204,13 @@ main .wrapper .sidebar .sidebar-navbar.toggle ul li.active a {
     margin-left: 1rem;
     font-size: 1rem;
   }
+
+  /* Main Content Total Div */
+  main .wrapper .content-wrapper .total-div{
+    max-width : 620px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
-/*# sourceMappingURL=style.css.map */
+/* 以上是原先用 SCSS 編譯出之結果 */

@@ -6,12 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Expense Management</title>
 
+    <link rel="icon" type="image/icon" href="./img/icon.png">
+
     <!-- Boxicons -->
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 
-    <link rel="icon" type="image/icon" href="./img/icon.png">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="./css/style2.css">
 </head>
 <body>
     <header>
@@ -19,7 +23,7 @@
             <div class="container-fluid">
                 <div class="nav-wrapper">
                     <div class="logo">
-                        <a href="../index.html">
+                        <a href="./index.php">
                             <span>Expense Management</span>
                         </a>
                     </div>
@@ -37,25 +41,42 @@
         <div class="container-fluid" style="padding: 0;">
             <div class="wrapper">
                 <div class="sidebar d-flex flex-column">
-                    <div class="sidebar-navbar">
+                    <div class="sidebar-navbar toggle">
                         <ul>
-                            <li>
-                                <a href="./dasboard.html" data-index="one" class="d-flex align-items-center"><i class='bx bxs-dashboard'></i><span>Dashboard</span></a>
+                            <li class="active">
+                                <a href="./index.php" class="d-flex align-items-center"><i class='bx bxs-dashboard'></i><span>Dashboard</span></a>
                             </li>
                             <li>
-                                <a href="./incomes.html" data-index="two" class="d-flex align-items-center"><i class='bx bxs-dashboard'></i><span>Incomes</span></a>
+                                <a href="./pages/incomes.php" class="d-flex align-items-center">
+                                    <i class="fa-solid fa-money-check-dollar"></i>
+                                    <span>Incomes</span>
+                                </a>
                             </li>
                             <li>
-                                <a href="./expenses.html" data-index="three" class="d-flex align-items-center"><i class='bx bxs-dashboard'></i><span>Expenses</span></a>
+                                <a href="./pages/expenses.php" class="d-flex align-items-center">
+                                    <i class="fa-solid fa-dollar-sign"></i>
+                                    <span>Expenses</span>
+                                </a>
                             </li>
                             <li>
-                                <a href="./summary.html" data-index="four" class="d-flex align-items-center"><i class='bx bxs-dashboard'></i><span>Summary</span></a>
+                                <a href="./pages/sum.php" class="d-flex align-items-center">
+                                    <i class="fa-solid fa-sack-dollar"></i>
+                                    <span>Sum</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="./pages/chart.php" class="d-flex align-items-center"><i class='bx bxs-chart'></i><span>Chart</span></a>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="content-wrapper">
-                    <span>Dashboard</span>
+                    <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                          <li class="breadcrumb-item"><a href="./index.php">Home</a></li>
+                          <li class="breadcrumb-item active" aria-current="page">Overview</li>
+                        </ol>
+                    </nav>
                 </div>
             </div>
         </div>
@@ -69,8 +90,6 @@
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
-    <script src="../js/main.js"></script>
+    <script type="module" src="./js/main.js"></script>
 </body>
 </html>
-
-<!-- SideBar 的數量先隨機，之後定位 -->
