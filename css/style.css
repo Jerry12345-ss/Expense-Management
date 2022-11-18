@@ -81,15 +81,21 @@ main .wrapper .sidebar .sidebar-navbar ul li a {
   color: white;
   flex-direction: column;
   padding: 15px;
+  opacity: 0;
+  transition: all 0.5s ease;
 }
 main .wrapper .sidebar .sidebar-navbar ul li a i {
-  width: 30px;
+  min-width: 30px;
   text-align: center;
   font-size: 23px;
 }
 main .wrapper .sidebar .sidebar-navbar ul li a span {
   font-size: 10px;
 }
+/* main .wrapper .sidebar .sidebar-navbar ul li a {
+  opacity: 0;
+  transition: all 0.5s ease;
+} */
 main .wrapper .sidebar .sidebar-navbar ul li:hover {
   background-color: rgba(94, 93, 93, 0.8);
 }
@@ -100,6 +106,9 @@ main .wrapper .sidebar .sidebar-navbar.toggle {
   width: 100px;
   padding-left: 8px;
   padding-right: 8px;
+}
+main .wrapper .sidebar .sidebar-navbar.toggle ul li a{
+ opacity: 1;
 }
 main .wrapper .sidebar .sidebar-navbar.toggle ul li.active {
   background-color: white;
@@ -128,12 +137,20 @@ main .wrapper .content-wrapper nav ol {
 }
 /* 以上是原先用 SCSS 編譯出之結果 */
 
-/* Main Content Total Div Sum / Balance Color */
+/* Main Content Total Div Income / Expense Color */
 main .wrapper .content-wrapper .total-div .income-total{
   color:rgb(85, 130, 214);
 }
 main .wrapper .content-wrapper .total-div .expense-total{
   color: rgb(219, 17, 17);
+}
+
+/* test */
+main .wrapper .content-wrapper .income-content .row .card-income{
+  background-color: aquamarine;
+}
+main .wrapper .content-wrapper .income-content .row .card-income .card-date{
+  border-bottom: 1px solid black;
 }
 
 @media screen and (min-width: 768px) {
@@ -142,6 +159,9 @@ main .wrapper .content-wrapper .total-div .expense-total{
     width: 100px;
     padding-left: 8px;
     padding-right: 8px;
+  }
+  main .wrapper .sidebar .sidebar-navbar ul li a {
+    opacity: 1;
   }
   main .wrapper .sidebar .sidebar-navbar ul li.active {
     background-color: white;

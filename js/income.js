@@ -1,4 +1,4 @@
-import Form_check from "./main.js";
+import Form_check from "./main5.js";
 
 // Bootstrap modal show
 const exampleModal = document.getElementById('exampleModal');

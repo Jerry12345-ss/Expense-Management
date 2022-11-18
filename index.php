@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="cache-control" content="public">
     <title>Expense Management</title>
 
     <link rel="icon" type="image/icon" href="./img/icon.png">
@@ -53,19 +54,19 @@
                                 <a href="./index.php" class="d-flex align-items-center"><i class='bx bxs-dashboard'></i><span>Dashboard</span></a>
                             </li>
                             <li>
-                                <a href="./pages/incomes.php" class="d-flex align-items-center">
+                                <a href="./pages/incomes.php" class="d-flex align-items-center ">
                                     <i class="fa-solid fa-money-check-dollar"></i>
                                     <span>Incomes</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="./pages/expenses.php" class="d-flex align-items-center">
+                                <a href="./pages/expenses.php" class="d-flex align-items-center ">
                                     <i class="fa-solid fa-dollar-sign"></i>
                                     <span>Expenses</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="./pages/sum.php" class="d-flex align-items-center">
+                                <a href="./pages/sum.php" class="d-flex align-items-center ">
                                     <i class="fa-solid fa-sack-dollar"></i>
                                     <span>Sum</span>
                                 </a>

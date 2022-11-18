@@ -23,6 +23,8 @@ let yyyy = today.getFullYear();
 today = `${yyyy}-${mm}-${dd}`;
 $("#date").attr("value", today);
 
+let array = JSON.parse(localStorage.getItem('list'));
+
 // Submitting new income / expense form 
 export default function Form_check(file_name,parameter){
     $('.content-wrapper form').submit((event)=>{
@@ -30,7 +32,9 @@ export default function Form_check(file_name,parameter){
         let description_val = document.querySelector('#description');
         let date_val = document.querySelector('#date');
 
-        let month = Date.getMonth()+1;
+        // Get input month (先暫時放著)
+        let d = new Date (date_val.value);
+        //console.log(d.getMonth()+1);
 
         let formData = {
             amount : amount_val.value,
@@ -45,13 +49,21 @@ export default function Form_check(file_name,parameter){
                 text : '您所輸入的日期錯誤!'
             });
         }else{
-            Form_submit(formData,parameter,month);
+            Form_submit(formData,parameter);
+
+            if(!array){
+                array = [];
+            }
+            array.push(formData);
+            localStorage.setItem('list',JSON.stringify(array));
+
             Swal.fire({
                 icon : 'success',
                 title : '新增成功'
             }).then(()=>{
-                console.log(month);
-                // window.location.href = `../pages/${file_name}.php`
+                test();
+                window.location.href = `../pages/${file_name}.php`;
+                
             });
             $('#exampleModal').modal('hide');
 
@@ -79,4 +91,23 @@ const Form_submit = (formData,parameter) =>{
         }
     })
 }
+
+function test(){
+    let list = document.querySelector('.income-content .row');
+    let li ="";
+
+    if(array){
+       array.forEach((value,id)=>{
+        li += `
+            <div class='card-income' id=${id}>
+                <div class='card-date'>${value.date}</div>
+                <div class='card-content'>${value.description}</div>
+            </div>
+        `
+       })
+    }
+    list.innerHTML = li;
+}
+
+test();
 

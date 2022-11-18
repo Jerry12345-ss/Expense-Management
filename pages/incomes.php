@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="styleheet" href="../css/income.css">
+    <link rel="stylesheet" href="../css/income.css">
 </head>
 <body>
     <header>
@@ -134,6 +134,9 @@
                             </div>
                         </div>
                     </div>
+                    <div class="income-content">
+                        <div class="row"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -148,7 +151,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
-    <script type="module" src="../js/main.js"></script>
+    <script type="module" src="../js/main5.js"></script>
     <script type="module" src="../js/income.js"></script>
 </body>
 </html>
