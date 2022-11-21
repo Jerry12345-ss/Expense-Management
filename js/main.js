@@ -23,10 +23,8 @@ let yyyy = today.getFullYear();
 today = `${yyyy}-${mm}-${dd}`;
 $("#date").attr("value", today);
 
-let array = JSON.parse(localStorage.getItem('list'));
-
 // Submitting new income / expense form 
-export default function Form_check(file_name,parameter){
+export function Form_check(file_name, parameter, list, list_name){
     $('.content-wrapper form').submit((event)=>{
         let amount_val = document.querySelector('#amount'); 
         let description_val = document.querySelector('#description');
@@ -49,21 +47,19 @@ export default function Form_check(file_name,parameter){
                 text : '您所輸入的日期錯誤!'
             });
         }else{
-            Form_submit(formData,parameter);
+            Form_submit(formData, parameter);
 
-            if(!array){
-                array = [];
+            if(!list){   // if list isn't exist, pass an empty to list
+                list = [];
             }
-            array.push(formData);
-            localStorage.setItem('list',JSON.stringify(array));
+            list.push(formData);   // add new income or expense record to List
+            localStorage.setItem(`${list_name}`,JSON.stringify(list));    // store key/value in localstorage and transform data into JSON string
 
             Swal.fire({
                 icon : 'success',
                 title : '新增成功'
             }).then(()=>{
-                test();
                 window.location.href = `../pages/${file_name}.php`;
-                
             });
             $('#exampleModal').modal('hide');
 
@@ -77,7 +73,7 @@ export default function Form_check(file_name,parameter){
 }
 
 // POST form data with AJAX request
-const Form_submit = (formData,parameter) =>{
+const Form_submit = (formData, parameter) =>{
     $.ajax({
         url : `../Add_record.php?request=${parameter}`,
         type : 'POST',
@@ -92,22 +88,37 @@ const Form_submit = (formData,parameter) =>{
     })
 }
 
-function test(){
-    let list = document.querySelector('.income-content .row');
-    let li ="";
+// Show income / expense record
+export function Add_record(list, list_name){
+    let list_content = document.querySelector(`.record-content .row`);
+    let li = "";
 
-    if(array){
-       array.forEach((value,id)=>{
+    if(list){
+       list.forEach((value, id)=>{
         li += `
-            <div class='card-income' id=${id}>
-                <div class='card-date'>${value.date}</div>
-                <div class='card-content'>${value.description}</div>
+            <div class='col-sm-6 col-lg-4 mb-3'>
+                <div class='card' id=${list_name}>
+                    <div class='card-date card-header d-flex justify-content-between align-items-center'>
+                        <div class='card-date'>${value.date}</div>
+                        <div class='btn-group'>
+                           <div class='edit-card card-btn'>
+                               <a href='#'>+</a>
+                           </div>
+                           <div class='delete-card card-btn'>
+                               <a href='#'>-</a>
+                           </div> 
+                        </div>
+                    </div>
+                    <div class='card-body d-flex justify-content-between'>
+                        <div class='card-description'>${value.description}</div>
+                        <div calss='card-amount' style='font-weight:600'>$ ${value.amount}</div>
+                    </div>
+                </div>
             </div>
         `
        })
     }
-    list.innerHTML = li;
-}
 
-test();
+    list_content.innerHTML = li;
+}
 

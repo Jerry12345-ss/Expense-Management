@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style2.css">
     <link rel="stylesheet" href="../css/sum.css">
 </head>
 <body>
@@ -130,6 +130,9 @@
                             </li>
                         </ul>
                     </div>
+                    <div class="record-content">
+                        <div class="row"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -150,7 +153,7 @@
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
-    <script type="module" src="../js/main5.js"></script>
+    <script type="module" src="../js/main.js"></script>
 </body>
 </html>
 
