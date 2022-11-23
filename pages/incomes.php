@@ -40,6 +40,7 @@
     </header>
 
     <?php
+        session_start();
         include('../config.php');
     ?>
 
@@ -133,6 +134,17 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="test-php">
+                    <?php
+                         $username = $_SESSION['name'];
+                         $sql = "SELECT * FROM `expense_test` WHERE Name = '$username'";
+                         $query = mysqli_query($con, $sql);
+
+                         while($row = mysqli_fetch_array($query)){
+                            echo "Name : ".$row['Name'].", Money : ".$row['Money'].", Description : ".$row['Description'].", Date_billing : ".$row['Date_billing']."<br/>";
+                         }
+                    ?>
                     </div>
                     <div class="record-content">
                         <div class="row"></div>
