@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./css/style2.css">
+    <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/sum.css">
     <link rel="stylesheet" href="./css/home2.css">
 </head>
@@ -34,6 +34,33 @@
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <i class='bx bx-menu bx-sm'></i>
                         </button>
+                    </div>
+                    <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Dropdown button
+  </button>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="#">Action</a></li>
+    <li><a class="dropdown-item" href="#">Another action</a></li>
+    <li><a class="dropdown-item" href="#">Something else here</a></li>
+  </ul>
+</div>
+                    <div class="dropdown nav-username ms-auto">
+                        <a href="#" class="d-flex align-items-center" style="color: white;">
+                            <i class='bx bxs-user-circle me-2'></i>
+                            <div class="username">
+                                <?php
+                                    session_start();
+                                    echo $_SESSION['name'];
+                                ?>
+                            </div>
+                            <i class='bx bxs-chevron-down ms-2'></i>
+                        </a>
+                        <ul class="username-logout dropdown-menu">
+                            <li>
+                                <a href="./login/logout.php" class="dropdown-item" style="color: white;">Log out</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -227,6 +254,14 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
+        const nav_username = document.querySelector('.nav-username');
+        const logout = document.querySelector('.username-logout');
+
+        nav_username.addEventListener('click',()=>{
+            logout.classList.toggle('active');
+            console.log('12')
+        });
+
         let canvas = document.querySelector('#canvasPie');
         let ctx = canvas.getContext('2d');
 

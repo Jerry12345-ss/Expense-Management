@@ -50,6 +50,22 @@ nav .nav-wrapper .sidebar-hamburger .navbar-toggler i {
   color: rgb(243, 239, 239);
 }
 
+nav .nav-wrapper .nav-username {
+  padding: 0.25rem 1.5rem;
+}
+
+nav .nav-wrapper .nav-username i {
+  font-size: 25px;
+}
+
+nav .nav-wrapper .nav-username .username-logout {
+  display: none;
+}
+
+nav .nav-wrapper .nav-username .username-logout.active {
+  display: block;
+}
+
 /* Main Wrapper*/
 main .wrapper {
   display: flex;

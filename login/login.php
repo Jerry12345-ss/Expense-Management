@@ -1,7 +1,8 @@
 <?php
+    // 
     session_start();
     // Database config and connect
-    include('./config.php');
+    include('../config.php');
 
     if(isset($_POST['email']) && isset($_POST['password'])){
         $email = $_POST['email'];
@@ -20,7 +21,7 @@
                 $_SESSION['account'] = $row['Account'];
                 $_SESSION['password'] = $row['Password'];
                 $_SESSION['name'] = $row['Name'];
-                header("Location: index.php");
+                header("Location: ../index.php");
                 exit();
             }else{
                 echo "帳號或密碼錯誤!";

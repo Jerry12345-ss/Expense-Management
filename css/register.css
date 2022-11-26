@@ -1,0 +1,142 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+body{
+    background-color: rgb(250, 250, 250);
+}
+  
+a{
+    text-decoration: none;
+}
+
+ul{
+    list-style: none;
+}
+
+.container{
+    margin: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    max-width: 750px;
+}
+
+/* Navbar */
+nav{
+    box-shadow: 0 2px 4px rgb(0 0 0 / 20%);
+    background-color: white;
+}
+
+.nav-wrapper{
+    flex-wrap: wrap;
+}
+
+.nav-wrapper .nav-logo a{
+    display: block;
+    padding: 20px 10px;
+    color: rgb(93, 92, 92);
+    font-size: 22px;
+}
+
+.nav-wrapper .nav-hamburger button{
+    border: 1px solid rgb(198, 196, 196);
+    border-radius: 4px;
+}
+
+.nav-wrapper .nav-hamburger i{
+    padding: 0.25rem 0.75rem;
+    color: rgb(111, 110, 110);
+    font-size: 2rem!important;
+}
+
+.nav-wrapper .nav-list{
+    display: none;
+    width: 100%;
+}
+
+.nav-wrapper .nav-list.active{
+    display: block;
+}
+
+.nav-wrapper ul{
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+}
+
+.nav-wrapper .nav-list ul li{
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+}
+
+.nav-wrapper .nav-list ul li a{
+    color: rgb(150, 149, 149);
+    transition: color 0.2s ease-out;
+}
+
+.nav-wrapper .nav-list ul li a:hover{
+    color: rgb(104, 202, 206);
+}
+
+/* Main */
+main{
+    margin-top: 2rem;
+    padding: 0 15px;
+    display: flex;
+    min-height: 70vh;
+}
+
+main .card{
+   color: rgb(93, 92, 92);
+}
+
+main .card .card-header{
+    text-align: center;
+    font-size: 20px;
+}
+
+main .card .card-body{
+    padding: 25px;
+}
+
+main .card .register-btn{
+    border-radius: 4px;
+    padding: 0.75rem 1.25rem;
+    border: none;
+    background-color:cadetblue;
+    color: white;
+    margin: 10px 0;
+    transition: background-color 0.2s ease-out;
+}
+
+main .card .register-btn:hover{
+    background-color: rgb(78, 127, 128);
+}
+
+@media screen and (min-width:576px){
+    .nav-wrapper{
+        flex-wrap: nowrap;
+    }
+    
+    .nav-wrapper .nav-hamburger{
+        display: none;
+    }
+
+    .nav-wrapper .nav-list{
+        display: block;
+        width: fit-content;
+    }
+
+    .nav-wrapper .nav-list ul{
+        flex-direction: row;
+        margin-bottom: 0;
+    }
+
+    .nav-wrapper .nav-list ul li{
+        padding: 24px;
+    }
+}
