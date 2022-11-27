@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/style2.css">
     <link rel="stylesheet" href="./css/sum.css">
     <link rel="stylesheet" href="./css/home2.css">
 </head>
@@ -35,18 +35,8 @@
                             <i class='bx bx-menu bx-sm'></i>
                         </button>
                     </div>
-                    <div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Dropdown button
-  </button>
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="#">Action</a></li>
-    <li><a class="dropdown-item" href="#">Another action</a></li>
-    <li><a class="dropdown-item" href="#">Something else here</a></li>
-  </ul>
-</div>
                     <div class="dropdown nav-username ms-auto">
-                        <a href="#" class="d-flex align-items-center" style="color: white;">
+                        <a href="#" class="d-flex align-items-center dropdown-toggle" style="color: white;">
                             <i class='bx bxs-user-circle me-2'></i>
                             <div class="username">
                                 <?php
@@ -56,9 +46,9 @@
                             </div>
                             <i class='bx bxs-chevron-down ms-2'></i>
                         </a>
-                        <ul class="username-logout dropdown-menu">
+                        <ul class="dropdown-menu username-logout">
                             <li>
-                                <a href="./login/logout.php" class="dropdown-item" style="color: white;">Log out</a>
+                                <a href="./login/logout.php" class="dropdown-item">Log out</a>
                             </li>
                         </ul>
                     </div>
@@ -254,14 +244,23 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
+        // Navbar username list show toggle and icon exchange
         const nav_username = document.querySelector('.nav-username');
         const logout = document.querySelector('.username-logout');
 
+        const arrow = $('.bxs-chevron-down');
+
         nav_username.addEventListener('click',()=>{
-            logout.classList.toggle('active');
-            console.log('12')
+            logout.classList.toggle('show');
+
+            if(arrow.hasClass('bxs-chevron-down')){
+                arrow.removeClass('bxs-chevron-down').addClass('bxs-chevron-up');
+            }else if(arrow.hasClass('bxs-chevron-up')){
+                arrow.removeClass('bxs-chevron-up').addClass('bxs-chevron-down');
+            }
         });
 
+        // Chart Test
         let canvas = document.querySelector('#canvasPie');
         let ctx = canvas.getContext('2d');
 
@@ -300,6 +299,7 @@
         });
     </script>
 
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
     <script type="module" src="./js/main.js"></script>
 </body>

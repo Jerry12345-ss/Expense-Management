@@ -51,7 +51,7 @@ nav .nav-wrapper .sidebar-hamburger .navbar-toggler i {
 }
 
 nav .nav-wrapper .nav-username {
-  padding: 0.25rem 1.5rem;
+  padding: 0.25rem 2.5rem;
 }
 
 nav .nav-wrapper .nav-username i {
@@ -60,10 +60,23 @@ nav .nav-wrapper .nav-username i {
 
 nav .nav-wrapper .nav-username .username-logout {
   display: none;
+  right: 20%;
+  top: 100%;
+  --bs-dropdown-link-hover-bg:rgb(111, 188, 191);
+  --bs-dropdown-link-active-color: white;
+  --bs-dropdown-link-active-bg:rgb(111, 188, 191);
 }
 
-nav .nav-wrapper .nav-username .username-logout.active {
+nav .nav-wrapper .nav-username .username-logout li:hover a{
+  color: white;
+}
+
+nav .nav-wrapper .nav-username .username-logout.show{
   display: block;
+}
+
+nav .nav-wrapper .nav-username .dropdown-toggle::after {
+  display: none;
 }
 
 /* Main Wrapper*/
