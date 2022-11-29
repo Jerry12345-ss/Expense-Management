@@ -33,6 +33,23 @@
                             <i class='bx bx-menu bx-sm'></i>
                         </button>
                     </div>
+                    <div class="dropdown nav-username ms-auto">
+                        <a href="#" class="d-flex align-items-center dropdown-toggle" style="color: white;">
+                            <i class='bx bxs-user-circle me-2'></i>
+                            <div class="username">
+                                <?php
+                                    session_start();
+                                    echo $_SESSION['name'];
+                                ?>
+                            </div>
+                            <i class='bx bxs-chevron-down ms-2'></i>
+                        </a>
+                        <ul class="dropdown-menu username-logout">
+                            <li>
+                                <a href="../login/logout.php" class="dropdown-item">Log out</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -148,10 +165,11 @@
             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
             crossorigin="anonymous">
     </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
     <script type="module" src="../js/main.js"></script>
     <script type="module" src="../js/expense.js"></script>
+    <script src="../js/logout.js"></script>
 </body>
 </html>

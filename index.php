@@ -240,26 +240,13 @@
             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
             crossorigin="anonymous">
     </script>
-
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="./js/main.js"></script>
+    <script src="./js/logout.js"></script>
 
     <script>
-        // Navbar username list show toggle and icon exchange
-        const nav_username = document.querySelector('.nav-username');
-        const logout = document.querySelector('.username-logout');
-
-        const arrow = $('.bxs-chevron-down');
-
-        nav_username.addEventListener('click',()=>{
-            logout.classList.toggle('show');
-
-            if(arrow.hasClass('bxs-chevron-down')){
-                arrow.removeClass('bxs-chevron-down').addClass('bxs-chevron-up');
-            }else if(arrow.hasClass('bxs-chevron-up')){
-                arrow.removeClass('bxs-chevron-up').addClass('bxs-chevron-down');
-            }
-        });
-
         // Chart Test
         let canvas = document.querySelector('#canvasPie');
         let ctx = canvas.getContext('2d');
@@ -298,9 +285,5 @@
             },
         });
     </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
-    <script type="module" src="./js/main.js"></script>
 </body>
 </html>
