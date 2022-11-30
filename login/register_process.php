@@ -1,7 +1,7 @@
 <?php 
     include('../config.php');
 
-    $error = "";
+    // $error = "";
 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         if(isset($_POST['email']) && isset($_POST['password']) && isset($_POST['name'])){
@@ -9,26 +9,26 @@
             $password = $_POST['password'];
             $password_hash = password_hash($password, PASSWORD_DEFAULT); 
             $username = $_POST['name'];
+            $con_password = $_POST['con_password'];
 
             // setting password requirement
             if(strlen($password) < 8){
-                $error = "密碼長度至少8個字元以上";
-                header('Location:register.php');
+                echo "密碼長度至少8個字元以上";
                 exit();
             }
         
             if(! preg_match("/[a-z]/", $password)){
-                $error = "密碼必須包含一個英文字母";
+                echo "密碼必須包含一個英文字母";
                 exit();
             }
         
             if(! preg_match("/[0-9]/", $password)){
-                $error = "密碼必須包含一個數字";
+                echo "密碼必須包含一個數字";
                 exit();
             }
 
-            if($password !== $_POST['con-password']){
-                $error = "確認密碼匹配錯誤";
+            if($password !== $con_password){
+                echo "確認密碼匹配錯誤";
                 exit();
             }
 
@@ -36,19 +36,18 @@
 
             // prevent duplicate email (account)
             if(mysqli_num_rows(mysqli_query($con,$check_email)) > 0){
-                $is_invalid = true;
-                $error = "此帳號已註冊過!";
+                echo "此帳號已註冊過!";
                 exit();
             }else{
                 $sql = "INSERT INTO user(Account, Password, Name) VALUES('$account', '$password_hash', '$username')";
                 $query = mysqli_query($con, $sql);
 
                 if($query){
-                    header("Location:login.php");
+                    echo "註冊成功";
+                    //header("Location:login.php");
                     exit();
                 }else{
-                    $is_invalid = true;
-                    $error = "帳號註冊發生錯誤";
+                    echo "帳號註冊發生錯誤";
                     exit();
                 }
             }

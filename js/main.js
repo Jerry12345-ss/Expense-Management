@@ -30,10 +30,6 @@ export function Form_check(file_name, parameter, list, list_name){
         let description_val = document.querySelector('#description');
         let date_val = document.querySelector('#date');
 
-        // Get input month (先暫時放著)
-        let d = new Date (date_val.value);
-        //console.log(d.getMonth()+1);
-
         let formData = {
             amount : amount_val.value,
             description : description_val.value,

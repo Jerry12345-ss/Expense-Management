@@ -45,7 +45,7 @@
     </header>
     <main>
         <div class="container">
-            <div class="row">
+            <div class="row ms-0 me-0">
                 <div class="card p-0">
                     <div class="card-header">
                         <span>Login</span>

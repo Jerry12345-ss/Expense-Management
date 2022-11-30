@@ -117,6 +117,16 @@ main .card .register-btn:hover{
     background-color: rgb(78, 127, 128);
 }
 
+main .error-message .error{
+    border-radius: 4px;
+    background-color:#fcd4d1;
+    color:indianred;
+}
+
+main .error-message .error p{
+    padding: 1rem;
+}
+
 @media screen and (min-width:576px){
     .nav-wrapper{
         flex-wrap: nowrap;

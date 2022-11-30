@@ -1,67 +1,3 @@
-<?php 
-    include('../config.php');
-
-    $error = false;
-    $name_error = "";
-
-    if($_SERVER['REQUEST_METHOD'] === 'POST'){
-        if(empty($_POST['email'])){
-            $name_error = "Name is required";
-            exit();
-        }
-        if(isset($_POST['email']) && isset($_POST['password']) && isset($_POST['name'])){
-            $account = $_POST['email'];
-            $password = $_POST['password'];
-            $password_hash = password_hash($password, PASSWORD_DEFAULT); 
-            $username = $_POST['name'];
-
-            // setting password requirement
-            if(strlen($password) < 8){
-                $error = true;
-                $password_er = '密碼長度至少8個字元以上';
-                // header('Location:register.php');
-                echo"11";
-                exit();
-            }
-        
-            if(! preg_match("/[a-z]/", $password)){
-                $error = "密碼必須包含一個英文字母";
-                exit();
-            }
-        
-            if(! preg_match("/[0-9]/", $password)){
-                $error = "密碼必須包含一個數字";
-                exit();
-            }
-
-            if($password !== $_POST['con-password']){
-                $error = "確認密碼匹配錯誤";
-                exit();
-            }
-
-            $check_email = "SELECT * FROM user WHERE Account = '$account'";
-
-            // prevent duplicate email (account)
-            if(mysqli_num_rows(mysqli_query($con,$check_email)) > 0){
-                $is_invalid = true;
-                $error = "此帳號已註冊過!";
-                exit();
-            }else{
-                $sql = "INSERT INTO user(Account, Password, Name) VALUES('$account', '$password_hash', '$username')";
-                $query = mysqli_query($con, $sql);
-
-                if($query){
-                    header("Location:login.php");
-                    exit();
-                }else{
-                    $is_invalid = true;
-                    $error = "帳號註冊發生錯誤";
-                    exit();
-                }
-            }
-        }
-    }
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -80,7 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/register.css">
+    <link rel="stylesheet" href="../css/register2.css">
 </head>
 <body>
     <header>
@@ -109,11 +45,8 @@
     </header>
     <main>
         <div class="container">
-            <?php
-                // include('./register_process.php');
-                $name_error;
-            ?>
-            <div class="row">
+            <div class="error-message"></div>
+            <div class="row ms-0 me-0">
                 <div class="card p-0">
                     <div class="card-header">
                         <span>Register</span>
@@ -139,9 +72,9 @@
                                 </div>
                             </div>
                             <div class="mb-3 row justify-content-center">
-                                <label for="con-password" class="form-label col-md-2">Confirm Password</label>
+                                <label for="con_password" class="form-label col-md-2">Confirm Password</label>
                                 <div class="col-md-6">
-                                    <input type="password" class="form-control" id="con-password" name="con-password" required>
+                                    <input type="password" class="form-control" id="con_password" name="con_password" required>
                                 </div>
                             </div>
                             <div class="text-center">
@@ -154,7 +87,13 @@
         </div>
     </main>
 
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous">
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
     <script src="../js/login.js"></script>
+    <script src="../js/test.js"></script>
 </body>
 </html>
