@@ -24,6 +24,16 @@ ul{
     max-width: 750px;
 }
 
+.form-control{
+    transition: none;
+}
+
+.container input:focus {
+    border-color: none;
+    box-shadow: none;
+    outline: 0 none;
+}
+
 /* Navbar */
 nav{
     box-shadow: 0 2px 4px rgb(0 0 0 / 20%);
@@ -117,6 +127,11 @@ main .card .register-btn:hover{
     background-color: rgb(78, 127, 128);
 }
 
+main .card .register-btn:disabled{
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
 main .error-message .error{
     border-radius: 4px;
     background-color:#fcd4d1;
@@ -125,6 +140,22 @@ main .error-message .error{
 
 main .error-message .error p{
     padding: 1rem;
+}
+
+main .card .card-body #error-name{
+    margin-top: 0.25rem;
+}
+
+main .card .card-body #error-name span{
+    color: red;
+}
+
+main .success-message .register-success{
+    border-radius: 4px;
+    background-color:rgb(170, 223, 170);
+    color: green;
+    padding: 1rem;
+    margin-bottom: 1rem;
 }
 
 @media screen and (min-width:576px){

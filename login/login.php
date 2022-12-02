@@ -45,6 +45,13 @@
     </header>
     <main>
         <div class="container">
+            <!-- <div class="success-message">
+                <?php
+                    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+                        echo "<div class='register-success'><p class='mb-0'>註冊成功</p></div>";
+                    }          
+                ?>
+            </div> -->
             <div class="row ms-0 me-0">
                 <div class="card p-0">
                     <div class="card-header">

@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/register2.css">
+    <link rel="stylesheet" href="../css/register.css">
 </head>
 <body>
     <header>
@@ -57,28 +57,32 @@
                                 <label for="name" class="form-label col-md-2">Name</label>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="name" name="name" required>
+                                    <div id="error-name"></div>
                                 </div>
                             </div>
                             <div class="mb-3 row justify-content-center">
                                 <label for="email" class="form-label col-md-2">Email</label>
                                 <div class="col-md-6">
                                     <input type="email" class="form-control" id="email" name="email" required>
+                                    <div id="error-name"></div>
                                 </div>
                             </div>
                             <div class="mb-3 row justify-content-center">
                                 <label for="password" class="form-label col-md-2">Password</label>
                                 <div class="col-md-6">
                                     <input type="password" class="form-control" id="password" name="password" required>
+                                    <div id="error-name"></div>
                                 </div>
                             </div>
                             <div class="mb-3 row justify-content-center">
                                 <label for="con_password" class="form-label col-md-2">Confirm Password</label>
                                 <div class="col-md-6">
                                     <input type="password" class="form-control" id="con_password" name="con_password" required>
+                                    <div id="error-name"></div>
                                 </div>
                             </div>
                             <div class="text-center">
-                                <input type="submit" class="register-btn" value="Register">
+                                <input type="submit" class="register-btn" value="Register" disabled>
                             </div>
                         </form>
                     </div>
@@ -93,6 +97,7 @@
             crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
     <script src="../js/login.js"></script>
     <script src="../js/test.js"></script>
 </body>
