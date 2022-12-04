@@ -1,10 +1,9 @@
-let name_input = document.querySelector('#name');
+// Login verify 先以另建 login_verify 為主, export / import modules 之後弄
 let email_input = document.querySelector('#email');
 let password_input = document.querySelector('#password');
-let conf_input = document.querySelector('#con_password');
 
 let input = document.querySelectorAll('.card-body .form-control');
-let name_val,email_val,pass_val,con_val;
+let email_val,pass_val;
 
 // check input condition before form submit
 const input_Check = () =>{ 
@@ -26,13 +25,6 @@ const input_Check = () =>{
             return false;
          }
     }
-
-    // addEventListener bind two events method 
-    ['blur','input'].forEach(evt=>{
-        name_input.addEventListener(evt,()=>{
-            name_val = Check(name_input);
-        });
-    });
 
     ['blur','input'].forEach(evt=>{
         email_input.addEventListener(evt,()=>{
@@ -59,32 +51,8 @@ const input_Check = () =>{
     });
     
     ['blur','input'].forEach(evt=>{
-       password_input.addEventListener(evt,()=>{
-        pass_val = Check(password_input);
-
-            // check password length grather than 8 whether
-            if(password_input.value !== ""){
-                if(password_input.value.length < 8){
-                    password_input.style.borderColor =  'red';
-                    password_input.closest('div').lastElementChild.style.display = 'block';
-                    password_input.closest('div').lastElementChild.innerHTML = `
-                    <div class='error'>
-                        <span>密碼長度必須超過8個字元</span>
-                    </div>
-                    `;
-                    pass_val = false;
-                }else{
-                    password_input.style.borderColor =  '#ced4da';
-                    password_input.closest('div').lastElementChild.style.display = 'none';
-                    pass_val = true;
-                }
-            }
-        });
-    });
-
-    ['blur','input'].forEach(evt=>{
-        conf_input.addEventListener(evt,()=>{
-            con_val = Check(conf_input);
+        password_input.addEventListener(evt,()=>{
+            pass_val = Check(password_input);
         });
     });
 }
@@ -93,24 +61,23 @@ const input_Check = () =>{
 input.forEach(filter_input=>{
     input_Check();
     filter_input.addEventListener('keyup',()=>{
-        if(name_val == true && email_val == true && pass_val == true && con_val == true){
-            document.querySelector('.register-btn').disabled = false;
+        if(email_val == true && pass_val == true){
+            document.querySelector('.form-btn').disabled = false;
         }else{
-            document.querySelector('.register-btn').disabled = true;
+            document.querySelector('.form-btn').disabled = true;
         }
     })
 })
 
 $('.card-body form').submit((event)=>{
     let data = {
-        name : name_input.value,
         email : email_input.value,
         password : password_input.value,
-        con_password : conf_input.value
+        remember : document.querySelector('form-check-input')
     };
 
     $.ajax({
-        url : '../login/register_process.php',
+        url : '../login/login_process.php',
         type : 'POST',
         data : data,
         success : (response)=>{
@@ -128,18 +95,16 @@ $('.card-body form').submit((event)=>{
 const Handler = (res) =>{
     const error_div = document.querySelector('.error-message');
     
-    if(res === "註冊成功"){
-        window.location.href = '../login/login_success.php';
+    if(res === "登入成功"){
+        window.location.href = '../index.php';
     }else{
         error_div.innerHTML = `
             <div class='error'>
                 <p>${res}</p>
             </div>
         `
-        name_input.value = "";
         email_input.value = "";
         password_input.value = "";
-        conf_input.value = "";
     }
 }
 

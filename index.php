@@ -1,3 +1,11 @@
+<?php
+    // 如果未登入進去 index.php, 會自動跳轉至 login.php
+    session_start();
+    if(!isset($_SESSION["login"])){
+        header("Location: login/login.php");
+        exit(); 
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,9 +24,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./css/style2.css">
+    <link rel="stylesheet" href="./css/style3.css">
     <link rel="stylesheet" href="./css/sum.css">
-    <link rel="stylesheet" href="./css/home2.css">
+    <link rel="stylesheet" href="./css/home.css">
 </head>
 <body>
     <header>
@@ -40,7 +48,6 @@
                             <i class='bx bxs-user-circle me-2'></i>
                             <div class="username">
                                 <?php
-                                    session_start();
                                     echo $_SESSION['name'];
                                 ?>
                             </div>
@@ -59,6 +66,34 @@
 
     <?php
         include('./config.php');
+
+        $username = $_SESSION['name'];
+
+        function Total($parameter, $username, $con){
+            if($parameter == 1){
+                $t_income = "SELECT SUM(Income_Money) AS Total FROM `income` WHERE Name = '$username'";
+                $total_income = mysqli_query($con, $t_income);
+
+                while($row = mysqli_fetch_array($total_income)){
+                    if($row['Total'] == 0){
+                        echo 0;
+                    }else{
+                        echo $row['Total'];
+                    }
+                }
+            }else if($parameter == 2){
+                $t_expense = "SELECT SUM(Expense_Money) AS Total FROM `expense` WHERE Name = '$username'";
+                $total_expense = mysqli_query($con, $t_expense);
+                                        
+                while($row2 = mysqli_fetch_array($total_expense)){
+                    if($row2['Total'] == 0){
+                        echo 0;
+                    }else{
+                        echo $row2['Total'];
+                    }
+                }
+            }
+        }
     ?>
 
     <main>
@@ -109,14 +144,7 @@
                                 Total Income
                                 <span class="income-total">$
                                     <?php
-                                        $sql = "SELECT SUM(Money) AS Total FROM `income`";
-                                        $query = mysqli_query($con, $sql);
-
-                                        while($row = mysqli_fetch_array($query)){
-                                            echo $row['Total'];
-                                        }
-
-                                        $var = "abcde";
+                                        Total(1,$username,$con); 
                                     ?>
                                 </span>
                             </li>
@@ -124,13 +152,7 @@
                                 Total Expense
                                 <span class="expense-total">$
                                     <?php
-                                        $sql2 = "SELECT SUM(Money) AS Total FROM `expense`";
-                                        $query = mysqli_query($con, $sql2);
-                                        
-
-                                        while($row2 = mysqli_fetch_array($query)){
-                                            echo $row2['Total'];
-                                        }
+                                        Total(2,$username,$con); 
                                     ?>
                                 </span>
                             </li>
@@ -139,11 +161,16 @@
                                 <span class="sum-total">$
                                     <span class="sum-total-number">
                                         <?php
-                                            $qry = mysqli_query($con,$sql);
-                                            $qry2 = mysqli_query($con,$sql2);
+                                            $t_income = "SELECT SUM(Income_Money) AS Total FROM `income` WHERE Name = '$username'";
+                                            $total_income = mysqli_query($con, $t_income);
+                                            $t_expense = "SELECT SUM(Expense_Money) AS Total FROM `expense` WHERE Name = '$username'";
+                                            $total_expense = mysqli_query($con, $t_expense);
+                                            
+                                            $total_income = mysqli_query($con,$t_income);
+                                            $total_expense = mysqli_query($con,$t_expense);
 
-                                            $row = mysqli_fetch_assoc(($qry));
-                                            $row2 = mysqli_fetch_assoc(($qry2));
+                                            $row = mysqli_fetch_assoc(($total_income));
+                                            $row2 = mysqli_fetch_assoc(($total_expense));
 
                                             echo $row['Total'] - $row2['Total'];
                                         ?>
@@ -157,6 +184,14 @@
                             <div class="col-sm-6 col-lg-3 mb-3">
                                 <div class="card-new card-income d-flex flex-column">
                                     <div class="card-nbody">
+                                        <?php
+                                            $cou_inocme = "SELECT COUNT(Name) FROM `income` WHERE Name = '$username'";
+                                            $cou_query = mysqli_query($con, $cou_inocme);
+
+                                            while($row = mysqli_fetch_array($cou_query)){
+                                                echo $row['COUNT(Name)']; 
+                                            }
+                                        ?>
                                         <span>Income</span>
                                     </div>
                                     <div class="card-link">
@@ -172,6 +207,14 @@
                             <div class="col-sm-6 col-lg-3 mb-3">
                                 <div class="card-new card-expense d-flex flex-column">
                                     <div class="card-nbody">
+                                        <?php
+                                            $cou_expense = "SELECT COUNT(Name) FROM `expense` WHERE Name = '$username'";
+                                            $cou_query2 = mysqli_query($con, $cou_expense);
+
+                                            while($row = mysqli_fetch_array($cou_query2)){
+                                                echo $row['COUNT(Name)']; 
+                                            }
+                                        ?>
                                         <span>Expense</span>
                                     </div>
                                     <div class="card-link">
@@ -187,7 +230,16 @@
                             <div class="col-sm-6 col-lg-3 mb-3">
                                 <div class="card-new card-sum d-flex flex-column">
                                     <div class="card-nbody">
-                                        <span>Total Sum</span>
+                                        <?php
+                                            $cou_qry = mysqli_query($con,$cou_inocme);
+                                            $cou_qry2 = mysqli_query($con,$cou_expense);
+
+                                            $row = mysqli_fetch_assoc(($cou_qry));
+                                            $row2 = mysqli_fetch_assoc(($cou_qry2));
+
+                                            echo $row['COUNT(Name)'] + $row2['COUNT(Name)'];
+                                        ?>
+                                        <span>Sum</span>
                                     </div>
                                     <div class="card-link">
                                         <a href="./pages/sum.php">
@@ -251,8 +303,8 @@
         let canvas = document.querySelector('#canvasPie');
         let ctx = canvas.getContext('2d');
 
-        let chart_income = '<?php echo $row['Total'] ?>';
-        let chart_expense = '<?php echo $row2['Total'] ?>';
+        let chart_income = '<?php Total(1,$username,$con); ?>';
+        let chart_expense = '<?php Total(2,$username,$con); ?>';
 
         const data = {
         labels: ['expense', 'income'],

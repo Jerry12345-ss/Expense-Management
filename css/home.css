@@ -6,7 +6,7 @@ main .wrapper .content-wrapper .link-div .card-income{
     background-color: #007bff;
 }
 main .wrapper .content-wrapper .link-div .card-expense{
-    background-color: #dc3545;
+    background-color: indianred;
 }
 main .wrapper .content-wrapper .link-div .card-sum{
     background-color: rgb(55, 180, 139);

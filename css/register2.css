@@ -113,7 +113,7 @@ main .card .card-body{
     padding: 25px;
 }
 
-main .card .register-btn{
+main .card .form-btn{
     border-radius: 4px;
     padding: 0.75rem 1.25rem;
     border: none;
@@ -123,11 +123,11 @@ main .card .register-btn{
     transition: background-color 0.2s ease-out;
 }
 
-main .card .register-btn:hover{
+main .card .form-btn:hover{
     background-color: rgb(78, 127, 128);
 }
 
-main .card .register-btn:disabled{
+main .card .form-btn:disabled{
     opacity: 0.6;
     cursor: not-allowed;
 }
@@ -148,6 +148,7 @@ main .card .card-body #error-name{
 
 main .card .card-body #error-name span{
     color: red;
+    font-size: 0.8rem;
 }
 
 main .success-message .register-success{

@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/register.css">
+    <link rel="stylesheet" href="../css/register2.css">
 </head>
 <body>
     <header>
@@ -52,7 +52,7 @@
                         <span>Register</span>
                     </div>
                     <div class="card-body">
-                        <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
+                        <form  method="POST">
                             <div class="mb-3 row justify-content-center">
                                 <label for="name" class="form-label col-md-2">Name</label>
                                 <div class="col-md-6">
@@ -82,7 +82,7 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <input type="submit" class="register-btn" value="Register" disabled>
+                                <input type="submit" class="form-btn" value="Register" disabled>
                             </div>
                         </form>
                     </div>
@@ -99,6 +99,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
     <script src="../js/login.js"></script>
-    <script src="../js/test.js"></script>
+    <script src="../js/register_verify.js"></script>
 </body>
 </html>

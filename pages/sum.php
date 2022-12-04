@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/style2.css">
+    <link rel="stylesheet" href="../css/style3.css">
     <link rel="stylesheet" href="../css/sum.css">
 </head>
 <body>
@@ -106,11 +106,16 @@
                                 Total Income
                                 <span class="income-total">$
                                     <?php
-                                        $sql = "SELECT SUM(Money) AS Total FROM `income`";
+                                        $username = $_SESSION['name']; 
+                                        $sql = "SELECT SUM(Income_Money) AS Total FROM `income` WHERE Name = '$username'";
                                         $query = mysqli_query($con, $sql);
 
                                         while($row = mysqli_fetch_array($query)){
-                                            echo $row['Total'];
+                                            if($row['Total'] == 0){
+                                                echo 0;
+                                            }else{
+                                                echo $row['Total'];
+                                            }
                                         }
                                     ?>
                                 </span>
@@ -119,12 +124,16 @@
                                 Total Expense
                                 <span class="expense-total">$
                                     <?php
-                                        $sql2 = "SELECT SUM(Money) AS Total FROM `expense`";
+                                        $sql2 = "SELECT SUM(Expense_Money) AS Total FROM `expense` WHERE Name = '$username'";
                                         $query = mysqli_query($con, $sql2);
                                         
 
                                         while($row2 = mysqli_fetch_array($query)){
-                                            echo $row2['Total'];
+                                            if($row2['Total'] == 0){
+                                                echo 0;
+                                            }else{
+                                                echo $row2['Total'];
+                                            }
                                         }
                                     ?>
                                 </span>
@@ -148,7 +157,36 @@
                         </ul>
                     </div>
                     <div class="record-content">
-                        <div class="row"></div>
+                        <div class="row">
+                            <?php
+                                $sql = "SELECT * FROM `income` WHERE Name = '$username' UNION SELECT * FROM `expense` WHERE Name = '$username' ORDER BY `Time_create` DESC";
+                                $query = mysqli_query($con, $sql);
+
+                                while($row = mysqli_fetch_array($query))
+                                {
+                                    echo "
+                                        <div class='col-sm-6 col-lg-4 mb-3'>
+                                            <div class='card' id='income_card'>
+                                                <div class='card-date card-header d-flex justify-content-between align-items-center'>
+                                                    <div class='card-date'>$row[Date_billing]</div>
+                                                    <div class='btn-group'>
+                                                        <div class='edit-card card-btn'>
+                                                            <a href='#'>+</a>
+                                                        </div>
+                                                        <div class='delete-card card-btn'>
+                                                            <a href='#'>-</a>
+                                                        </div> 
+                                                    </div>
+                                                </div>
+                                                <div class='card-body d-flex justify-content-between'>
+                                                    <div class='card-description'>$row[Description]</div>
+                                                    <div calss='card-amount' style='font-weight:600'>$ $row[Money]</div>
+                                                </div>
+                                            </div>
+                                        </div>";
+                                }
+                            ?>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -176,26 +176,28 @@ main .wrapper .content-wrapper .total-div .expense-total{
 
 /* Income / Expense record card */
 main .wrapper .content-wrapper .record-content{
-  margin-top: 1rem;
+  margin-top: 2rem;
 }
 main .wrapper .content-wrapper .record-content .card{
-  color: rgb(241, 238, 238);
+  color: white;
+  text-shadow: rgb(103, 103, 103) 0.1em 0.1em 0.05em;
 }
 main .wrapper .content-wrapper .record-content .card .card-header{
-  color: rgb(23, 23, 23);
+  /* color: rgb(23, 23, 23); */
 }
 main .wrapper .content-wrapper .record-content .card .card-header .card-btn{
   padding: 0.25rem 0.5rem;
   border: 1px solid yellow;
 }
 main .wrapper .content-wrapper .record-content .card .card-body{
-  text-shadow: gray 0.1em 0.1em 0.1em;
+  font-size: 17px;
+  text-shadow: rgb(103, 103, 103) 0.1em 0.1em 0.05em;
 }
 main .wrapper .content-wrapper .record-content #income_card{
   background-color: rgb(111, 183, 185);
 }
 main .wrapper .content-wrapper .record-content #expense_card{
-  background-color: #af2a37;
+  background-color: indianred;
 }
 
 @media screen and (min-width: 768px) {

@@ -19,6 +19,10 @@
                 
                 // verify password
                 if(password_verify($password, $row['Password'])){
+                    // if( isset($_POST['remember'])){
+                    //     setcookie('email', $email);
+                    //     setcookie('password', $password);
+                    // }
                     echo "登入成功";
 
                     // get IP location
@@ -41,19 +45,16 @@
                     mysqli_query($con, $history);
 
                     // store data in session variables
-                    $_SESSION['account'] = $row['Account'];
-                    $_SESSION['password'] = $row['Password'];
+                    $_SESSION['login'] = true;
+                    $_SESSION['id'] = $row['ID'];
                     $_SESSION['name'] = $row['Name'];
-                    header("Location: ../index.php");
                     exit();
                 }else{
-                    die("密碼錯誤");
-                    header("Location:login.php");
+                    echo("密碼錯誤");
                     exit();
                 }
             }else{
-                die("無此帳號");
-                header("Location:login.php");
+                echo("無此帳號");
                 exit();
             }
         }

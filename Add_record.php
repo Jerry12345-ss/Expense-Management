@@ -1,13 +1,13 @@
 <?php
-    // Database config and connect
+    // Session start
     session_start();
+    // Database config and connect
     include('./config.php');
 
     // Form Submit Data
     $amount = $_POST['amount'];
     $description = $_POST['description'];
     $date = $_POST['date'];
-
     $month = date("m",strtotime($date));
     $username = $_SESSION['name'];
 
@@ -20,9 +20,9 @@
     // Check request parameter ( 1 => income, 2 => expense )
     if($request == 1){
         // $sql = "INSERT INTO income(Money, Description, Date) VALUES('$amount', '$description', '$date')";
-        $sql = "INSERT INTO expense_test(Name, Money, Description, Date_billing, Month) VALUES('$username', '$amount', '$description', '$date', '$month')";
+        $sql = "INSERT INTO income(Name, Money, Description, Date_billing, Month) VALUES('$username', '$amount', '$description', '$date', '$month')";
     }else if($request == 2){
-        $sql = "INSERT INTO expense(Money, Description, Date) VALUES('$amount', '$description', '$date')";
+        $sql = "INSERT INTO expense(Name, Money, Description, Date_billing, Month) VALUES('$username', '$amount', '$description', '$date', '$month')";
     }else{
         echo "SQL syntax error !";
     }

@@ -16,7 +16,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
 
-    <link rel="stylesheet" href="../css/style2.css">
+    <link rel="stylesheet" href="../css/style3.css">
     <link rel="stylesheet" href="../css/income2.css">
 </head>
 <body>
@@ -105,12 +105,17 @@
                             <div class="total-text item d-flex justify-content-around">
                                 <span>Total Income</span>
                                 <b class="total income-total">$<span>
-                                        <?php 
-                                            $sql = "SELECT SUM(Money) FROM `income`";
+                                        <?php
+                                            $username = $_SESSION['name']; 
+                                            $sql = "SELECT SUM(Income_Money) FROM `income` WHERE Name = '$username' ";
                                             $query = mysqli_query($con, $sql);
 
                                             while($row = mysqli_fetch_array($query)){
-                                                echo $row['SUM(Money)'];
+                                                if($row['SUM(Income_Money)'] == 0){
+                                                    echo 0;
+                                                }else{
+                                                    echo $row['SUM(Income_Money)'];
+                                                } 
                                             }
                                         ?>
                                     </span>
@@ -151,19 +156,37 @@
                             </div>
                         </div>
                     </div>
-                    <div class="test-php">
-                    <?php
-                         $username = $_SESSION['name'];
-                         $sql = "SELECT * FROM `expense_test` WHERE Name = '$username'";
-                         $query = mysqli_query($con, $sql);
-
-                         while($row = mysqli_fetch_array($query)){
-                            echo "Name : ".$row['Name'].", Money : ".$row['Money'].", Description : ".$row['Description'].", Date_billing : ".$row['Date_billing']."<br/>";
-                         }
-                    ?>
-                    </div>
                     <div class="record-content">
-                        <div class="row"></div>
+                        <div class="row">
+                            <?php
+                                $sql = "SELECT * FROM `income` WHERE Name = '$username' ORDER BY `Time_create` DESC";
+                                $query = mysqli_query($con, $sql);
+
+                                while($row = mysqli_fetch_array($query))
+                                {
+                                    echo "
+                                        <div class='col-sm-6 col-lg-4 mb-3'>
+                                            <div class='card' id='income_card'>
+                                                <div class='card-date card-header d-flex justify-content-between align-items-center'>
+                                                    <div class='card-date'>$row[Date_billing]</div>
+                                                    <div class='btn-group'>
+                                                        <div class='edit-card card-btn'>
+                                                            <a href='#'>+</a>
+                                                        </div>
+                                                        <div class='delete-card card-btn'>
+                                                            <a href='#'>-</a>
+                                                        </div> 
+                                                    </div>
+                                                </div>
+                                                <div class='card-body d-flex justify-content-between'>
+                                                    <div class='card-description'>$row[Description]</div>
+                                                    <div calss='card-amount' style='font-weight:600'>$ $row[Income_Money]</div>
+                                                </div>
+                                            </div>
+                                        </div>";
+                                }
+                            ?>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -179,8 +202,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
-    <script type="module" src="../js/main.js"></script>
-    <script type="module" src="../js/income.js"></script>
+    <script type="module" src="../js/main2.js"></script>
+    <script type="module" src="../js/income2.js"></script>
     <script src="../js/logout.js"></script>
 </body>
 </html>
