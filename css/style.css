@@ -24,6 +24,7 @@ ul{
 /* Navbar */
 nav {
   background-color: #20202c !important;
+  width: 100%;
 }
 nav .nav-wrapper {
   display: flex;
@@ -89,6 +90,8 @@ main .wrapper {
 main .wrapper .sidebar {
   background-color: #11101d;
   color: white;
+  position: fixed;
+  margin-top: 70px;
 }
 main .wrapper .sidebar .sidebar-navbar {
   width: 0;
@@ -147,11 +150,23 @@ main .wrapper .sidebar .sidebar-navbar.toggle ul li.active a {
 }
 
 /* Main Content Wrapper */
-main .wrapper .content-wrapper {
-  width: 100%;
+main .wrapper .content-wrapper.toggle{
+  /* width: 100%; */
+  width: calc(100% - 100px);
+  margin-left: 100px;
   padding: 15px;
-
   overflow-x: hidden;
+  transition: all 0.5s ease;
+  margin-top: 70px;
+}
+
+main .wrapper .content-wrapper{
+  width: 100%;
+  margin-left: 0;
+  padding: 15px;
+  overflow-x: hidden;
+  transition: all 0.5s ease;
+  margin-top: 70px;
 }
 
 /* Main Content Breadcrumb */
@@ -193,10 +208,10 @@ main .wrapper .content-wrapper .record-content .card .card-body{
   font-size: 17px;
   text-shadow: rgb(103, 103, 103) 0.1em 0.1em 0.05em;
 }
-main .wrapper .content-wrapper .record-content #income_card{
+main .wrapper .content-wrapper .record-content .card.income_card{
   background-color: rgb(111, 183, 185);
 }
-main .wrapper .content-wrapper .record-content #expense_card{
+main .wrapper .content-wrapper .record-content .card.expense_card{
   background-color: indianred;
 }
 
@@ -217,7 +232,7 @@ main .wrapper .content-wrapper .record-content #expense_card{
     color: #11101d;
   }
   main .wrapper .sidebar .sidebar-navbar.toggle {
-    width: 200px;
+    width: 250px;
   }
   main .wrapper .sidebar .sidebar-navbar.toggle ul li a {
     flex-direction: row;

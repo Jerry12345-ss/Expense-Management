@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/style3.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/sum.css">
 </head>
 <body>
@@ -107,7 +107,7 @@
                                 <span class="income-total">$
                                     <?php
                                         $username = $_SESSION['name']; 
-                                        $sql = "SELECT SUM(Income_Money) AS Total FROM `income` WHERE Name = '$username'";
+                                        $sql = "SELECT SUM(Money) AS Total FROM `income` WHERE Name = '$username'";
                                         $query = mysqli_query($con, $sql);
 
                                         while($row = mysqli_fetch_array($query)){
@@ -124,7 +124,7 @@
                                 Total Expense
                                 <span class="expense-total">$
                                     <?php
-                                        $sql2 = "SELECT SUM(Expense_Money) AS Total FROM `expense` WHERE Name = '$username'";
+                                        $sql2 = "SELECT SUM(Money) AS Total FROM `expense` WHERE Name = '$username'";
                                         $query = mysqli_query($con, $sql2);
                                         
 
@@ -159,14 +159,14 @@
                     <div class="record-content">
                         <div class="row">
                             <?php
-                                $sql = "SELECT * FROM `income` WHERE Name = '$username' UNION SELECT * FROM `expense` WHERE Name = '$username' ORDER BY `Time_create` DESC";
+                                $sql = "SELECT * FROM `income` WHERE Name = '$username' UNION SELECT * FROM `expense` WHERE Name = '$username' ORDER BY `Date_billing` DESC";
                                 $query = mysqli_query($con, $sql);
 
                                 while($row = mysqli_fetch_array($query))
                                 {
                                     echo "
                                         <div class='col-sm-6 col-lg-4 mb-3'>
-                                            <div class='card' id='income_card'>
+                                            <div class='card income_card'>
                                                 <div class='card-date card-header d-flex justify-content-between align-items-center'>
                                                     <div class='card-date'>$row[Date_billing]</div>
                                                     <div class='btn-group'>
@@ -201,7 +201,7 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
-    <script type="module" src="../js/main.js"></script>
+    <script type="module" src="../js/main5.js"></script>
     <script src="../js/logout.js"></script>
     
     <script>

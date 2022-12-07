@@ -1,9 +1,12 @@
 const toogle = document.querySelector('.navbar-toggler');
 const sidebar_nav = document.querySelector('.sidebar-navbar');
 
+const content_wrapper = document.querySelector('.content-wrapper');
+
 // SideBar Toggle 
 toogle.addEventListener('click',()=>{
     sidebar_nav.classList.toggle('toggle');
+    content_wrapper.classList.toggle('toggle');
 });
 
 // 如果無跳頁，toggle class 功能正常；反之有跳頁則不會運行 toggle class => 解法 : 在每個 page 初始值加上相對應的 active
@@ -116,5 +119,54 @@ export function Add_record(list, list_name){
     }
 
     list_content.innerHTML = li;
+}
+
+
+const editCard = (value,id) =>{
+    console.log(value);
+    Swal.fire({
+        icon : 'warning',
+        title : '你確定要修改嗎?',
+        showCancelButton : true,
+        confirmButtonText: '確定',
+        cancelButtonText: '取消',
+    }).then(()=>{
+        $.ajax({
+            url : `../Card_change.php?request=${value}`,
+            type : 'POST',
+            data : { id : id },
+            dataType : 'json',
+            success : (response)=>{
+                console.log(response);
+            },
+            error : (error)=>{
+                console.log(error);
+            }
+        })
+    });
+}
+
+const deleteCard = (value,id) =>{
+    console.log(value);
+    Swal.fire({
+        icon : 'warning',
+        title : '你確定要刪除嗎?',
+        showCancelButton : true,
+        confirmButtonText: '確定',
+        cancelButtonText: '取消',
+    }).then(()=>{
+        $.ajax({
+            url : `../Card_change.php?request=${value}`,
+            type : 'POST',
+            data : { id : id },
+            dataType : 'json',
+            success : (response)=>{
+                console.log(response);
+            },
+            error : (error)=>{
+                console.log(error);
+            }
+        })
+    });
 }
 
