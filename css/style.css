@@ -26,58 +26,35 @@ nav {
   background-color: #20202c !important;
   width: 100%;
 }
+
 nav .nav-wrapper {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
+
 nav .nav-wrapper .logo a {
   padding: 20px;
   display: block;
   padding-left: 8px;
 }
+
 nav .nav-wrapper .logo a span {
   font-size: 1.25rem;
   color: white;
 }
+
 nav .nav-wrapper .sidebar-hamburger {
   display: block;
 }
+
 nav .nav-wrapper .sidebar-hamburger .navbar-toggler {
   padding-top: 15px;
   padding-bottom: 15px;
 }
+
 nav .nav-wrapper .sidebar-hamburger .navbar-toggler i {
   color: rgb(243, 239, 239);
-}
-
-nav .nav-wrapper .nav-username {
-  padding: 0.25rem 2.5rem;
-}
-
-nav .nav-wrapper .nav-username i {
-  font-size: 25px;
-}
-
-nav .nav-wrapper .nav-username .username-logout {
-  display: none;
-  right: 20%;
-  top: 100%;
-  --bs-dropdown-link-hover-bg:rgb(111, 188, 191);
-  --bs-dropdown-link-active-color: white;
-  --bs-dropdown-link-active-bg:rgb(111, 188, 191);
-}
-
-nav .nav-wrapper .nav-username .username-logout li:hover a{
-  color: white;
-}
-
-nav .nav-wrapper .nav-username .username-logout.show{
-  display: block;
-}
-
-nav .nav-wrapper .nav-username .dropdown-toggle::after {
-  display: none;
 }
 
 /* Main Wrapper*/
@@ -91,23 +68,31 @@ main .wrapper .sidebar {
   background-color: #11101d;
   color: white;
   position: fixed;
+  left: 0;
   margin-top: 70px;
+  height: 100%;
 }
+
 main .wrapper .sidebar .sidebar-navbar {
   width: 0;
-  min-height: calc(100vh - 56px);
+  height: 100%;
+  /* min-height: calc(100vh - 56px); */
+  position: relative;
   transition: all 0.5s ease;
 }
+
 main .wrapper .sidebar .sidebar-navbar ul {
   list-style: none;
   padding-left: 0;
   margin-bottom: 0;
 }
+
 main .wrapper .sidebar .sidebar-navbar ul li {
   display: block;
   border-radius: 8px;
   transition: all 0.2s ease;
 }
+
 main .wrapper .sidebar .sidebar-navbar ul li a {
   text-align: left;
   color: white;
@@ -116,42 +101,90 @@ main .wrapper .sidebar .sidebar-navbar ul li a {
   opacity: 0;
   transition: all 0.5s ease;
 }
+
 main .wrapper .sidebar .sidebar-navbar ul li a i {
   min-width: 30px;
   text-align: center;
   font-size: 23px;
 }
+
 main .wrapper .sidebar .sidebar-navbar ul li a span {
   font-size: 10px;
 }
+
 /* main .wrapper .sidebar .sidebar-navbar ul li a {
   opacity: 0;
   transition: all 0.5s ease;
 } */
+
 main .wrapper .sidebar .sidebar-navbar ul li:hover {
   background-color: rgba(94, 93, 93, 0.8);
 }
+
 main .wrapper .sidebar .sidebar-navbar ul li:hover a {
   color: rgba(255, 255, 255, 0.6);
 }
+
 main .wrapper .sidebar .sidebar-navbar.toggle {
   width: 100px;
+  height: 100%;
   padding-left: 8px;
   padding-right: 8px;
 }
+
 main .wrapper .sidebar .sidebar-navbar.toggle ul li a{
  opacity: 1;
 }
+
 main .wrapper .sidebar .sidebar-navbar.toggle ul li.active {
   background-color: white;
 }
+
 main .wrapper .sidebar .sidebar-navbar.toggle ul li.active a {
   color: #11101d;
 }
 
+/* Main Sidebar Username */
+main .wrapper .sidebar .sidebar-navbar .username-logout{
+  position: absolute;
+  bottom: 70px;
+  padding-right: 1rem;
+  width: 100%;
+}
+
+main .wrapper .sidebar .sidebar-navbar .username-logout .log-out{
+  color: white;
+  flex-direction: column;
+  padding: 15px 10px;
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+main .wrapper .sidebar .sidebar-navbar.toggle .username-logout .log-out{
+  opacity: 1;
+}
+
+main .wrapper .sidebar .sidebar-navbar .username-logout .log-out i{
+  min-width: 30px;
+  text-align: center;
+  font-size: 23px;  
+}
+
+main .wrapper .sidebar .sidebar-navbar .username-logout .log-out span{
+  opacity: 0;
+}
+
+main .wrapper .sidebar .sidebar-navbar .username-logout .log-out .bxs-user-circle{
+  opacity: 0;
+}
+
+main .wrapper .sidebar .sidebar-navbar .username-logout .log-out .bx-log-out{
+  cursor: pointer;
+  opacity: 1;
+}
+
 /* Main Content Wrapper */
 main .wrapper .content-wrapper.toggle{
-  /* width: 100%; */
   width: calc(100% - 100px);
   margin-left: 100px;
   padding: 15px;
@@ -176,15 +209,16 @@ main .wrapper .content-wrapper nav {
   border-radius: 4px;
   background-color: rgb(240, 238, 238) !important;
 }
+
 main .wrapper .content-wrapper nav ol {
   margin-bottom: 0;
 }
-/* 以上是原先用 SCSS 編譯出之結果 */
 
 /* Main Content Total Div Income / Expense Color */
 main .wrapper .content-wrapper .total-div .income-total{
   color:rgb(85, 130, 214);
 }
+
 main .wrapper .content-wrapper .total-div .expense-total{
   color: rgb(219, 17, 17);
 }
@@ -193,24 +227,26 @@ main .wrapper .content-wrapper .total-div .expense-total{
 main .wrapper .content-wrapper .record-content{
   margin-top: 2rem;
 }
+
 main .wrapper .content-wrapper .record-content .card{
   color: white;
   text-shadow: rgb(103, 103, 103) 0.1em 0.1em 0.05em;
 }
-main .wrapper .content-wrapper .record-content .card .card-header{
-  /* color: rgb(23, 23, 23); */
-}
+
 main .wrapper .content-wrapper .record-content .card .card-header .card-btn{
   padding: 0.25rem 0.5rem;
   border: 1px solid yellow;
 }
+
 main .wrapper .content-wrapper .record-content .card .card-body{
   font-size: 17px;
   text-shadow: rgb(103, 103, 103) 0.1em 0.1em 0.05em;
 }
+
 main .wrapper .content-wrapper .record-content .card.income_card{
   background-color: rgb(111, 183, 185);
 }
+
 main .wrapper .content-wrapper .record-content .card.expense_card{
   background-color: indianred;
 }
@@ -222,24 +258,69 @@ main .wrapper .content-wrapper .record-content .card.expense_card{
     padding-left: 8px;
     padding-right: 8px;
   }
+
   main .wrapper .sidebar .sidebar-navbar ul li a {
     opacity: 1;
   }
+
   main .wrapper .sidebar .sidebar-navbar ul li.active {
     background-color: white;
   }
+
   main .wrapper .sidebar .sidebar-navbar ul li.active a {
     color: #11101d;
   }
+
   main .wrapper .sidebar .sidebar-navbar.toggle {
     width: 250px;
   }
+
   main .wrapper .sidebar .sidebar-navbar.toggle ul li a {
     flex-direction: row;
   }
+
   main .wrapper .sidebar .sidebar-navbar.toggle ul li a span {
     margin-left: 1rem;
     font-size: 1rem;
+  }
+
+  /* Main Siderbar Username */
+  main .wrapper .sidebar .sidebar-navbar .username-logout .log-out {
+    opacity: 1;
+  }
+
+  main .wrapper .sidebar .sidebar-navbar.toggle .username-logout .log-out {
+    flex-direction: row;
+  }
+
+  main .wrapper .sidebar .sidebar-navbar.toggle .username-logout .bxs-user-circle {
+    opacity: 1;
+  }
+
+  main .wrapper .sidebar .sidebar-navbar.toggle .username-logout .log-out span {
+    opacity: 1;
+    margin-left: 1rem;
+    font-size: 1rem;
+  }
+
+  /* Main Content Wrapper */
+  main .wrapper .content-wrapper.toggle{
+    width: calc(100% - 250px);
+    margin-left: 250px;
+    padding: 15px;
+    overflow-x: hidden;
+    transition: all 0.5s ease;
+    margin-top: 70px;
+  }
+
+  main .wrapper .content-wrapper{
+    /* width: 100%; */
+    width: calc(100% - 100px);
+    margin-left: 100px;
+    padding: 15px;
+    overflow-x: hidden;
+    transition: all 0.5s ease;
+    margin-top: 70px;
   }
 
   /* Main Content Total Div */

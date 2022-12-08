@@ -20,7 +20,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar-area">
+        <nav class="navbar-area" style="position: fixed; z-index : 5000;">
             <div class="container-fluid">
                 <div class="nav-wrapper">
                     <div class="logo">
@@ -33,23 +33,6 @@
                             <i class='bx bx-menu bx-sm'></i>
                         </button>
                     </div>
-                    <div class="dropdown nav-username ms-auto">
-                        <a href="#" class="d-flex align-items-center dropdown-toggle" style="color: white;">
-                            <i class='bx bxs-user-circle me-2'></i>
-                            <div class="username">
-                                <?php
-                                    session_start();
-                                    echo $_SESSION['name'];
-                                ?>
-                            </div>
-                            <i class='bx bxs-chevron-down ms-2'></i>
-                        </a>
-                        <ul class="dropdown-menu username-logout">
-                            <li>
-                                <a href="../login/logout.php" class="dropdown-item">Log out</a>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </nav>
@@ -57,6 +40,7 @@
 
     <?php
         include('../config.php');
+        session_start();
     ?>
 
     <main>
@@ -90,9 +74,22 @@
                                 <a href="./chart.php" class="d-flex align-items-center"><i class='bx bxs-chart'></i><span>Chart</span></a>
                             </li>
                         </ul>
+                        <div class="username-logout">
+                            <div class="log-out d-flex align-items-center" style="color: white;">
+                                <i class='bx bxs-user-circle'></i>
+                                <div class="username" style="flex: 1 1 0;">
+                                    <span>
+                                        <?php
+                                            echo $_SESSION['name'];
+                                        ?>
+                                    </span>
+                                </div>
+                                <i class="bx bx-log-out"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="content-wrapper">
+                <div class="content-wrapper toggle">
                     <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
                         <ol class="breadcrumb">
                           <li class="breadcrumb-item"><a href="../index.php">Home</a></li>
@@ -200,9 +197,10 @@
             crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
-    <script type="module" src="../js/main5.js"></script>
-    <script src="../js/logout.js"></script>
+    <script type="module" src="../js/main2.js"></script>
+    <script src="../js/logout2.js"></script>
     
     <script>
         // Check balance value to change text color

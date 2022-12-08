@@ -1,6 +1,5 @@
 const toogle = document.querySelector('.navbar-toggler');
 const sidebar_nav = document.querySelector('.sidebar-navbar');
-
 const content_wrapper = document.querySelector('.content-wrapper');
 
 // SideBar Toggle 
@@ -43,7 +42,8 @@ export function Form_check(file_name, parameter, list, list_name){
             Swal.fire({
                 icon : 'error',
                 title : '輸入錯誤',
-                text : '您所輸入的日期錯誤!'
+                text : '您所輸入的日期錯誤!',
+                showCloseButton: true
             });
         }else{
             Form_submit(formData, parameter);
@@ -56,7 +56,8 @@ export function Form_check(file_name, parameter, list, list_name){
 
             Swal.fire({
                 icon : 'success',
-                title : '新增成功'
+                title : '新增成功',
+                showCloseButton: true
             }).then(()=>{
                 window.location.href = `../pages/${file_name}.php`;
             });
@@ -120,53 +121,3 @@ export function Add_record(list, list_name){
 
     list_content.innerHTML = li;
 }
-
-
-const editCard = (value,id) =>{
-    console.log(value);
-    Swal.fire({
-        icon : 'warning',
-        title : '你確定要修改嗎?',
-        showCancelButton : true,
-        confirmButtonText: '確定',
-        cancelButtonText: '取消',
-    }).then(()=>{
-        $.ajax({
-            url : `../Card_change.php?request=${value}`,
-            type : 'POST',
-            data : { id : id },
-            dataType : 'json',
-            success : (response)=>{
-                console.log(response);
-            },
-            error : (error)=>{
-                console.log(error);
-            }
-        })
-    });
-}
-
-const deleteCard = (value,id) =>{
-    console.log(value);
-    Swal.fire({
-        icon : 'warning',
-        title : '你確定要刪除嗎?',
-        showCancelButton : true,
-        confirmButtonText: '確定',
-        cancelButtonText: '取消',
-    }).then(()=>{
-        $.ajax({
-            url : `../Card_change.php?request=${value}`,
-            type : 'POST',
-            data : { id : id },
-            dataType : 'json',
-            success : (response)=>{
-                console.log(response);
-            },
-            error : (error)=>{
-                console.log(error);
-            }
-        })
-    });
-}
-

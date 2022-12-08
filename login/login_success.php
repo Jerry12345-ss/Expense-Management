@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/login_success.css">
 </head>
-<body style="background-image: url('../img/test.png');background-repeat:no-repeat;background-size:cover;">
+<body>
     <header>
     </header>
     <main>
@@ -35,7 +35,8 @@
         $(window).on('load',()=>{
             Swal.fire({
             icon : 'success',
-            title : '註冊成功'
+            title : '註冊成功',
+            showCloseButton: true,
         }).then(()=>{
             window.location.href = '../login/login.php';
         });

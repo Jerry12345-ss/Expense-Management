@@ -30,7 +30,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar-area" style="position : fixed;">
+        <nav class="navbar-area" style="position : fixed; z-index : 5000;">
             <div class="container-fluid">
                 <div class="nav-wrapper">
                     <div class="logo">
@@ -43,22 +43,6 @@
                             <i class='bx bx-menu bx-sm'></i>
                         </button>
                     </div>
-                    <!-- <div class="dropdown nav-username ms-auto">
-                        <a href="#" class="d-flex align-items-center dropdown-toggle" style="color: white;">
-                            <i class='bx bxs-user-circle me-2'></i>
-                            <div class="username">
-                                <?php
-                                    //echo $_SESSION['name'];
-                                ?>
-                            </div>
-                            <i class='bx bxs-chevron-down ms-2'></i>
-                        </a>
-                        <ul class="dropdown-menu username-logout">
-                            <li>
-                                <a href="./login/logout.php" class="dropdown-item">Log out</a>
-                            </li>
-                        </ul>
-                    </div> -->
                 </div>
             </div>
         </nav>
@@ -127,6 +111,19 @@
                                 <a href="./pages/chart.php" class="d-flex align-items-center"><i class='bx bxs-chart'></i><span>Chart</span></a>
                             </li>
                         </ul>
+                        <div class="username-logout">
+                            <div class="log-out d-flex align-items-center" style="color: white;">
+                                <i class='bx bxs-user-circle'></i>
+                                <div class="username" style="flex: 1 1 0;">
+                                    <span>
+                                        <?php
+                                            echo $_SESSION['name'];
+                                        ?>
+                                    </span>
+                                </div>
+                                <i class="bx bx-log-out "></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="content-wrapper toggle">
@@ -294,23 +291,38 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script type="module" src="./js/main.js"></script>
-    <script src="./js/logout.js"></script>
+    <script type="module" src="./js/main2.js"></script>
 
     <script>
-        // let sider = document.querySelector('.siderbar-navbar');
-        // let sider_btn = document.querySelector('.navbar-toggler')
+        const log_out = document.querySelector('.bx-log-out');
 
-        // sider_btn.addEventListener('click',()=>{
-        //     if(!sider_btn.classList.contains('toggle')){
-        //         document.querySelector('.content-wrapper').style.marginLeft = "0px";
-        //         document.querySelector('.content-wrapper').style.width = "100%";
-        //     }else{
-        //         document.querySelector('.content-wrapper').style.marginLeft = "100px";
-        //         document.querySelector('.content-wrapper').style.width = "clac(100% - 100px)";
-        //     }
-        // })
+        log_out.addEventListener('click',()=>{
+            Swal.fire({
+                icon : 'question',
+                title : '您確定要登出嗎 ?',
+                showCloseButton: true,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: 'indianred',
+                confirmButtonText: '確定',
+                cancelButtonText: '取消',
+            }).then((result) => {
+                if(result.isConfirmed){
+                    $.ajax({
+                        url : `./login/logout.php`,
+                        type : 'POST',
+                        success : ()=>{
+                            window.location.href = './login/login.php'
+                        },
+                        error : (error)=>{
+                            console.log(error);
+                        }
+                    })
+                }
+            });
+        });
 
         // Chart Test
         let canvas = document.querySelector('#canvasPie');
