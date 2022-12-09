@@ -1,4 +1,4 @@
-import { Form_check , Add_record } from "./main2.js";
+import { Form_check , Add_record } from "./main.js";
 
 // Bootstrap modal show
 const exampleModal = document.getElementById('exampleModal');

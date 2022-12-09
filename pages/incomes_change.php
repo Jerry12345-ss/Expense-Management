@@ -16,6 +16,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style2.css">
+    <link rel="stylesheet" href="../css/income.css">
 </head>
 <body>
     <header>
@@ -40,6 +41,14 @@
     <?php
         include('../config.php');
         session_start();
+
+        if(isset($_GET['id'])){
+            $id = $_GET['id'];
+        }
+
+        $sql = "SELECT * FROM `income` WHERE ID = '$id'";
+        $query = mysqli_query($con, $sql);
+        $row = mysqli_fetch_array($query);
     ?>
 
     <main>
@@ -51,7 +60,7 @@
                             <li>
                                 <a href="../index.php" class="d-flex align-items-center"><i class='bx bxs-dashboard'></i><span>Dashboard</span></a>
                             </li>
-                            <li>
+                            <li class="active">
                                 <a href="./incomes.php" class="d-flex align-items-center">
                                     <i class="fa-solid fa-money-check-dollar"></i>
                                     <span>Incomes</span>
@@ -69,7 +78,7 @@
                                     <span>Sum</span>
                                 </a>
                             </li>
-                            <li class="active">
+                            <li>
                                 <a href="./chart.php" class="d-flex align-items-center"><i class='bx bxs-chart'></i><span>Chart</span></a>
                             </li>
                         </ul>
@@ -92,10 +101,32 @@
                     <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
                         <ol class="breadcrumb">
                           <li class="breadcrumb-item"><a href="../index.php">Home</a></li>
-                          <li class="breadcrumb-item active" aria-current="page">Chart</li>
+                          <li class="breadcrumb-item active" aria-current="page"><a href="./incomes.php">Income</a></li>
+                          <li class="breadcrumb-item active" aria-current="page">Edit Income</li>
                         </ol>
                     </nav>
-                    <span>Chart</span>
+                    <div class="change-content">
+                        <div class="change-header">
+                            <h3>Edit Income</h3>
+                        </div>
+                        <form action="" method="POST">
+                            <div class="mb-3">
+                                <label class="col-form-label">Income Amount :</label>
+                                <input type="number" class="form-control" id="amount" name="amount" value="<?php echo $row['Money']?>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="description" class="col-form-label">Income Description :</label>
+                                <input type="text" class="form-control" id="description" name="description" value="<?php echo $row['Description']?>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="date" class="col-form-label">Income Date :</label>
+                                <input type="date" class="form-control" id="date" name="date" required>
+                            </div>
+                            <div class="modal-footer">
+                                <input type="submit" class="btn btn-primary" value="修改" style="padding: 10px 25px;">
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -112,5 +143,10 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
     <script type="module" src="../js/main.js"></script>
     <script src="../js/logout2.js"></script>
+    <script>
+        let date = "<?php echo $row['Date_billing']?>";
+        // console.log(date);
+        document.getElementById('date').defaultValue = date;
+    </script>
 </body>
 </html>

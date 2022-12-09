@@ -19,7 +19,6 @@
 
     // Check request parameter ( 1 => income, 2 => expense )
     if($request == 1){
-        // $sql = "INSERT INTO income(Money, Description, Date) VALUES('$amount', '$description', '$date')";
         $sql = "INSERT INTO income(Name, Money, Description, Date_billing, Month) VALUES('$username', '$amount', '$description', '$date', '$month')";
     }else if($request == 2){
         $sql = "INSERT INTO expense(Name, Money, Description, Date_billing, Month) VALUES('$username', '$amount', '$description', '$date', '$month')";

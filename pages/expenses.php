@@ -15,8 +15,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/income2.css">
+    <link rel="stylesheet" href="../css/style2.css">
+    <link rel="stylesheet" href="../css/income.css">
 </head>
 <body>
     <header>
@@ -167,10 +167,10 @@
                                                     <div class='card-date'>$row[Date_billing]</div>
                                                     <div class='btn-group'>
                                                         <div class='edit-card card-btn' onclick='editCard(`expense`,$row[ID])'>
-                                                            <a href='#'>+</a>
+                                                            <a href='#'>E</a>
                                                         </div>
                                                         <div class='delete-card card-btn' onclick='deleteCard(`expense`,$row[ID])'>
-                                                            <a href='#'>-</a>
+                                                            <a href='#'>D</a>
                                                         </div> 
                                                     </div>
                                                 </div>
@@ -198,9 +198,16 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
-    <script type="module" src="../js/main2.js"></script>
+    <script type="module" src="../js/main.js"></script>
     <script type="module" src="../js/expense2.js"></script>
     <script src="../js/logout2.js"></script>
-    <script src="../js/card_change2.js"></script>
+    <script src="../js/card_change.js"></script>
+
+    <script>
+        // Edit card
+        const editCard = (value,id) =>{
+            window.location.href = `../pages/expenses_change.php?id=${id}&value=${value}`;
+        }
+    </script>
 </body>
 </html>
