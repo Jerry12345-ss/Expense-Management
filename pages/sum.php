@@ -156,12 +156,13 @@
                     <div class="record-content">
                         <div class="row">
                             <?php
-                                $sql = "SELECT * FROM `income` WHERE Name = '$username' UNION SELECT * FROM `expense` WHERE Name = '$username' ORDER BY `Date_billing` DESC";
+                                $sql = "SELECT * FROM `income` WHERE Name = '$username' UNION SELECT * FROM `expense` WHERE Name = '$username' ORDER BY `Date_billing` DESC, `Time_create` DESC";
                                 $query = mysqli_query($con, $sql);
 
                                 while($row = mysqli_fetch_array($query))
                                 {
-                                    echo "
+                                    if($row['Type'] == 'income'){
+                                        echo "
                                         <div class='col-sm-6 col-lg-4 mb-3'>
                                             <div class='card income_card'>
                                                 <div class='card-date card-header d-flex justify-content-between align-items-center'>
@@ -173,6 +174,20 @@
                                                 </div>
                                             </div>
                                         </div>";
+                                    }else if($row['Type'] == 'expense'){
+                                        echo "
+                                        <div class='col-sm-6 col-lg-4 mb-3'>
+                                            <div class='card expense_card'>
+                                                <div class='card-date card-header d-flex justify-content-between align-items-center'>
+                                                    <div class='card-date'>$row[Date_billing]</div>
+                                                </div>
+                                                <div class='card-body d-flex justify-content-between'>
+                                                    <div class='card-description'>$row[Description]</div>
+                                                    <div calss='card-amount' style='font-weight:600'>$ $row[Money]</div>
+                                                </div>
+                                            </div>
+                                        </div>";
+                                    }
                                 }
                             ?>
                         </div>
@@ -191,7 +206,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
-    <script type="module" src="../js/main.js"></script>
+    <script type="module" src="../js/main5.js"></script>
     <script src="../js/logout2.js"></script>
     
     <script>

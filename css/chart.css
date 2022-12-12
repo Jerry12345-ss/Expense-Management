@@ -1,0 +1,15 @@
+main .wrapper .content-wrapper .chart-div .chart-title{
+    padding: 0.5rem 2rem;
+    font-size: 1.25rem;
+    border-bottom: 1px solid #dee2e6;
+    background-color: rgba(210, 210, 210, 0.2);
+}
+main .wrapper .content-wrapper .chart-div .chart-content{
+    padding: 15px;
+}
+main .wrapper .content-wrapper .chart-div .chart-content .chart-container{
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    /* min-width: 200px; */
+}

@@ -155,21 +155,21 @@
                     <div class="record-content">
                         <div class="row">
                             <?php
-                                $sql = "SELECT * FROM `expense` WHERE Name = '$username' ORDER BY `Date_billing` DESC";
+                                $sql = "SELECT * FROM `expense` WHERE Name = '$username' ORDER BY `Date_billing` DESC, `Time_create` DESC";
                                 $query = mysqli_query($con, $sql);
 
                                 while($row = mysqli_fetch_array($query))
                                 {
                                     echo "
                                         <div class='col-sm-6 col-lg-4 mb-3'>
-                                            <div class='card expense_card'>
+                                            <div class='card expense_card' id='$row[ID]'>
                                                 <div class='card-date card-header d-flex justify-content-between align-items-center'>
                                                     <div class='card-date'>$row[Date_billing]</div>
                                                     <div class='btn-group'>
-                                                        <div class='edit-card card-btn' onclick='editCard(`expense`,$row[ID])'>
+                                                        <div class='edit-card card-btn' onclick='editCard($row[ID])'>
                                                             <a href='#'>E</a>
                                                         </div>
-                                                        <div class='delete-card card-btn' onclick='deleteCard(`expense`,$row[ID])'>
+                                                        <div class='delete-card card-btn' onclick='deleteCard(2,$row[ID])'>
                                                             <a href='#'>D</a>
                                                         </div> 
                                                     </div>
@@ -198,15 +198,15 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
-    <script type="module" src="../js/main3.js"></script>
-    <script type="module" src="../js/expense.js"></script>
+    <script type="module" src="../js/main5.js"></script>
+    <script type="module" src="../js/expense_add.js"></script>
     <script src="../js/logout2.js"></script>
-    <script src="../js/card_change.js"></script>
+    <script src="../js/card_delete.js"></script>
 
     <script>
         // Edit card
-        const editCard = (value,id) =>{
-            window.location.href = `../pages/expenses_change.php?id=${id}&value=${value}`;
+        const editCard = (id) =>{
+            window.location.href = `../pages/expenses_change.php?id=${id}`;
         }
     </script>
 </body>

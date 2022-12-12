@@ -169,7 +169,7 @@
                     <div class="record-content">
                         <div class="row">
                             <?php
-                                $sql = "SELECT * FROM `income` WHERE Name = '$username' ORDER BY `Date_billing` DESC";
+                                $sql = "SELECT * FROM `income` WHERE Name = '$username' ORDER BY `Date_billing` DESC, `Time_create` DESC";
                                 $query = mysqli_query($con, $sql);
 
                                 while($row = mysqli_fetch_array($query))
@@ -180,10 +180,10 @@
                                                 <div class='card-date card-header d-flex justify-content-between align-items-center'>
                                                     <div class='card-date'>$row[Date_billing]</div>
                                                     <div class='btn-group'>
-                                                        <div class='edit-card card-btn' onclick='editCard(`income`,$row[ID])'>
+                                                        <div class='edit-card card-btn' onclick='editCard($row[ID])'>
                                                             <a href='#'>E</a>
                                                         </div>
-                                                        <div class='delete-card card-btn' onclick='deleteCard(`income`,$row[ID])'>
+                                                        <div class='delete-card card-btn' onclick='deleteCard(1,$row[ID])'>
                                                             <a href='#'>D</a>
                                                         </div> 
                                                     </div>
@@ -212,15 +212,15 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
-    <script type="module" src="../js/main3.js"></script>
-    <script type="module" src="../js/income2.js"></script>
+    <script type="module" src="../js/main5.js"></script>
+    <script type="module" src="../js/income_add.js"></script>
     <script src="../js/logout2.js"></script>
-    <script src="../js/card_change.js"></script>
+    <script src="../js/card_delete.js"></script>
 
     <script>
         // Edit card
-        const editCard = (value,id) =>{
-            window.location.href = `../pages/incomes_change.php?id=${id}&value=${value}`;
+        const editCard = (id) =>{
+            window.location.href = `../pages/incomes_change.php?id=${id}`;
         }
     </script>
 </body>

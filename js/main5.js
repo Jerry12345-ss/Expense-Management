@@ -28,7 +28,7 @@ export function Date_setting(){
 }
 
 // Submitting new income / expense form 
-export function Form_check(file_name, parameter, list, list_name,action,today){
+export function Form_check(file_name, parameter, action, today){
     $('.content-wrapper form').submit((event)=>{
         let amount_val = document.querySelector('#amount'); 
         let description_val = document.querySelector('#description');
@@ -48,16 +48,8 @@ export function Form_check(file_name, parameter, list, list_name,action,today){
                 showCloseButton: true
             });
         }else{
-            // Form_submit(formData, parameter);
-
-            if(!list){   // if list isn't exist, pass an empty to list
-                list = [];
-            }
-            list.push(formData);   // add new income or expense record to List
-            localStorage.setItem(`${list_name}`,JSON.stringify(list));    // store key/value in localstorage and transform data into JSON string
-
             if(action == "insert"){
-                //Form_submit(formData, parameter,action);
+                Form_submit(formData, parameter, action);
 
                 Swal.fire({
                     icon : 'success',
@@ -72,7 +64,7 @@ export function Form_check(file_name, parameter, list, list_name,action,today){
                 description_val.value = "";
                 date_val.value = today;
             }else{
-                //Form_submit(formData, parameter,action);
+                Form_submit(formData, parameter, action);
 
                 Swal.fire({
                     icon : 'success',
@@ -90,50 +82,34 @@ export function Form_check(file_name, parameter, list, list_name,action,today){
 
 // POST form data with AJAX request
 const Form_submit = (formData, parameter, action) =>{
-    $.ajax({
-        url : `../Add_record.php?request=${parameter}`,
-        type : 'POST',
-        data : formData,
-        dataType : 'json',
-        success : (response)=>{
-            console.log(response);
-        },
-        error : (error)=>{
-            console.log(error);
-        }
-    })
+    if(action == "insert"){
+        $.ajax({
+            url : `../Insert_edit.php?request=${parameter}&action=${action}`,
+            type : 'POST',
+            data : formData,
+            dataType : 'json',
+            success : (response)=>{
+                console.log(response);
+            },
+            error : (error)=>{
+                console.log(error);
+            }
+        })
+    }else{
+        let a = document.querySelector('.content-wrapper form');
+        let id =a.id;
+        
+        $.ajax({
+            url : `../Insert_edit.php?request=${parameter}&action=${action}&id=${id}`,
+            type : 'POST',
+            data : formData,
+            dataType : 'json',
+            success : (response)=>{
+                console.log(response);
+            },
+            error : (error)=>{
+                console.log(error);
+            }
+        })
+    }
 }
-
-// Show income / expense record
-// export function Add_record(list, list_name){
-//     let list_content = document.querySelector(`.record-content .row`);
-//     let li = "";
-
-//     if(list){
-//        list.forEach((value, id)=>{
-//         li += `
-//             <div class='col-sm-6 col-lg-4 mb-3'>
-//                 <div class='card' id=${list_name}>
-//                     <div class='card-date card-header d-flex justify-content-between align-items-center'>
-//                         <div class='card-date'>${value.date}</div>
-//                         <div class='btn-group'>
-//                            <div class='edit-card card-btn'>
-//                                <a href='#'>+</a>
-//                            </div>
-//                            <div class='delete-card card-btn'>
-//                                <a href='#'>-</a>
-//                            </div> 
-//                         </div>
-//                     </div>
-//                     <div class='card-body d-flex justify-content-between'>
-//                         <div class='card-description'>${value.description}</div>
-//                         <div calss='card-amount' style='font-weight:600'>$ ${value.amount}</div>
-//                     </div>
-//                 </div>
-//             </div>
-//         `
-//        })
-//     }
-
-//     list_content.innerHTML = li;
-// }

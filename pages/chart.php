@@ -16,6 +16,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style2.css">
+    <link rel="stylesheet" href="../css/chart.css">
 </head>
 <body>
     <header>
@@ -95,7 +96,27 @@
                           <li class="breadcrumb-item active" aria-current="page">Chart</li>
                         </ol>
                     </nav>
-                    <span>Chart</span>
+                    <div class="chart-button">
+                        <div class="d-flex justify-content-end">
+                            <div class="button-sections">
+                                <button onclick="createChart()">Doughnut</button>
+                                <button onclick="test()">Groupd Bar</button>
+                                <button>Line</button>
+                                <button>Mixed</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-div" style="overflow-x: scroll;">
+                        <div class="d-flex flex-column border border-1" style="border-radius: 4px;">
+                            <div class="chart-content">
+                                <div class="chart-container">
+                                    <canvas id="canvasDoughnut"></canvas>
+                                    <canvas id="canvasPie"></canvas>
+                                    <!-- 參考 Sass-SCSS -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -110,7 +131,84 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
-    <script type="module" src="../js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="../js/main5.js"></script>
     <script src="../js/logout2.js"></script>
+
+    <script>
+        $('.chart-button button').on('click',function(){
+            $('.chart-button button').removeClass('active');
+
+            $('.chart-button button').each(()=>{
+                $(this).addClass('active')
+            })
+        });
+        
+        // Chart Test
+        const ctg = document.getElementById('canvasDoughnut');
+        const ctx = document.getElementById('canvasPie');
+
+        const createChart = () =>{
+            const mychart = new Chart(ctg,{
+                type : 'doughnut',
+                data : {
+                    labels : ['Income','Expense'],
+                    datasets : [{
+                        fill: true,
+                        label : 'Test',
+                        data : [60, 40],
+                        backgroundColor : ['blue','red'],
+                        borderColor : ['blue','red'],
+                        borderWidth : 1
+                    }]
+                },
+                option : {
+                    title : {
+                        display : true,
+                        text : 'Expense Management Doughnut'
+                    },
+                    animation : {
+                        animateScale : true,
+                        animateRotate : true
+                    },
+                    responsive : true,
+                    maintainAspectRatio: false,
+                    legend: {
+                        position: 'right',
+                    },
+                }
+            })
+        }
+        
+        //createChart();
+
+        const test = () =>{
+            const mychart = new Chart(ctx,{
+                type : 'pie',
+                data : {
+                    labels : ['Income','Expense'],
+                    datasets : [{
+                        fill: true,
+                        label : 'Test',
+                        data : [60, 40],
+                        backgroundColor : ['blue','red'],
+                        borderColor : ['blue','red'],
+                        borderWidth : 1
+                    }]
+                },
+                option : {
+                    title : {
+                        display : true,
+                        text : 'Expense Management Pie'
+                    },
+                    responsive : true,
+                    maintainAspectRatio: false,
+                    legend: {
+                        position: 'right',
+                    },
+                }
+            })
+        }
+    </script>
 </body>
 </html>

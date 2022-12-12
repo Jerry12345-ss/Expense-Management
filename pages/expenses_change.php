@@ -1,3 +1,8 @@
+<?php 
+    if(isset($_GET['id'])){
+        $id = $_GET['id'];
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -109,7 +114,7 @@
                         <div class="change-header">
                             <h3>Edit Expense</h3>
                         </div>
-                        <form action="" method="POST">
+                        <form action="" method="POST" id=<?php echo $id; ?>>
                             <div class="mb-3">
                                 <label class="col-form-label">Expense Amount :</label>
                                 <input type="number" class="form-control" id="amount" name="amount" value="<?php echo $row['Money']?>" required>
@@ -141,7 +146,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
-    <script type="module" src="../js/main3.js"></script>
+    <script type="module" src="../js/main5.js"></script>
+    <script type="module" src="../js/expense_edit.js"></script>
     <script src="../js/logout2.js"></script>
 </body>
 </html>

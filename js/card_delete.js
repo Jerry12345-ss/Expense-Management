@@ -12,7 +12,7 @@ const deleteCard = (value,id) =>{
     }).then((result)=>{
         if(result.isConfirmed){
             $.ajax({
-                url : `../Delete_card.php?request=${value}&uid=1`,
+                url : `../Delete_card.php?request=${value}&action=delete`,
                 type : 'POST',
                 data : { id : id },
                 // dataType : 'json',

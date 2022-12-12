@@ -1,0 +1,127 @@
+原先Add_record寫法 (採用與Todo-list作法 : get / set localstorage, innerHTML)
+
+--------main.js--------
+export function Form_check(file_name, parameter, list, list_name){
+    $('.content-wrapper form').submit((event)=>{
+        let amount_val = document.querySelector('#amount'); 
+        let description_val = document.querySelector('#description');
+        let date_val = document.querySelector('#date');
+
+        let formData = {
+            amount : amount_val.value,
+            description : description_val.value,
+            date : date_val.value,
+        };
+
+        if(formData.date > today){
+            Swal.fire({
+                icon : 'error',
+                title : '輸入錯誤',
+                text : '您所輸入的日期錯誤!',
+                showCloseButton: true
+            });
+        }else{
+            Form_submit(formData, parameter);
+
+            if(!list){   // if list isn't exist, pass an empty to list
+                list = [];
+            }
+            list.push(formData);   // add new income or expense record to List
+            localStorage.setItem(`${list_name}`,JSON.stringify(list));    // store key/value in localstorage and transform data into JSON string
+
+            Swal.fire({
+                icon : 'success',
+                title : '新增成功',
+                showCloseButton: true
+            }).then(()=>{
+                window.location.href = `../pages/${file_name}.php`;
+            });
+            $('#exampleModal').modal('hide');
+    
+            amount_val.value = "";
+            description_val.value = "";
+            date_val.value = today;
+        }
+        event.preventDefault();
+    })
+}
+
+// POST form data with AJAX request
+const Form_submit = (formData, parameter) =>{
+    $.ajax({
+        url : `../Add_record.php?request=${parameter}`,
+        type : 'POST',
+        data : formData,
+        dataType : 'json',
+        success : (response)=>{
+            console.log(response);
+        },
+        error : (error)=>{
+            console.log(error);
+        }
+    })
+}
+
+// Show income / expense record
+export function Add_record(list, list_name){
+    let list_content = document.querySelector(`.record-content .row`);
+    let li = "";
+
+    if(list){
+       list.forEach((value, id)=>{
+        li += `
+            <div class='col-sm-6 col-lg-4 mb-3'>
+                <div class='card' id=${list_name}>
+                    <div class='card-date card-header d-flex justify-content-between align-items-center'>
+                        <div class='card-date'>${value.date}</div>
+                        <div class='btn-group'>
+                           <div class='edit-card card-btn'>
+                               <a href='#'>+</a>
+                           </div>
+                           <div class='delete-card card-btn'>
+                               <a href='#'>-</a>
+                           </div> 
+                        </div>
+                    </div>
+                    <div class='card-body d-flex justify-content-between'>
+                        <div class='card-description'>${value.description}</div>
+                        <div calss='card-amount' style='font-weight:600'>$ ${value.amount}</div>
+                    </div>
+                </div>
+            </div>
+        `
+       })
+    }
+
+    list_content.innerHTML = li;
+}
+
+
+--------income.js--------
+import { Form_check, Add_record } from "./main.js";
+
+// Bootstrap modal show
+const exampleModal = document.getElementById('exampleModal');
+exampleModal.addEventListener('show.bs.modal', event => {});
+
+// Get localstorage item
+let income_list = JSON.parse(localStorage.getItem('income_card'));
+
+Form_check("incomes", 1, income_list, "income_card");
+
+Add_record(income_list,"income_card");
+
+
+--------expense.js--------
+import { Form_check , Add_record } from "./main.js";
+
+// Bootstrap modal show
+const exampleModal = document.getElementById('exampleModal');
+exampleModal.addEventListener('show.bs.modal', event => {});
+
+// Get localstorage item
+let expense_list = JSON.parse(localStorage.getItem('expense_card'));
+
+Form_check("expenses", 2, expense_list, "expense_card");
+
+Add_record(expense_list,"expense_card");
