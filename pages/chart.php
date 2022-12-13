@@ -41,6 +41,21 @@
     <?php
         include('../config.php');
         session_start();
+
+        $username =$_SESSION['name'];
+
+        $sql = "SELECT SUM(Money) FROM `income` WHERE Month = '11' AND Name = '$username'";
+        $sql2 = "SELECT SUM(Money) FROM `income` WHERE Month = '12' AND Name = '$username'";
+        $query = mysqli_query($con,$sql);
+        $query2 = mysqli_query($con,$sql2);
+
+        while($row = mysqli_fetch_array($query)){
+            $Nov = $row['SUM(Money)'];
+        }
+
+        while($row2 = mysqli_fetch_array($query2)){
+            $Dec = $row2['SUM(Money)'];
+        }
     ?>
 
     <main>
@@ -99,10 +114,10 @@
                     <div class="chart-button">
                         <div class="d-flex justify-content-end">
                             <div class="button-sections">
-                                <button onclick="createChart()">Doughnut</button>
-                                <button onclick="test()">Groupd Bar</button>
-                                <button>Line</button>
-                                <button>Mixed</button>
+                                <button onclick="createDoughnut()" data-type="doughnut" >Doughnut</button>
+                                <button onclick="createBar()" data-type="bar">Groupd Bar</button>
+                                <button onclick="createLine()" data-type="line">Line</button>
+                                <button onclick="createMixed()" data-type="mixed">Mixed</button>
                             </div>
                         </div>
                     </div>
@@ -110,8 +125,10 @@
                         <div class="d-flex flex-column border border-1" style="border-radius: 4px;">
                             <div class="chart-content">
                                 <div class="chart-container">
-                                    <canvas id="canvasDoughnut"></canvas>
-                                    <canvas id="canvasPie"></canvas>
+                                    <canvas id="canvasDoughnut" class="chart active" data-content="doughnut"></canvas>
+                                    <canvas id="canvasBar" class="chart" data-content="bar"></canvas>
+                                    <canvas id="canvasLine" class="chart" data-content="line"></canvas>
+                                    <canvas id="canvasMixed" class="chart" data-content="mixed"></canvas>
                                     <!-- 參考 Sass-SCSS -->
                                 </div>
                             </div>
@@ -134,21 +151,18 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="module" src="../js/main5.js"></script>
     <script src="../js/logout2.js"></script>
+    <script src="../js/chart2.js"></script>
 
     <script>
-        $('.chart-button button').on('click',function(){
-            $('.chart-button button').removeClass('active');
-
-            $('.chart-button button').each(()=>{
-                $(this).addClass('active')
-            })
-        });
-        
         // Chart Test
         const ctg = document.getElementById('canvasDoughnut');
-        const ctx = document.getElementById('canvasPie');
+        const ctx = document.getElementById('canvasBar');
+        const ctl = document.getElementById('canvasLine');
 
-        const createChart = () =>{
+        let nov = <?php echo $Nov; ?>;
+        let dec = <?php echo $Dec; ?>;
+
+        const createDoughnut = () =>{
             const mychart = new Chart(ctg,{
                 type : 'doughnut',
                 data : {
@@ -157,8 +171,8 @@
                         fill: true,
                         label : 'Test',
                         data : [60, 40],
-                        backgroundColor : ['blue','red'],
-                        borderColor : ['blue','red'],
+                        backgroundColor : ['rgb(54, 162, 235)','rgb(255, 99, 132)'],
+                        borderColor : ['rgb(54, 162, 235)','rgb(255, 99, 132)'],
                         borderWidth : 1
                     }]
                 },
@@ -180,35 +194,100 @@
             })
         }
         
-        //createChart();
+        createDoughnut();
 
-        const test = () =>{
+        const createBar = () =>{
             const mychart = new Chart(ctx,{
-                type : 'pie',
+                type : 'bar',
                 data : {
-                    labels : ['Income','Expense'],
-                    datasets : [{
-                        fill: true,
-                        label : 'Test',
-                        data : [60, 40],
-                        backgroundColor : ['blue','red'],
-                        borderColor : ['blue','red'],
-                        borderWidth : 1
-                    }]
+                    labels : ['11月','12月'],
+                    datasets : [
+                        {
+                            fill: true,
+                            label : 'Income',
+                            data : [nov,dec],
+                            backgroundColor : 'rgb(54, 162, 235)',
+                            borderColor : 'rgb(54, 162, 235)',
+                            borderWidth : 1
+                        },
+                        {
+                            fill: true,
+                            label : 'Expense',
+                            data : [40,20],
+                            backgroundColor : 'rgb(255, 99, 132)',
+                            borderColor : 'rgb(255, 99, 132)',
+                            borderWidth : 1
+                        },
+
+                    ]
                 },
                 option : {
-                    title : {
-                        display : true,
-                        text : 'Expense Management Pie'
-                    },
                     responsive : true,
                     maintainAspectRatio: false,
-                    legend: {
-                        position: 'right',
-                    },
+                    plugins :{
+                        title : {
+                            display : true,
+                            text : 'Expense Management Bar'
+                        },
+                        legend : {
+                            position: 'right',
+                        }
+                    }
                 }
             })
         }
+
+        const createLine = () =>{
+            const mychart = new Chart(ctl,{
+                type : 'line',
+                data : {
+                    labels : ['8月','9月','10月','11月','12月'],
+                    datasets : [
+                        {
+                            fill: true,
+                            label : 'Income',
+                            data : [30200,29874,32541,36745,35108],
+                            // backgroundColor : 'rgb(54, 162, 235)',
+                            // borderColor : 'rgb(54, 162, 235)',
+                            // borderWidth : 1
+                            fillColor : "rgba(220,220,220,0.2)",
+                            strokeColor : "rgba(220,220,220,1)",
+                            pointColor : "rgba(220,220,220,1)",
+                            pointStrokeColor : "#fff",
+                            pointHighlightFill : "#fff",
+                            pointHighlightStroke: "rgba(220,220,220,1)",
+                        },
+                        {
+                            fill: true,
+                            label : 'Expense',
+                            data : [16543,12789,14200,12900,21630],
+                            fillColor: "rgba(151,187,205,0.2)",
+                            strokeColor: "rgba(151,187,205,1)",
+                            pointColor: "rgba(151,187,205,1)",
+                            pointStrokeColor: "#fff",
+                            pointHighlightFill: "#fff",
+                            pointHighlightStroke: "rgba(151,187,205,1)",
+                        },
+
+                    ]
+                },
+                option : {
+                    responsive : true,
+                    maintainAspectRatio: false,
+                    plugins :{
+                        title : {
+                            display : true,
+                            text : 'Expense Management Line'
+                        },
+                        legend : {
+                            position: 'right',
+                        }
+                    }
+                }
+            })
+        }
+
+        const createMixed = () =>{}
     </script>
 </body>
 </html>

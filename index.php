@@ -161,10 +161,7 @@
                                             $t_income = "SELECT SUM(Money) AS Total FROM `income` WHERE Name = '$username'";
                                             $total_income = mysqli_query($con, $t_income);
                                             $t_expense = "SELECT SUM(Money) AS Total FROM `expense` WHERE Name = '$username'";
-                                            $total_expense = mysqli_query($con, $t_expense);
-                                            
-                                            $total_income = mysqli_query($con,$t_income);
-                                            $total_expense = mysqli_query($con,$t_expense);
+                                            $total_expense = mysqli_query($con, $t_expense);                               
 
                                             $row = mysqli_fetch_assoc(($total_income));
                                             $row2 = mysqli_fetch_assoc(($total_expense));

@@ -8,8 +8,14 @@ main .wrapper .content-wrapper .chart-div .chart-content{
     padding: 15px;
 }
 main .wrapper .content-wrapper .chart-div .chart-content .chart-container{
-    max-width: 500px;
+    max-width: 800px;
     margin-left: auto;
     margin-right: auto;
-    /* min-width: 200px; */
+    min-width: 200px;
+}
+main .wrapper .content-wrapper .chart-div .chart-content .chart-container .chart{
+    display: none !important;
+}
+main .wrapper .content-wrapper .chart-div .chart-content .chart-container .chart.active{
+    display: inline-block!important;
 }
