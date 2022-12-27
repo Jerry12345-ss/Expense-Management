@@ -1,3 +1,11 @@
+<?php
+    // 如果未登入進去 index.php, 會自動跳轉至 login.php
+    session_start();
+    if(!isset($_SESSION["login"])){
+        header("Location: ../login/login.php");
+        exit(); 
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +24,8 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style2.css">
-    <link rel="stylesheet" href="../css/chart.css">
+    <link rel="stylesheet" href="../css/chart3.css">
+    <link rel="stylesheet" href="../css/calculate.css">
 </head>
 <body>
     <header>
@@ -40,22 +49,41 @@
 
     <?php
         include('../config.php');
-        session_start();
 
         $username =$_SESSION['name'];
 
-        $sql = "SELECT SUM(Money) FROM `income` WHERE Month = '11' AND Name = '$username'";
-        $sql2 = "SELECT SUM(Money) FROM `income` WHERE Month = '12' AND Name = '$username'";
-        $query = mysqli_query($con,$sql);
-        $query2 = mysqli_query($con,$sql2);
+        $array_month_income = array();
+        $array_month_expense = array();
+        $array_sum_income = array();
+        $array_sum_expense = array();
+
+        $sql = "SELECT MAX(Month) AS month , SUM(Money) FROM `income` WHERE Name = '$username' GROUP BY Month";
+        $sql2 = "SELECT MAX(Month) AS month , SUM(Money) FROM `expense` WHERE Name = '$username' GROUP BY Month";
+        $query = mysqli_query($con, $sql);
+        $query2 = mysqli_query($con, $sql2);
+        $row = mysqli_fetch_array($query);
+        $row2 = mysqli_fetch_array($query2);
 
         while($row = mysqli_fetch_array($query)){
-            $Nov = $row['SUM(Money)'];
+            $income_month = $row['month'].'月';
+            $income_sum = $row['SUM(Money)'];
+            array_push($array_month_income, $income_month);
+            array_push($array_sum_income, $income_sum);
         }
 
         while($row2 = mysqli_fetch_array($query2)){
-            $Dec = $row2['SUM(Money)'];
+            $expense_month = $row2['month'].'月';
+            $expense_sum = $row2['SUM(Money)'];
+            array_push($array_month_expense, $expense_month);
+            array_push($array_sum_expense, $expense_sum);
         }
+
+        $result = count($array_month_income) > count($array_month_expense) ? $array_month_income : $array_month_expense;
+
+        // print_r($array_month_expense);
+        // print_r($array_month_income);
+        // print_r($array_sum_expense);
+        // print_r($array_sum_income);
     ?>
 
     <main>
@@ -111,7 +139,7 @@
                           <li class="breadcrumb-item active" aria-current="page">Chart</li>
                         </ol>
                     </nav>
-                    <div class="chart-button">
+                    <div class="chart-button mb-2">
                         <div class="d-flex justify-content-end">
                             <div class="button-sections">
                                 <button onclick="createDoughnut()" data-type="doughnut" >Doughnut</button>
@@ -122,17 +150,46 @@
                         </div>
                     </div>
                     <div class="chart-div" style="overflow-x: scroll;">
-                        <div class="d-flex flex-column border border-1" style="border-radius: 4px;">
+                        <div class="border border-1" style="border-radius: 4px;">
                             <div class="chart-content">
                                 <div class="chart-container">
                                     <canvas id="canvasDoughnut" class="chart active" data-content="doughnut"></canvas>
                                     <canvas id="canvasBar" class="chart" data-content="bar"></canvas>
                                     <canvas id="canvasLine" class="chart" data-content="line"></canvas>
                                     <canvas id="canvasMixed" class="chart" data-content="mixed"></canvas>
-                                    <!-- 參考 Sass-SCSS -->
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <button class="calculate-button">
+                    <i class='bx bxs-calculator bx-sm' style="font-size: 1.7rem;"></i>
+                </button>
+                <div class="calculate-content">
+                    <div class="calculate">
+                        <div class="output">
+                            <div class="previous-operand"></div>
+                            <div class="current-operand"></div>
+                        </div>
+                        <button class="span-two symbol clearAll" data-value="AC" id="clearAll">AC</button>
+                        <button class="symbol clear" data-value="DEL" id="clear">DEL</button>
+                        <!-- <button>%</button> -->
+                        <button class="operator divide" data-value="/">÷</button>
+                        <button class="number number7" data-value="7">7</button>
+                        <button class="number number8" data-value="8">8</button>
+                        <button class="number number9" data-value="9">9</button>
+                        <button class="operator multiply" data-value="*">x</button>
+                        <button class="number number4" data-value="4">4</button>
+                        <button class="number number5" data-value="5">5</button>
+                        <button class="number number6" data-value="6">6</button>
+                        <button class="operator minus" data-value="-">-</button>
+                        <button class="number number1" data-value="1">1</button>
+                        <button class="number number2" data-value="2">2</button>
+                        <button class="number number3" data-value="3">3</button>
+                        <button class="operator add" data-value="+">+</button>
+                        <button class="number number0" data-value="0">0</button>
+                        <button class="number dot" data-value=".">.</button>
+                        <button class="span-two symbol equal" data-value="=" id="equal">=</button>
                     </div>
                 </div>
             </div>
@@ -152,6 +209,7 @@
     <script type="module" src="../js/main5.js"></script>
     <script src="../js/logout2.js"></script>
     <script src="../js/chart2.js"></script>
+    <script src="../js/calculate.js"></script>
 
     <script>
         // Chart Test
@@ -159,8 +217,27 @@
         const ctx = document.getElementById('canvasBar');
         const ctl = document.getElementById('canvasLine');
 
-        let nov = <?php echo $Nov; ?>;
-        let dec = <?php echo $Dec; ?>;
+        // let array_month_income = <?php echo json_encode($array_month_income);?>;
+        // let array_month_expense = <?php echo json_encode($array_month_expense);?>;
+        // let array_sum_income = <?php echo json_encode($array_sum_income);?>;
+        // let array_sum_expense = <?php echo json_encode($array_sum_expense);?>;
+        
+        // let result_month = (array_month_income.length > array_month_expense.length ? array_month_income : array_month_expense);
+
+        // const arr_function = result_month.map((month, index) =>{
+        //     let monthObject = {};
+        //     monthObject.month = month;
+        //     monthObject.income = {};
+        //     monthObject.income = array_sum_income[index];
+        //     monthObject.expense = {};
+        //     monthObject.expense = array_sum_expense[index];
+        //     // monthObject.sum = {};
+        //     // monthObject.sum = array_sum[index];
+
+        //     return monthObject;
+        // });
+
+        // console.log(arr_function);
 
         const createDoughnut = () =>{
             const mychart = new Chart(ctg,{
@@ -200,12 +277,12 @@
             const mychart = new Chart(ctx,{
                 type : 'bar',
                 data : {
-                    labels : ['11月','12月'],
+                    // labels : array_month_expense,
                     datasets : [
                         {
                             fill: true,
                             label : 'Income',
-                            data : [nov,dec],
+                            // data : array_sum_income,
                             backgroundColor : 'rgb(54, 162, 235)',
                             borderColor : 'rgb(54, 162, 235)',
                             borderWidth : 1
@@ -213,7 +290,7 @@
                         {
                             fill: true,
                             label : 'Expense',
-                            data : [40,20],
+                            // data : array_sum_expense,
                             backgroundColor : 'rgb(255, 99, 132)',
                             borderColor : 'rgb(255, 99, 132)',
                             borderWidth : 1

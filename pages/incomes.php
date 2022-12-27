@@ -1,3 +1,11 @@
+<?php
+    // 如果未登入進去 index.php, 會自動跳轉至 login.php
+    session_start();
+    if(!isset($_SESSION["login"])){
+        header("Location: ../login/login.php");
+        exit(); 
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,7 +49,6 @@
 
     <?php
         include('../config.php');
-        session_start();
         
         // function test(){
         //     $delete = "DELETE FROM `income` WHERE ID = '$id'";

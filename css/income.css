@@ -2,23 +2,29 @@
 main .wrapper .content-wrapper .add-record {
   border-radius: 4px;
 }
+
 main .wrapper .content-wrapper .add-record .item {
   padding: 0.5rem;
 }
+
 main .wrapper .content-wrapper .add-record .total-text {
   font-size: 1.25rem;
   border-bottom: 1px solid rgb(225, 223, 223);
 }
+
 main .wrapper .content-wrapper .add-record .add-button .new-btn {
   background-color: rgb(89, 89, 231);
   border: none;
 }
+
 main .wrapper .content-wrapper .add-record .add-button .new-btn:hover {
   background-color: rgb(72, 72, 194);
 }
+
 main .wrapper .content-wrapper .add-record .add-button .mb-3 {
   text-align: left;
 }
+
 main .wrapper .content-wrapper .add-record .add-button .modal-footer {
   border-top: none;
   padding-left: 0;

@@ -2,10 +2,12 @@
 main .wrapper .content-wrapper .sum-data{
     font-size: 1rem;
 }
+
 main .wrapper .content-wrapper .sum-data ul{
     padding-left: 0;
     margin-bottom: 0;
 }
+
 main .wrapper .content-wrapper .sum-data ul .title{
     background-color: rgb(55, 180, 139);
     color: white;
@@ -13,6 +15,7 @@ main .wrapper .content-wrapper .sum-data ul .title{
     border-top-right-radius: 4px;
     font-size: 1.25rem;
 }
+
 main .wrapper .content-wrapper .sum-data ul li{
     padding: 0.75rem 1.25rem;
     border: 1px solid #dee2e6;
