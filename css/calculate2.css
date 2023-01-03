@@ -67,7 +67,7 @@
 
 .output{
   background: rgba(0, 0, 0, 0.75);
-  padding: 10px;
+  padding: 15px;
   display: flex;
   align-items: flex-end;
   justify-content: space-around;
@@ -79,14 +79,13 @@
 
 .output .previous-operand{
   color: rgba(255, 255, 255, 0.75);
-  font-size: 1rem;
+  font-size: 1.3rem;
 }
 
-.output .previous-operand{
+.output .current-operand{
   color: white;
-  font-size: 1.5rem;
+  font-size: 2rem;
 }
-
 
 .calculate-content.show{
   opacity: 1;

@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style2.css">
     <link rel="stylesheet" href="../css/chart3.css">
-    <link rel="stylesheet" href="../css/calculate.css">
+    <link rel="stylesheet" href="../css/calculate2.css">
 </head>
 <body>
     <header>
@@ -168,8 +168,8 @@
                 <div class="calculate-content">
                     <div class="calculate">
                         <div class="output">
-                            <div class="previous-operand"></div>
-                            <div class="current-operand"></div>
+                            <div data-previous-operand class="previous-operand"></div>
+                            <div data-current-operand class="current-operand"></div>
                         </div>
                         <button class="span-two symbol clearAll" data-value="AC" id="clearAll">AC</button>
                         <button class="symbol clear" data-value="DEL" id="clear">DEL</button>
@@ -209,7 +209,7 @@
     <script type="module" src="../js/main5.js"></script>
     <script src="../js/logout2.js"></script>
     <script src="../js/chart2.js"></script>
-    <script src="../js/calculate.js"></script>
+    <script src="../js/calculate_test.js"></script>
 
     <script>
         // Chart Test
