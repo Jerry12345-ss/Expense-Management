@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style2.css">
     <link rel="stylesheet" href="../css/income.css">
+    <link rel="stylesheet" href="../css/calculate.css">
 </head>
 <body>
     <header>
@@ -194,6 +195,35 @@
                 </div>
             </div>
         </div>
+        <button class="calculate-button">
+            <i class='bx bxs-calculator bx-sm' style="font-size: 1.7rem;"></i>
+        </button>
+        <div class="calculate-content">
+            <div class="calculate">
+                <div class="output">
+                    <div data-previous-operand class="previous-operand"></div>
+                    <div data-current-operand class="current-operand"></div>
+                </div>
+                <button class="span-two symbol clearAll" data-value="AC" id="clearAll">AC</button>
+                <button class="symbol clear" data-value="DEL" id="clear">DEL</button>
+                <button class="operator divide" data-value="/">÷</button>
+                <button class="number number7" data-value="7">7</button>
+                <button class="number number8" data-value="8">8</button>
+                <button class="number number9" data-value="9">9</button>
+                <button class="operator multiply" data-value="*">x</button>
+                <button class="number number4" data-value="4">4</button>
+                <button class="number number5" data-value="5">5</button>
+                <button class="number number6" data-value="6">6</button>
+                <button class="operator minus" data-value="-">-</button>
+                <button class="number number1" data-value="1">1</button>
+                <button class="number number2" data-value="2">2</button>
+                <button class="number number3" data-value="3">3</button>
+                <button class="operator add" data-value="+">+</button>
+                <button class="number number0" data-value="0">0</button>
+                <button class="number dot" data-value=".">.</button>
+                <button class="span-two symbol equal" data-value="=" id="equal">=</button>
+            </div>
+        </div>
     </main>
 
     <!-- jQuey -->
@@ -205,10 +235,11 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
-    <script type="module" src="../js/main5.js"></script>
+    <script type="module" src="../js/main.js"></script>
     <script type="module" src="../js/expense_add.js"></script>
     <script src="../js/logout2.js"></script>
     <script src="../js/card_delete.js"></script>
+    <script src="../js/calculate.js"></script>
 
     <script>
         // Edit card
