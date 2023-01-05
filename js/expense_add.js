@@ -1,4 +1,4 @@
-import { Form_check , Date_setting } from "./main5.js";
+import { Form_check , Date_setting } from "./main.js";
 
 // Bootstrap modal show
 const exampleModal = document.getElementById('exampleModal');

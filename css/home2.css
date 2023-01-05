@@ -21,6 +21,7 @@ main .wrapper .content-wrapper .link-div .card-chart{
 
 main .wrapper .content-wrapper .link-div .card-new .card-nbody{
     padding: 1rem 1.25rem;
+    font-weight: 700;
 }
 
 main .wrapper .content-wrapper .link-div .card-new .card-link{

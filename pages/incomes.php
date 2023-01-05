@@ -24,9 +24,9 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
 
-    <link rel="stylesheet" href="../css/style2.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/income.css">
-    <link rel="stylesheet" href="../css/calculate.css">
+    <link rel="stylesheet" href="../css/calculate2.css">
 </head>
 <body>
     <header>
@@ -35,7 +35,7 @@
                 <div class="nav-wrapper">
                     <div class="logo">
                         <a href="../index.php">
-                            <span>Expense Management</span>
+                            <span>記帳管理系統</span>
                         </a>
                     </div>
                     <div class="sidebar-hamburger">
@@ -50,19 +50,6 @@
 
     <?php
         include('../config.php');
-        
-        // function test(){
-        //     $delete = "DELETE FROM `income` WHERE ID = '$id'";
-        //     $delete_quary = mysqli_query($con, $delete);
-
-        //     while($row = mysqli_fetch_array($delete_quary)){
-        //         if($row['SUM(Money)'] == 0){
-        //             echo 0;
-        //         }else{
-        //             echo $row['SUM(Money)'];
-        //         } 
-        //     }
-        // }
     ?>
 
     <main>
@@ -72,28 +59,28 @@
                     <div class="sidebar-navbar toggle">
                         <ul>
                             <li>
-                                <a href="../index.php" class="d-flex align-items-center"><i class='bx bxs-dashboard'></i><span>Dashboard</span></a>
+                                <a href="../index.php" class="d-flex align-items-center"><i class='bx bxs-dashboard'></i><span>控制台</span></a>
                             </li>
                             <li class="active">
                                 <a href="./incomes.php" class="d-flex align-items-center">
                                     <i class="fa-solid fa-money-check-dollar"></i>
-                                    <span>Incomes</span>
+                                    <span>收入</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="./expenses.php" class="d-flex align-items-center">
                                     <i class="fa-solid fa-dollar-sign"></i>
-                                    <span>Expenses</span>
+                                    <span>支出</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="./sum.php" class="d-flex align-items-center">
                                     <i class="fa-solid fa-sack-dollar"></i>
-                                    <span>Sum</span>
+                                    <span>總和</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="./chart.php" class="d-flex align-items-center"><i class='bx bxs-chart'></i><span>Chart</span></a>
+                                <a href="./chart.php" class="d-flex align-items-center"><i class='bx bxs-chart'></i><span>統計圖表</span></a>
                             </li>
                         </ul>
                         <div class="username-logout">
@@ -114,14 +101,14 @@
                 <div class="content-wrapper toggle">
                     <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                          <li class="breadcrumb-item"><a href="../index.php">Home</a></li>
-                          <li class="breadcrumb-item active" aria-current="page">Income</li>
+                          <li class="breadcrumb-item"><a href="../index.php">控制台</a></li>
+                          <li class="breadcrumb-item active" aria-current="page">收入</li>
                         </ol>
                     </nav>
                     <div class="add-record total-div border border-1">
                         <div class="d-flex flex-column">
                             <div class="total-text item d-flex justify-content-around">
-                                <span>Total Income</span>
+                                <span style="font-weight: 700;">總收入</span>
                                 <b class="total income-total">$<span>
                                         <?php
                                             $username = $_SESSION['name']; 
@@ -140,31 +127,31 @@
                                 </b>
                             </div>
                             <div class="add-button item text-center">
-                                <button type="button" class="btn btn-primary new-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Add New Income</button>
+                                <button type="button" class="btn btn-primary new-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">新增新收入</button>
                                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Income</h1>
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel" style="font-weight: 700;">新增新收入</h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <form action="" method="POST">
                                                     <div class="mb-3">
-                                                        <label class="col-form-label">Income Amount :</label>
+                                                        <label class="col-form-label">收入金額 :</label>
                                                         <input type="number" class="form-control" id="amount" name="amount" required>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="description" class="col-form-label">Income Description :</label>
+                                                        <label for="description" class="col-form-label">收入描述 :</label>
                                                         <input type="text" class="form-control" id="description" name="description" required>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="date" class="col-form-label">Income Date :</label>
+                                                        <label for="date" class="col-form-label">收入日期 :</label>
                                                         <input type="date" class="form-control" id="date" name="date" required>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                        <input type="submit" class="btn btn-primary" value="Submit">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                                                        <input type="submit" class="btn btn-primary" value="新增">
                                                     </div>
                                                 </form>
                                             </div>
@@ -189,10 +176,10 @@
                                                     <div class='card-date'>$row[Date_billing]</div>
                                                     <div class='btn-group'>
                                                         <div class='edit-card card-btn' onclick='editCard($row[ID])'>
-                                                            <a href='#'>E</a>
+                                                            <a href='#'>編輯</a>
                                                         </div>
                                                         <div class='delete-card card-btn' onclick='deleteCard(1,$row[ID])'>
-                                                            <a href='#'>D</a>
+                                                            <a href='#'>刪除</a>
                                                         </div> 
                                                     </div>
                                                 </div>
@@ -253,7 +240,7 @@
     <script type="module" src="../js/income_add.js"></script>
     <script src="../js/logout2.js"></script>
     <script src="../js/card_delete.js"></script>
-    <script src="../js/calculate.js"></script>
+    <script src="../js/calculate3.js"></script>
 
     <script>
         // Edit card

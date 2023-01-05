@@ -33,7 +33,7 @@
                 <div class="nav-wrapper d-flex justify-content-between align-items-center">
                     <div class="nav-logo">
                         <a href="./login.php">
-                            <span>Expense Management</span>
+                            <span>記帳管理系統</span>
                         </a>
                     </div>
                     <div class="nav-hamburger">
@@ -43,8 +43,8 @@
                     </div>
                     <div class="nav-list">
                         <ul>
-                            <li><a href="./login.php">Login</a></li>
-                            <li><a href="./register.php">Register</a></li>
+                            <li><a href="./login.php">登入</a></li>
+                            <li><a href="./register.php">註冊</a></li>
                         </ul>
                     </div>
                 </div>
@@ -57,19 +57,19 @@
             <div class="row ms-0 me-0">
                 <div class="card p-0">
                     <div class="card-header">
-                        <span>Login</span>
+                        <span style="font-weight: 700;">會員登入</span>
                     </div>
                     <div class="card-body">
                         <form  method="POST">
                             <div class="mb-3 row justify-content-center">
-                                <label for="email" class="form-label col-md-2">Email</label>
+                                <label for="email" class="form-label col-md-2">電子郵件</label>
                                 <div class="col-md-6">
                                     <input type="email" class="form-control" id="email" name="email" required>
                                     <div id="error-name"></div>
                                 </div>
                             </div>
                             <div class="mb-3 row justify-content-center">
-                                <label for="password" class="form-label col-md-2">Password</label>
+                                <label for="password" class="form-label col-md-2">密碼</label>
                                 <div class="col-md-6">
                                     <input type="password" class="form-control" id="password" name="password" required>
                                     <div id="error-name"></div>
@@ -85,10 +85,8 @@
                                 </div>
                             </div> -->
                             <div class="text-center">
-                                <input type="submit" class="form-btn" value="Login" disabled>
+                                <input type="submit" class="form-btn" value="登入" disabled>
                             </div>
-                            <!-- 忘記密碼(重設密碼)看情況 -->
-                            <!-- 第三方登入 - FB, 可做可不做 -->
                         </form>
                     </div>
                 </div>

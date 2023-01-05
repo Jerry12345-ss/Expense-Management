@@ -23,9 +23,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/style2.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/sum.css">
-    <link rel="stylesheet" href="../css/calculate.css">
+    <link rel="stylesheet" href="../css/calculate2.css">
 </head>
 <body>
     <header>
@@ -34,7 +34,7 @@
                 <div class="nav-wrapper">
                     <div class="logo">
                         <a href="../index.php">
-                            <span>Expense Management</span>
+                            <span>記帳管理系統</span>
                         </a>
                     </div>
                     <div class="sidebar-hamburger">
@@ -58,28 +58,28 @@
                     <div class="sidebar-navbar toggle">
                         <ul>
                             <li>
-                                <a href="../index.php" class="d-flex align-items-center"><i class='bx bxs-dashboard'></i><span>Dashboard</span></a>
+                                <a href="../index.php" class="d-flex align-items-center"><i class='bx bxs-dashboard'></i><span>控制台</span></a>
                             </li>
                             <li>
                                 <a href="./incomes.php" class="d-flex align-items-center">
                                     <i class="fa-solid fa-money-check-dollar"></i>
-                                    <span>Incomes</span>
+                                    <span>收入</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="./expenses.php" class="d-flex align-items-center">
                                     <i class="fa-solid fa-dollar-sign"></i>
-                                    <span>Expenses</span>
+                                    <span>支出</span>
                                 </a>
                             </li>
                             <li class="active">
                                 <a href="./sum.php" class="d-flex align-items-center">
                                     <i class="fa-solid fa-sack-dollar"></i>
-                                    <span>Sum</span>
+                                    <span>總和</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="./chart.php" class="d-flex align-items-center"><i class='bx bxs-chart'></i><span>Chart</span></a>
+                                <a href="./chart.php" class="d-flex align-items-center"><i class='bx bxs-chart'></i><span>統計圖表</span></a>
                             </li>
                         </ul>
                         <div class="username-logout">
@@ -100,15 +100,15 @@
                 <div class="content-wrapper toggle">
                     <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                          <li class="breadcrumb-item"><a href="../index.php">Home</a></li>
-                          <li class="breadcrumb-item active" aria-current="page">Sum</li>
+                          <li class="breadcrumb-item"><a href="../index.php">控制台</a></li>
+                          <li class="breadcrumb-item active" aria-current="page">總和</li>
                         </ol>
                     </nav>
                     <div class="sum-data total-div">
                         <ul class="d-flex flex-column">
-                            <li class="text-center title">All Data</li>
+                            <li class="text-center title" style="font-weight: 700;">總和資料</li>
                             <li class="d-flex justify-content-between">
-                                Total Income
+                                總收入
                                 <span class="income-total">$
                                     <?php
                                         $username = $_SESSION['name']; 
@@ -126,7 +126,7 @@
                                 </span>
                             </li>
                             <li class="d-flex justify-content-between">
-                                Total Expense
+                                總支出
                                 <span class="expense-total">$
                                     <?php
                                         $sql2 = "SELECT SUM(Money) AS Total FROM `expense` WHERE Name = '$username'";
@@ -144,7 +144,7 @@
                                 </span>
                             </li>
                             <li class="d-flex justify-content-between" style="border-bottom-left-radius: 4px; border-bottom-right-radius: 4px;">
-                                Balance
+                                結餘
                                 <span class="sum-total">$
                                     <span class="sum-total-number">
                                         <?php
@@ -245,7 +245,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
     <script type="module" src="../js/main.js"></script>
     <script src="../js/logout2.js"></script>
-    <script src="../js/calculate.js"></script>
+    <script src="../js/calculate3.js"></script>
     
     <script>
         // Check balance value to change text color

@@ -41,16 +41,6 @@
             window.location.href = '../login/login.php';
         });
         })
-        // $(window).on('load',()=>{
-        //     Swal.fire({
-        //     icon : 'warning',
-        //     title : '系統維修通知',
-        //     showCloseButton: true,
-        //     html : '<b>從2022年12月25日（日）早上10:00至下午2:00之間，將預定實施系統維修更新。期間內將無法使用所有服務。造成您的不便，敬請多多見諒。</b>',
-        //     confirmButtonText: '確定',
-        // }).then(()=>{
-        // });
-        // })
     </script>
 </body>
 </html>

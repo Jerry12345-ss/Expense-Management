@@ -23,9 +23,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/style2.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/chart3.css">
-    <link rel="stylesheet" href="../css/calculate.css">
+    <link rel="stylesheet" href="../css/calculate2.css">
 </head>
 <body>
     <header>
@@ -34,7 +34,7 @@
                 <div class="nav-wrapper">
                     <div class="logo">
                         <a href="../index.php">
-                            <span>Expense Management</span>
+                            <span>記帳管理系統</span>
                         </a>
                     </div>
                     <div class="sidebar-hamburger">
@@ -93,28 +93,28 @@
                     <div class="sidebar-navbar toggle">
                         <ul>
                             <li>
-                                <a href="../index.php" class="d-flex align-items-center"><i class='bx bxs-dashboard'></i><span>Dashboard</span></a>
+                                <a href="../index.php" class="d-flex align-items-center"><i class='bx bxs-dashboard'></i><span>控制台</span></a>
                             </li>
                             <li>
                                 <a href="./incomes.php" class="d-flex align-items-center">
                                     <i class="fa-solid fa-money-check-dollar"></i>
-                                    <span>Incomes</span>
+                                    <span>收入</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="./expenses.php" class="d-flex align-items-center">
                                     <i class="fa-solid fa-dollar-sign"></i>
-                                    <span>Expenses</span>
+                                    <span>支出</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="./sum.php" class="d-flex align-items-center">
                                     <i class="fa-solid fa-sack-dollar"></i>
-                                    <span>Sum</span>
+                                    <span>總和</span>
                                 </a>
                             </li>
                             <li class="active">
-                                <a href="./chart.php" class="d-flex align-items-center"><i class='bx bxs-chart'></i><span>Chart</span></a>
+                                <a href="./chart.php" class="d-flex align-items-center"><i class='bx bxs-chart'></i><span>統計圖表</span></a>
                             </li>
                         </ul>
                         <div class="username-logout">
@@ -135,8 +135,8 @@
                 <div class="content-wrapper toggle">
                     <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                          <li class="breadcrumb-item"><a href="../index.php">Home</a></li>
-                          <li class="breadcrumb-item active" aria-current="page">Chart</li>
+                          <li class="breadcrumb-item"><a href="../index.php">控制台</a></li>
+                          <li class="breadcrumb-item active" aria-current="page">統計圖表</li>
                         </ol>
                     </nav>
                     <div class="chart-button mb-2">
@@ -208,7 +208,7 @@
     <script type="module" src="../js/main.js"></script>
     <script src="../js/logout2.js"></script>
     <script src="../js/chart2.js"></script>
-    <script src="../js/calculate.js"></script>
+    <script src="../js/calculate3.js"></script>
 
     <script>
         // Chart Test

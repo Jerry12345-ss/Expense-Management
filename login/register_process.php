@@ -1,8 +1,6 @@
 <?php 
     include('../config.php');
 
-    // $error = "";
-
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         if(isset($_POST['email']) && isset($_POST['password']) && isset($_POST['name'])){
             $account = $_POST['email'];

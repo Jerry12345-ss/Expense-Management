@@ -24,10 +24,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./css/style2.css">
-    <link rel="stylesheet" href="./css/sum.css">
-    <link rel="stylesheet" href="./css/home.css">
-    <link rel="stylesheet" href="./css/calculate.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/sum2.css">
+    <link rel="stylesheet" href="./css/home2.css">
+    <link rel="stylesheet" href="./css/calculate2.css">
 </head>
 <body>
     <header>
@@ -36,7 +36,7 @@
                 <div class="nav-wrapper">
                     <div class="logo">
                         <a href="./index.php">
-                            <span>Expense Management</span>
+                            <span>記帳管理系統</span>
                         </a>
                     </div>
                     <div class="sidebar-hamburger">
@@ -53,10 +53,11 @@
         include('./config.php');
 
         $username = $_SESSION['name'];
+        $month = date('m');
 
-        function Total($parameter, $username, $con){
+        function Total($parameter, $username, $con, $month){
             if($parameter == 1){
-                $t_income = "SELECT SUM(Money) AS Total FROM `income` WHERE Name = '$username'";
+                $t_income = "SELECT SUM(Money) AS Total FROM `income` WHERE Name = '$username' && Month = '$month'";
                 $total_income = mysqli_query($con, $t_income);
 
                 while($row = mysqli_fetch_array($total_income)){
@@ -67,7 +68,7 @@
                     }
                 }
             }else if($parameter == 2){
-                $t_expense = "SELECT SUM(Money) AS Total FROM `expense` WHERE Name = '$username'";
+                $t_expense = "SELECT SUM(Money) AS Total FROM `expense` WHERE Name = '$username' && Month = '$month'";
                 $total_expense = mysqli_query($con, $t_expense);
                                         
                 while($row2 = mysqli_fetch_array($total_expense)){
@@ -88,28 +89,28 @@
                     <div class="sidebar-navbar toggle">
                         <ul>
                             <li class="active">
-                                <a href="./index.php" class="d-flex align-items-center"><i class='bx bxs-dashboard'></i><span>Dashboard</span></a>
+                                <a href="./index.php" class="d-flex align-items-center"><i class='bx bxs-dashboard'></i><span>控制台</span></a>
                             </li>
                             <li>
                                 <a href="./pages/incomes.php" class="d-flex align-items-center ">
                                     <i class="fa-solid fa-money-check-dollar"></i>
-                                    <span>Incomes</span>
+                                    <span>收入</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="./pages/expenses.php" class="d-flex align-items-center ">
                                     <i class="fa-solid fa-dollar-sign"></i>
-                                    <span>Expenses</span>
+                                    <span>支出</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="./pages/sum.php" class="d-flex align-items-center ">
                                     <i class="fa-solid fa-sack-dollar"></i>
-                                    <span>Sum</span>
+                                    <span>總和</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="./pages/chart.php" class="d-flex align-items-center"><i class='bx bxs-chart'></i><span>Chart</span></a>
+                                <a href="./pages/chart.php" class="d-flex align-items-center"><i class='bx bxs-chart'></i><span>統計圖表</span></a>
                             </li>
                         </ul>
                         <div class="username-logout">
@@ -130,38 +131,37 @@
                 <div class="content-wrapper toggle">
                     <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                          <li class="breadcrumb-item"><a href="./index.php">Home</a></li>
-                          <li class="breadcrumb-item active" aria-current="page">Overview</li>
+                          <li class="breadcrumb-item"><a href="./index.php">控制台</a></li>
+                          <!-- <li class="breadcrumb-item active" aria-current="page">Overview</li> -->
                         </ol>
                     </nav>
-                    <!-- 先以 sum 為主, 之後再修改程式內容 -->
                     <div class="sum-data total-div">
                         <ul class="d-flex flex-column">
-                            <li class="text-center title">This Month</li>
+                            <li class="text-center title"><?php echo $month." 月份"; ?></li>
                             <li class="d-flex justify-content-between">
-                                Total Income
+                                總收入
                                 <span class="income-total">$
                                     <?php
-                                        Total(1,$username,$con); 
+                                        Total(1,$username,$con,$month); 
                                     ?>
                                 </span>
                             </li>
                             <li class="d-flex justify-content-between">
-                                Total Expense
+                                總支出
                                 <span class="expense-total">$
                                     <?php
-                                        Total(2,$username,$con); 
+                                        Total(2,$username,$con,$month); 
                                     ?>
                                 </span>
                             </li>
                             <li class="d-flex justify-content-between" style="border-bottom-left-radius: 4px; border-bottom-right-radius: 4px;">
-                                Balance
+                                結餘
                                 <span class="sum-total">$
                                     <span class="sum-total-number">
                                         <?php
-                                            $t_income = "SELECT SUM(Money) AS Total FROM `income` WHERE Name = '$username'";
+                                            $t_income = "SELECT SUM(Money) AS Total FROM `income` WHERE Name = '$username' && Month = '$month'";
                                             $total_income = mysqli_query($con, $t_income);
-                                            $t_expense = "SELECT SUM(Money) AS Total FROM `expense` WHERE Name = '$username'";
+                                            $t_expense = "SELECT SUM(Money) AS Total FROM `expense` WHERE Name = '$username' && Month = '$month'";
                                             $total_expense = mysqli_query($con, $t_expense);                               
 
                                             $row = mysqli_fetch_assoc(($total_income));
@@ -187,12 +187,12 @@
                                                 echo $row['COUNT(Name)']; 
                                             }
                                         ?>
-                                        <span>Income</span>
+                                        <span>收入</span>
                                     </div>
                                     <div class="card-link">
                                         <a href="./pages/incomes.php">
                                             <div class="view-all d-flex justify-content-between align-items-center">
-                                                <span>View All</span>
+                                                <span>查看全部</span>
                                                 <i class='bx bx-chevron-right'></i>
                                             </div>
                                         </a>
@@ -210,12 +210,12 @@
                                                 echo $row['COUNT(Name)']; 
                                             }
                                         ?>
-                                        <span>Expense</span>
+                                        <span>支出</span>
                                     </div>
                                     <div class="card-link">
                                         <a href="./pages/expenses.php">
                                             <div class="view-all d-flex justify-content-between align-items-center">
-                                                <span>View All</span>
+                                                <span>查看全部</span>
                                                 <i class='bx bx-chevron-right'></i>
                                             </div>
                                         </a>
@@ -234,12 +234,12 @@
 
                                             echo $row['COUNT(Name)'] + $row2['COUNT(Name)'];
                                         ?>
-                                        <span>Sum</span>
+                                        <span>總和</span>
                                     </div>
                                     <div class="card-link">
                                         <a href="./pages/sum.php">
                                             <div class="view-all d-flex justify-content-between align-items-center">
-                                                <span>View All</span>
+                                                <span>查看全部</span>
                                                 <i class='bx bx-chevron-right'></i>
                                             </div>
                                         </a>
@@ -249,12 +249,12 @@
                             <div class="col-sm-6 col-lg-3 mb-3">
                                 <div class="card-new card-chart d-flex flex-column">
                                     <div class="card-nbody">
-                                        <span>Chart</span>
+                                        <span>統計圖表</span>
                                     </div>
                                     <div class="card-link">
                                         <a href="./pages/chart.php">
                                             <div class="view-all d-flex justify-content-between align-items-center">
-                                                <span>View All</span>
+                                                <span>查看全部</span>
                                                 <i class='bx bx-chevron-right'></i>
                                             </div>
                                         </a>
@@ -265,9 +265,9 @@
                     </div>
                     <div class="chart-div" style="overflow-x: scroll;">
                         <div class="d-flex flex-column border border-1" style="border-radius: 4px;">
-                            <div class="chart-title d-flex align-items-center">
+                            <div class="chart-title d-flex align-items-center justify-content-center">
                                 <i class='bx bxs-pie-chart-alt-2 me-2' style="font-size: 25px;"></i>
-                                <span>This is title</span>
+                                <span style="font-weight: 700;"><?php echo $month." 月份統計圖表"; ?></span>
                             </div>
                             <div class="chart-content">
                                 <div class="chart-container">
@@ -321,7 +321,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="module" src="./js/main.js"></script>
-    <script src="./js/calculate.js"></script>
+    <script src="./js/calculate3.js"></script>
 
     <script>
         const log_out = document.querySelector('.bx-log-out');
@@ -356,8 +356,8 @@
         let canvas = document.querySelector('#canvasPie');
         let ctx = canvas.getContext('2d');
 
-        let chart_income = '<?php Total(1,$username,$con); ?>';
-        let chart_expense = '<?php Total(2,$username,$con); ?>';
+        let chart_income = '<?php Total(1,$username,$con,$month); ?>';
+        let chart_expense = '<?php Total(2,$username,$con,$month); ?>';
 
         const data = {
         labels: ['expense', 'income'],
