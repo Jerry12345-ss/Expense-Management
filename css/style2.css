@@ -234,6 +234,11 @@ main .wrapper .content-wrapper .record-content{
 main .wrapper .content-wrapper .record-content .card{
   color: white;
   text-shadow: rgb(103, 103, 103) 0.1em 0.1em 0.05em;
+  transition: 0.3s;
+}
+
+main .wrapper .content-wrapper .record-content .card:hover{
+  transform: translate(0, -8px);
 }
 
 main .wrapper .content-wrapper .record-content .card .card-header .card-btn{

@@ -24,8 +24,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/sum2.css">
+    <link rel="stylesheet" href="./css/style2.css">
+    <link rel="stylesheet" href="./css/sum.css">
     <link rel="stylesheet" href="./css/home2.css">
     <link rel="stylesheet" href="./css/calculate2.css">
 </head>
@@ -271,7 +271,7 @@
                             </div>
                             <div class="chart-content">
                                 <div class="chart-container">
-                                    <canvas id="canvasPie"></canvas>
+                                    <canvas id="canvasPie" style="width: 400px; height:400px;"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -279,7 +279,7 @@
                 </div>
             </div>
         </div>
-        <button class="calculate-button">
+        <button class="calculate-button" title="計算機">
             <i class='bx bxs-calculator bx-sm' style="font-size: 1.7rem;"></i>
         </button>
         <div class="calculate-content">
@@ -319,9 +319,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.js"></script>
     <script type="module" src="./js/main.js"></script>
-    <script src="./js/calculate3.js"></script>
+    <script src="./js/calculate.js"></script>
 
     <script>
         const log_out = document.querySelector('.bx-log-out');
@@ -385,7 +385,7 @@
                         display: true,
                         text: 'Chart.js Pie Chart'
                     },
-                    // rotation: -0.7 * Math.PI
+                    rotation: -0.7 * Math.PI
                 }
             },
         });

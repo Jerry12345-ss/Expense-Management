@@ -20,8 +20,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style2.css">
     <link rel="stylesheet" href="../css/income.css">
+    <link rel="stylesheet" href="../css/calculate2.css">
 </head>
 <body>
     <header>
@@ -135,6 +136,35 @@
                 </div>
             </div>
         </div>
+        <button class="calculate-button" title="計算機">
+            <i class='bx bxs-calculator bx-sm' style="font-size: 1.7rem;"></i>
+        </button>
+        <div class="calculate-content">
+            <div class="calculate">
+                <div class="output">
+                    <div data-previous-operand class="previous-operand"></div>
+                    <div data-current-operand class="current-operand"></div>
+                </div>
+                <button class="span-two symbol clearAll" data-value="AC" id="clearAll">AC</button>
+                <button class="symbol clear" data-value="DEL" id="clear">DEL</button>
+                <button class="operator divide" data-value="/">÷</button>
+                <button class="number number7" data-value="7">7</button>
+                <button class="number number8" data-value="8">8</button>
+                <button class="number number9" data-value="9">9</button>
+                <button class="operator multiply" data-value="*">x</button>
+                <button class="number number4" data-value="4">4</button>
+                <button class="number number5" data-value="5">5</button>
+                <button class="number number6" data-value="6">6</button>
+                <button class="operator minus" data-value="-">-</button>
+                <button class="number number1" data-value="1">1</button>
+                <button class="number number2" data-value="2">2</button>
+                <button class="number number3" data-value="3">3</button>
+                <button class="operator add" data-value="+">+</button>
+                <button class="number number0" data-value="0">0</button>
+                <button class="number dot" data-value=".">.</button>
+                <button class="span-two symbol equal" data-value="=" id="equal">=</button>
+            </div>
+        </div>
     </main>
 
     <!-- jQuey -->
@@ -149,10 +179,6 @@
     <script type="module" src="../js/main5.js"></script>
     <script type="module" src="../js/income_edit.js"></script>
     <script src="../js/logout2.js"></script>
-    <script>
-        // let date = "<?php //echo $row['Date_billing']?>";
-        // //console.log(date);
-        // document.getElementById('date').defaultValue = date;
-    </script>
+    <script src="../js/calculate3.js"></script>
 </body>
 </html>

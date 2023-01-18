@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style2.css">
     <link rel="stylesheet" href="../css/income.css">
     <link rel="stylesheet" href="../css/calculate2.css">
 </head>
@@ -169,7 +169,7 @@
                                 while($row = mysqli_fetch_array($query))
                                 {
                                     echo "
-                                        <div class='col-sm-6 col-lg-4 mb-3'>
+                                        <div class='col-sm-6 col-lg-4 mb-4'>
                                             <div class='card expense_card' id='$row[ID]'>
                                                 <div class='card-date card-header d-flex justify-content-between align-items-center'>
                                                     <div class='card-date'>$row[Date_billing]</div>
@@ -195,7 +195,7 @@
                 </div>
             </div>
         </div>
-        <button class="calculate-button">
+        <button class="calculate-button" title="計算機">
             <i class='bx bxs-calculator bx-sm' style="font-size: 1.7rem;"></i>
         </button>
         <div class="calculate-content">
