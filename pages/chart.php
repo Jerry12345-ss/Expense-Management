@@ -81,11 +81,6 @@
         }
 
         $result = count($array_month_income) > count($array_month_expense) ? $array_month_income : $array_month_expense;
-
-        // print_r($array_month_expense);
-        // print_r($array_month_income);
-        // print_r($array_sum_expense);
-        // print_r($array_sum_income);
     ?>
 
     <main>
@@ -225,20 +220,8 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <button class="test">查詢</button>
                     </div>
-                    <!-- <div class="chart-button mb-2">
-                        <div class="d-flex justify-content-end">
-                            <div class="button-sections">
-                                <button onclick="createDoughnut()" data-type="doughnut" >Doughnut</button>
-                                <button onclick="createBar()" data-type="bar">Groupd Bar</button>
-                                <button onclick="createLine()" data-type="line">Line</button>
-                                <button onclick="createMixed()" data-type="mixed">Mixed</button>
-                            </div>
-                        </div>
-                    </div> -->
-
-                    <!-- <button>export</button> -->
-
                     <div class="chart-div" style="overflow-x: scroll;">
                         <div class="border border-1" style="border-radius: 4px;">
                             <div class="chart-content">
@@ -298,7 +281,7 @@
     <script type="module" src="../js/main.js"></script>
     <script src="../js/logout2.js"></script>
     <script src="../js/chart2.js"></script>
-    <script src="../js/calculate3.js"></script>
+    <script src="../js/calculate2.js"></script>
 
     <script>
         // Select 
@@ -306,29 +289,34 @@
         let month_prev = document.querySelector('#month_prev');
         let month_fol = document.querySelector('#month_fol');
 
+        let data_year = '';
+        let data_month_prev = '';
+        let data_month_fol = '';
+
         year.addEventListener('change',()=>{
             console.log(year.value.slice(0,-1));
-            //console.log(parseInt(year.value));
+            data_year = year.value.slice(0,-1);
         });
 
         month_prev.addEventListener('change',()=>{
             console.log(month_prev.value.slice(0,-1));
+            data_month_prev = month_prev.value.slice(0,-1);
         });
 
         month_fol.addEventListener('change',()=>{
             console.log(month_fol.value.slice(0,-1));
+            data_month_fol = month_fol.value.slice(0,-1);
         });
 
-        const month = ['01','02','03','04','05','06',];
         // Chart Test
         const ctg = document.getElementById('canvasDoughnut');
         const ctx = document.getElementById('canvasBar');
         const ctl = document.getElementById('canvasLine');
 
-        // let array_month_income = <?php echo json_encode($array_month_income);?>;
-        // let array_month_expense = <?php echo json_encode($array_month_expense);?>;
-        // let array_sum_income = <?php echo json_encode($array_sum_income);?>;
-        // let array_sum_expense = <?php echo json_encode($array_sum_expense);?>;
+        let array_month_income = <?php echo json_encode($array_month_income);?>;
+        let array_month_expense = <?php echo json_encode($array_month_expense);?>;
+        let array_sum_income = <?php echo json_encode($array_sum_income);?>;
+        let array_sum_expense = <?php echo json_encode($array_sum_expense);?>;
         
         // let result_month = (array_month_income.length > array_month_expense.length ? array_month_income : array_month_expense);
 
@@ -385,12 +373,12 @@
             const mychart = new Chart(ctx,{
                 type : 'bar',
                 data : {
-                    // labels : array_month_expense,
+                    labels : array_month_income,
                     datasets : [
                         {
                             fill: true,
                             label : 'Income',
-                            // data : array_sum_income,
+                             data : array_sum_income,
                             backgroundColor : 'rgb(54, 162, 235)',
                             borderColor : 'rgb(54, 162, 235)',
                             borderWidth : 1
@@ -398,7 +386,7 @@
                         {
                             fill: true,
                             label : 'Expense',
-                            // data : array_sum_expense,
+                             data : array_sum_expense,
                             backgroundColor : 'rgb(255, 99, 132)',
                             borderColor : 'rgb(255, 99, 132)',
                             borderWidth : 1
@@ -473,6 +461,19 @@
         }
 
         const createMixed = () =>{}
+
+        $('.test').on('click',()=>{
+            $.ajax({
+                url : `../test.php?year=${data_year}&prev=${data_month_prev}&fol=${data_month_fol}`,
+                type : 'GET',
+                success : (response)=>{
+                    console.log(response)
+                },
+                error : (error)=>{
+                    console.log(error);
+                }
+            })
+        })
     </script>
 </body>
 </html>

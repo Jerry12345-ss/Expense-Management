@@ -24,7 +24,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
 
-    <link rel="stylesheet" href="../css/style2.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/income.css">
     <link rel="stylesheet" href="../css/calculate2.css">
 </head>
@@ -162,16 +162,26 @@
                         </div>
                     </div>
                     <div class="record-content">
+                        <div class="filter" style="text-align: end;">
+                                <button class="desc">desc</button>
+                                <button class="asc">asc</button>
+                        </div>
                         <div class="row">
                             <?php
-                                $sql = "SELECT * FROM `income` WHERE Name = '$username' ORDER BY `Date_billing` DESC, `Time_create` DESC";
+                                // $variable = 'DESC';
+
+                                // if(isset($_GET['order'])){
+                                //     $variable = $_GET['order'];
+                                // }
+
+                                $sql = "SELECT * FROM `income` WHERE Name = '$username' ORDER BY `Date_billing` DESC , `Time_create` DESC";
                                 $query = mysqli_query($con, $sql);
 
                                 while($row = mysqli_fetch_array($query))
                                 {
                                     echo "
                                         <div class='col-sm-6 col-lg-4 mb-4'>
-                                            <div class='card income_card' id='$row[ID]'>
+                                            <div class='card income_card $row[Month]' id='$row[ID]' data-month='$row[Month]'>
                                                 <div class='card-date card-header d-flex justify-content-between align-items-center'>
                                                     <div class='card-date'>$row[Date_billing]</div>
                                                     <div class='btn-group'>
@@ -240,13 +250,42 @@
     <script type="module" src="../js/income_add.js"></script>
     <script src="../js/logout2.js"></script>
     <script src="../js/card_delete.js"></script>
-    <script src="../js/calculate3.js"></script>
+    <script src="../js/calculate2.js"></script>
+    <!-- <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script> -->
 
     <script>
         // Edit card
         const editCard = (id) =>{
             window.location.href = `../pages/incomes_change.php?id=${id}`;
         }
+
+        // let order = '';
+
+        // $('.desc').click(()=>{
+        //     $.ajax({
+        //         url : './incomes.php?order=DESC',
+        //         type : "POST",
+        //         success : (response)=>{
+        //             window.location.href = './incomes.php?order=DESC'
+        //         },
+        //         error : (error)=>{
+        //             console.log('error');
+        //         }
+        //     })
+        // })
+
+        // $('.asc').click(()=>{
+        //     $.ajax({
+        //         url : './incomes.php?order=ASC',
+        //         type : "POST",
+        //         success : (response)=>{
+        //             window.location.href = './incomes.php?order=ASC'
+        //         },
+        //         error : (error)=>{
+        //             console.log('error');
+        //         }
+        //     })
+        // })
     </script>
 </body>
 </html>
