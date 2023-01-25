@@ -9,6 +9,7 @@
     $description = $_POST['description'];
     $date = $_POST['date'];
     $month = date("m",strtotime($date));
+    $year = date("Y",strtotime($date));
     $username = $_SESSION['name'];
 
     // Get request parameter ( 1 => income , 2 => expense )
@@ -29,16 +30,16 @@
     // Check request parameter
     if($request == 1){
         if($action == "insert"){
-            $sql = "INSERT INTO income(Name, Type, Money, Description, Date_billing, Month) VALUES('$username', 'income', '$amount', '$description', '$date', '$month')";
+            $sql = "INSERT INTO income(Name, Type, Money, Description, Date_billing, Year, Month) VALUES('$username', 'income', '$amount', '$description', '$date', '$year', '$month')";
         }else if($action == "update"){
-            $sql = "UPDATE income SET Money = '$amount', Description = '$description', Date_billing = '$date' WHERE ID = '$id'";
+            $sql = "UPDATE income SET Money = '$amount', Description = '$description', Date_billing = '$date', Year = '$year', Month = '$month' WHERE ID = '$id'";
             echo $id;
         }
     }else if($request == 2){
         if($action == "insert"){
-            $sql = "INSERT INTO expense(Name, Type, Money, Description, Date_billing, Month) VALUES('$username', 'expense', '$amount', '$description', '$date', '$month')";
+            $sql = "INSERT INTO expense(Name, Type, Money, Description, Date_billing, Year, Month) VALUES('$username', 'expense', '$amount', '$description', '$date', '$year', '$month')";
         }else if($action == "update"){
-            $sql = "UPDATE expense SET Money = '$amount', Description = '$description', Date_billing = '$date' WHERE ID = '$id'";
+            $sql = "UPDATE expense SET Money = '$amount', Description = '$description', Date_billing = '$date', Year = '$year', Month = '$month' WHERE ID = '$id'";
         }
     }else{
         echo "SQL syntax error !";

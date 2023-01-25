@@ -246,11 +246,11 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
-    <script type="module" src="../js/main.js"></script>
-    <script type="module" src="../js/income_add.js"></script>
+    <script type="module" src="../js/main2.js"></script>
+    <script type="module" src="../js/income_add2.js"></script>
     <script src="../js/logout2.js"></script>
     <script src="../js/card_delete.js"></script>
-    <script src="../js/calculate2.js"></script>
+    <script src="../js/calculate.js"></script>
     <!-- <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script> -->
 
     <script>

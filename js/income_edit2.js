@@ -1,4 +1,4 @@
-import { Form_check, Date_setting } from "./main.js";
+import { Form_check, Date_setting } from "./main2.js";
 
 let today = Date_setting();
 

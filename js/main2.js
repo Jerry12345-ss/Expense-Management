@@ -38,7 +38,9 @@ export function Form_check(file_name, parameter, action, today){
             amount : amount_val.value,
             description : description_val.value,
             date : date_val.value,
+            // year : new Date(date_val.value).getFullYear()
         };
+
 
         if(formData.date > today){
             Swal.fire({
