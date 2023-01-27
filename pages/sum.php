@@ -92,7 +92,7 @@
                                         ?>
                                     </span>
                                 </div>
-                                <i class="bx bx-log-out"></i>
+                                <i class="bx bx-log-out" onclick="logout(1)"></i>
                             </div>
                         </div>
                     </div>
@@ -167,35 +167,45 @@
                                 $sql = "SELECT * FROM `income` WHERE Name = '$username' UNION SELECT * FROM `expense` WHERE Name = '$username' ORDER BY `Date_billing` DESC, `Time_create` DESC";
                                 $query = mysqli_query($con, $sql);
 
-                                while($row = mysqli_fetch_array($query))
-                                {
-                                    if($row['Type'] == 'income'){
-                                        echo "
-                                        <div class='col-sm-6 col-lg-4 mb-4'>
-                                            <div class='card income_card'>
-                                                <div class='card-date card-header d-flex justify-content-between align-items-center'>
-                                                    <div class='card-date'>$row[Date_billing]</div>
+                                if(mysqli_num_rows($query) > 0){
+                                    while($row = mysqli_fetch_array($query))
+                                    {
+                                        if($row['Type'] == 'income'){
+                                            echo "
+                                            <div class='col-sm-6 col-lg-4 mb-4'>
+                                                <div class='card income_card'>
+                                                    <div class='card-date card-header d-flex justify-content-between align-items-center'>
+                                                        <div class='card-date'>$row[Date_billing]</div>
+                                                    </div>
+                                                    <div class='card-body d-flex justify-content-between'>
+                                                        <div class='card-description'>$row[Description]</div>
+                                                        <div calss='card-amount' style='font-weight:600'>$ $row[Money]</div>
+                                                    </div>
                                                 </div>
-                                                <div class='card-body d-flex justify-content-between'>
-                                                    <div class='card-description'>$row[Description]</div>
-                                                    <div calss='card-amount' style='font-weight:600'>$ $row[Money]</div>
+                                            </div>";
+                                        }else if($row['Type'] == 'expense'){
+                                            echo "
+                                            <div class='col-sm-6 col-lg-4 mb-4'>
+                                                <div class='card expense_card'>
+                                                    <div class='card-date card-header d-flex justify-content-between align-items-center'>
+                                                        <div class='card-date'>$row[Date_billing]</div>
+                                                    </div>
+                                                    <div class='card-body d-flex justify-content-between'>
+                                                        <div class='card-description'>$row[Description]</div>
+                                                        <div calss='card-amount' style='font-weight:600'>$ $row[Money]</div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>";
-                                    }else if($row['Type'] == 'expense'){
-                                        echo "
-                                        <div class='col-sm-6 col-lg-4 mb-4'>
-                                            <div class='card expense_card'>
-                                                <div class='card-date card-header d-flex justify-content-between align-items-center'>
-                                                    <div class='card-date'>$row[Date_billing]</div>
-                                                </div>
-                                                <div class='card-body d-flex justify-content-between'>
-                                                    <div class='card-description'>$row[Description]</div>
-                                                    <div calss='card-amount' style='font-weight:600'>$ $row[Money]</div>
-                                                </div>
-                                            </div>
-                                        </div>";
+                                            </div>";
+                                        }
                                     }
+                                }else{
+                                    echo "
+                                        <div>
+                                            <div style='text-align: center; margin: 2rem; padding: 2rem; border: 1px solid rgb(225, 223, 223); border-radius: 4px;'>
+                                                <h1>尚未有收入/支出的資料!</h1>
+                                            </div>
+                                        </div>
+                                    ";
                                 }
                             ?>
                         </div>
@@ -244,7 +254,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
     <script type="module" src="../js/main2.js"></script>
-    <script src="../js/logout2.js"></script>
+    <script src="../js/logout.js"></script>
     <script src="../js/calculate.js"></script>
     
     <script>

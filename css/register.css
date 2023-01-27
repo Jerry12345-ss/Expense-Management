@@ -132,6 +132,19 @@ main .card .form-btn:disabled{
     cursor: not-allowed;
 }
 
+main .card .forget-password{
+    color: #1877f2;
+    text-align: center;
+}
+
+main .card .forget-password a{
+    text-decoration: none;
+}
+
+main .card .forget-password a:hover{
+    text-decoration: underline;
+}
+
 main .error-message .error{
     border-radius: 4px;
     background-color:#fcd4d1;
@@ -160,6 +173,7 @@ main .success-message .register-success{
 }
 
 @media screen and (min-width:576px){
+    /* Navbar */
     .nav-wrapper{
         flex-wrap: nowrap;
     }
@@ -180,5 +194,12 @@ main .success-message .register-success{
 
     .nav-wrapper .nav-list ul li{
         padding: 24px;
+    }
+}
+
+@media screen and (min-width:768px){
+    /* Main */
+    main .card .forget-password{
+        text-align: end;
     }
 }

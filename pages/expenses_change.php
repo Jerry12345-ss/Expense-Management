@@ -98,7 +98,7 @@
                                         ?>
                                     </span>
                                 </div>
-                                <i class="bx bx-log-out"></i>
+                                <i class="bx bx-log-out" onclick="logout(1)"></i>
                             </div>
                         </div>
                     </div>
@@ -178,7 +178,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
     <script type="module" src="../js/main2.js"></script>
     <script type="module" src="../js/expense_edit2.js"></script>
-    <script src="../js/logout2.js"></script>
+    <script src="../js/logout.js"></script>
     <script src="../js/calculate.js"></script>
 </body>
 </html>

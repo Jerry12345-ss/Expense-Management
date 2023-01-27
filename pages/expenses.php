@@ -92,7 +92,7 @@
                                         ?>
                                     </span>
                                 </div>
-                                <i class="bx bx-log-out"></i>
+                                <i class="bx bx-log-out" onclick="logout(1)"></i>
                             </div>
                         </div>
                     </div>
@@ -166,28 +166,38 @@
                                 $sql = "SELECT * FROM `expense` WHERE Name = '$username' ORDER BY `Date_billing` DESC, `Time_create` DESC";
                                 $query = mysqli_query($con, $sql);
 
-                                while($row = mysqli_fetch_array($query))
-                                {
-                                    echo "
-                                        <div class='col-sm-6 col-lg-4 mb-4'>
-                                            <div class='card expense_card' id='$row[ID]'>
-                                                <div class='card-date card-header d-flex justify-content-between align-items-center'>
-                                                    <div class='card-date'>$row[Date_billing]</div>
-                                                    <div class='btn-group'>
-                                                        <div class='edit-card card-btn' onclick='editCard($row[ID])'>
-                                                            <a href='#'>編輯</a>
+                                if(mysqli_num_rows($query) > 0){
+                                    while($row = mysqli_fetch_array($query))
+                                    {
+                                        echo "
+                                            <div class='col-sm-6 col-lg-4 mb-4'>
+                                                <div class='card expense_card' id='$row[ID]'>
+                                                    <div class='card-date card-header d-flex justify-content-between align-items-center'>
+                                                        <div class='card-date'>$row[Date_billing]</div>
+                                                        <div class='btn-group'>
+                                                            <div class='edit-card card-btn' onclick='editCard($row[ID])'>
+                                                                <a href='#'>編輯</a>
+                                                            </div>
+                                                            <div class='delete-card card-btn' onclick='deleteCard(2,$row[ID])'>
+                                                                <a href='#'>刪除</a>
+                                                            </div> 
                                                         </div>
-                                                        <div class='delete-card card-btn' onclick='deleteCard(2,$row[ID])'>
-                                                            <a href='#'>刪除</a>
-                                                        </div> 
+                                                    </div>
+                                                    <div class='card-body d-flex justify-content-between'>
+                                                        <div class='card-description'>$row[Description]</div>
+                                                        <div calss='card-amount' style='font-weight:600'>$ $row[Money]</div>
                                                     </div>
                                                 </div>
-                                                <div class='card-body d-flex justify-content-between'>
-                                                    <div class='card-description'>$row[Description]</div>
-                                                    <div calss='card-amount' style='font-weight:600'>$ $row[Money]</div>
-                                                </div>
+                                            </div>";
+                                    }
+                                }else{
+                                    echo "
+                                        <div>
+                                            <div style='text-align: center; margin: 2rem; padding: 2rem; border: 1px solid rgb(225, 223, 223); border-radius: 4px;'>
+                                                <h1>尚未有支出的資料!</h1>
                                             </div>
-                                        </div>";
+                                        </div>
+                                    ";
                                 }
                             ?>
                         </div>
@@ -237,7 +247,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
     <script type="module" src="../js/main2.js"></script>
     <script type="module" src="../js/expense_add2.js"></script>
-    <script src="../js/logout2.js"></script>
+    <script src="../js/logout.js"></script>
     <script src="../js/card_delete.js"></script>
     <script src="../js/calculate.js"></script>
 

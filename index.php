@@ -123,7 +123,7 @@
                                         ?>
                                     </span>
                                 </div>
-                                <i class="bx bx-log-out "></i>
+                                <i class="bx bx-log-out" onclick="logout(0)"></i>
                             </div>
                         </div>
                     </div>
@@ -132,7 +132,7 @@
                     <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
                         <ol class="breadcrumb">
                           <li class="breadcrumb-item"><a href="./index.php">控制台</a></li>
-                          <!-- <li class="breadcrumb-item active" aria-current="page">Overview</li> -->
+
                         </ol>
                     </nav>
                     <div class="sum-data total-div">
@@ -321,37 +321,10 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.js"></script>
     <script type="module" src="./js/main2.js"></script>
+    <script src="./js/logout.js"></script>
     <script src="./js/calculate.js"></script>
 
     <script>
-        const log_out = document.querySelector('.bx-log-out');
-
-        log_out.addEventListener('click',()=>{
-            Swal.fire({
-                icon : 'question',
-                title : '您確定要登出嗎 ?',
-                showCloseButton: true,
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: 'indianred',
-                confirmButtonText: '確定',
-                cancelButtonText: '取消',
-            }).then((result) => {
-                if(result.isConfirmed){
-                    $.ajax({
-                        url : `./login/logout.php`,
-                        type : 'POST',
-                        success : ()=>{
-                            window.location.href = './login/login.php'
-                        },
-                        error : (error)=>{
-                            console.log(error);
-                        }
-                    })
-                }
-            });
-        });
-
         // Chart Test
         let canvas = document.querySelector('#canvasPie');
         let ctx = canvas.getContext('2d');

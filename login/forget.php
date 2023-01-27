@@ -57,7 +57,7 @@
             <div class="row ms-0 me-0">
                 <div class="card p-0">
                     <div class="card-header">
-                        <span style="font-weight: 700;">會員登入</span>
+                        <span style="font-weight: 700;">忘記密碼</span>
                     </div>
                     <div class="card-body">
                         <form  method="POST">
@@ -68,21 +68,8 @@
                                     <div id="error-name"></div>
                                 </div>
                             </div>
-                            <div class="mb-3 row justify-content-center">
-                                <label for="password" class="form-label col-md-2">密碼</label>
-                                <div class="col-md-6">
-                                    <input type="password" class="form-control" id="password" name="password" required>
-                                    <div id="error-name"></div>
-                                </div>
-                            </div>
-                            <div class="row justify-content-center">
-                                <div class="col-md-2"></div>
-                                <div class="col-md-6 forget-password">
-                                    <a href="./forget.php">忘記密碼</a>
-                                </div>
-                            </div>
                             <div class="text-center">
-                                <input type="submit" class="form-btn" value="登入" disabled>
+                                <input type="submit" class="form-btn" value="傳送驗證碼" disabled>
                             </div>
                         </form>
                     </div>
