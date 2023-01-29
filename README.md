@@ -14,4 +14,9 @@
 
 
     ** 蝦皮 與 momo 網站都是只有內容更新，上面設定不更新 => 是不是使用 ajax ?
+    ** 忘記密碼的設計可以參考 adidas 的設計 => https://www.adidas.com.tw/login
+
+    ** PHPMailer 的解法 => https://stackoverflow.com/questions/72113637/how-to-use-phpmailer-after-30-may-2022-when-less-secure-app-is-no-longer-an-o
+
+    ** 應用程式密碼 : https://ithelp.ithome.com.tw/articles/10254488
 -->

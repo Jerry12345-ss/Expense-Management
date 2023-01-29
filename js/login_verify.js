@@ -102,7 +102,8 @@ const Handler = (res) =>{
             <div class='error'>
                 <p>${res}</p>
             </div>
-        `
+        `;
+        
         email_input.value = "";
         password_input.value = "";
     }

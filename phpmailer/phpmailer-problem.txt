@@ -1,0 +1,3 @@
+參照網路上別人2021 PHPMailer 檔案發現無問題,
+但拿現在2022 最新 Github 上的檔案有問題,結果找出 PHPMailer 3598 line : 必須把後面的 FILTER_VALIDATE_URL 刪除即可運作
+

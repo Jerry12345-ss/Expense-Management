@@ -19,10 +19,6 @@
                 
                 // verify password
                 if(password_verify($password, $row['Password'])){
-                    // if( isset($_POST['remember'])){
-                    //     setcookie('email', $email);
-                    //     setcookie('password', $password);
-                    // }
                     echo "登入成功";
 
                     // get IP location

@@ -61,14 +61,14 @@
                     </div>
                     <div class="card-body">
                         <form  method="POST">
-                            <div class="mb-3 row justify-content-center">
+                            <div class="mb-3 row justify-content-center align-items-baseline">
                                 <label for="email" class="form-label col-md-2">電子郵件</label>
                                 <div class="col-md-6">
                                     <input type="email" class="form-control" id="email" name="email" required>
                                     <div id="error-name"></div>
                                 </div>
                             </div>
-                            <div class="mb-3 row justify-content-center">
+                            <div class="mb-3 row justify-content-center align-items-baseline">
                                 <label for="password" class="form-label col-md-2">密碼</label>
                                 <div class="col-md-6">
                                     <input type="password" class="form-control" id="password" name="password" required>
