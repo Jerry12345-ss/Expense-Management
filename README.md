@@ -19,4 +19,6 @@
     ** PHPMailer 的解法 => https://stackoverflow.com/questions/72113637/how-to-use-phpmailer-after-30-may-2022-when-less-secure-app-is-no-longer-an-o
 
     ** 應用程式密碼 : https://ithelp.ithome.com.tw/articles/10254488
+
+    ** insert data to database / 10 minutes expire -> input verified code page -> reset user password 
 -->

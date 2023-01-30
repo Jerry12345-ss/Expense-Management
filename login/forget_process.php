@@ -14,6 +14,9 @@
     // session start
     session_start();
 
+    // set default timezone 
+    date_default_timezone_set('Asia/Taipei');
+
     if($_SERVER['REQUEST_METHOD'] === "POST"){
         if(isset($_POST['email'])){
             $email = $_POST['email'];
@@ -22,6 +25,11 @@
             if(filter_var($email, FILTER_VALIDATE_EMAIL) === false){
                 echo 0;
             }else{
+                // $Unix_time = strtotime(date('Y-m-d H:i:s'));
+                // $new_time = $Unix_time + (60*1);
+                // $format_time = date('Y-m-d H:i:s',$new_time);
+                // echo $format_time;
+                
                 $mail = new PHPMailer();
 
                 $mail -> IsSMTP();
@@ -30,25 +38,25 @@
                 $mail -> SMTPSecure = 'tls';
                 $mail -> Port = '587';
 
+                $mail -> CharSet = 'UTF-8';
                 $mail -> Username = 'justway123456@gmail.com';
-                $mail -> Password = '27936702';
+                $mail -> Password = 'qztpddhrjzxjewsh';
                 $mail -> From = 'justway123456@gmail.com';
                 $mail -> FromName = 'Expense Management';
                 
                 $mail -> addAddress($email);
 
-                $output='<p>Dear user,</p>';
-                $output.='<p>Please click on the following link to reset your password.</p>';
+                $output='<p>親愛的用戶您好，</p>';
+                $output.='<p>非常感謝您使用本系統之服務，我們已收到您重設密碼的申請，以下為您的驗證碼 : </p>';
+                $output.='<p><h2>123456</h2></p>';
+                $output.='<p>※ 此驗證碼有效期限為10分鐘，敬請於期限內使用。</p>';  
+                $output.='<p>若你對此操作沒有印象，可能是有人未經許可使用了你的信箱，或嘗試盜用你的帳號。為保護你的帳號安全，請勿與其他人分享你的驗證碼。</p>';	
                 $output.='<p>-------------------------------------------------------------</p>';
-                $output.='<p>Please be sure to copy the entire link into your browser.
-                The link will expire after 1 day for security reason.</p>';
-                $output.='<p>If you did not request this forgotten password email, no action 
-                is needed, your password will not be reset. However, you may want to log into 
-                your account and change your security password as someone may have guessed it.</p>';   	
-                $output.='<p>Thanks,</p>';
-                $output.='<p>AllPHPTricks Team</p>';
+                $output.='<p>本郵件為自動送出，請勿直接回覆。</p>';
+                $output.='<p>如果有任何疑問，請透過以下信箱聯絡我們 : </p>';
+                $output.='<p>justway123456@gmail.com</p>';
                 $body = $output; 
-                $subject = "Password Recovery - AllPHPTricks.com";
+                $subject = "[Expense Management]電子郵件驗證";
 
                 $mail -> isHTML(true);
                 $mail -> Subject = $subject;
