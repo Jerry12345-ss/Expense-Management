@@ -1,7 +1,8 @@
 let email_input = document.querySelector('#email');
 let error_div = document.querySelector('.error-message');
 
-document.querySelector('.card-body form').addEventListener('submit',(event)=>{
+// Forget password From ( input email )
+document.querySelector('.card-body .forget_form').addEventListener('submit',(event)=>{
     let email = email_input.value;
 
     if(email === ''){
@@ -22,7 +23,16 @@ document.querySelector('.card-body form').addEventListener('submit',(event)=>{
                             <p>無效的電子郵件</p>
                         </div>
                     `; 
+                }else if(response === '1'){
+                    error_div.innerHTML = `
+                        <div class='error'>
+                            <p>此電子郵件尚未註冊</p>
+                        </div>
+                    `; 
+                }else if(response === 'success'){
+                    window.location.href = '../login/verifyEmail.php'
                 }else{
+                    // Mail could not be sent
                     console.log(response);
                 }
             },
@@ -33,4 +43,4 @@ document.querySelector('.card-body form').addEventListener('submit',(event)=>{
     }
 
     event.preventDefault();
-})
+});

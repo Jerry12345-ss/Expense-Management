@@ -1,3 +1,12 @@
+<?php
+    include_once('./verifyEmail_process.php');
+    // 如果已登入過，將會自動跳轉至 index.php (瀏覽器未關閉過的情況下)
+    session_start();
+    if(isset($_SESSION["login"]) && $_SESSION["login"] === true){
+        header("Location: ../index.php");
+        exit(); 
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,44 +54,43 @@
     </header>
     <main>
         <div class="container">
-            <div class="error-message"></div>
+        <div class="error-message"></div>
+        <?php
+            if(isset($_SESSION['message'])){
+                ?>
+                <div id="alert" style="border-radius: 4px; background-color: rgb(152, 241, 152); color: forestgreen;">
+                    <p style="padding: 1rem; margin-top:0; margin-bottom: 1rem;">
+                        <?php echo $_SESSION['message']; ?>
+                    </p>
+                </div>
+                <?php
+            }
+        ?>
+        <?php
+            if($errors > 0){
+                foreach($errors AS $displayErrors){
+                ?>
+                <div id="alert"><?php echo $displayErrors; ?></div>
+                <?php
+                }
+            }
+        ?> 
             <div class="row ms-0 me-0">
                 <div class="card p-0">
                     <div class="card-header">
-                        <span style="font-weight: 700;">會員註冊</span>
+                        <span style="font-weight: 700;">信箱驗證</span>
                     </div>
                     <div class="card-body">
-                        <form  method="POST">
-                            <div class="mb-3 row justify-content-center">
-                                <label for="name" class="form-label col-md-2">使用者名稱</label>
+                        <form  class="verify_form" method="POST" action="verifyEmail.php">
+                            <div class="mb-3 row justify-content-center align-items-baseline">
+                                <label for="code" class="form-label col-md-2">驗證碼</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" id="name" name="name" required>
-                                    <div id="error-name"></div>
-                                </div>
-                            </div>
-                            <div class="mb-3 row justify-content-center">
-                                <label for="email" class="form-label col-md-2">電子郵件</label>
-                                <div class="col-md-6">
-                                    <input type="email" class="form-control" id="email" name="email" required>
-                                    <div id="error-name"></div>
-                                </div>
-                            </div>
-                            <div class="mb-3 row justify-content-center">
-                                <label for="password" class="form-label col-md-2">密碼</label>
-                                <div class="col-md-6">
-                                    <input type="password" class="form-control" id="password" name="password" required>
-                                    <div id="error-name"></div>
-                                </div>
-                            </div>
-                            <div class="mb-3 row justify-content-center">
-                                <label for="con_password" class="form-label col-md-2">確認密碼</label>
-                                <div class="col-md-6">
-                                    <input type="password" class="form-control" id="con_password" name="con_password" required>
+                                    <input type="text" class="form-control" id="code" name="code">
                                     <div id="error-name"></div>
                                 </div>
                             </div>
                             <div class="text-center">
-                                <input type="submit" class="form-btn" value="註冊" disabled>
+                                <input type="submit" class="form-btn" value="驗證">
                             </div>
                         </form>
                     </div>
@@ -97,8 +105,10 @@
             crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
     <script src="../js/login.js"></script>
-    <script src="../js/register_verify.js"></script>
+    <!-- <script src="../js/forget2.js"></script> -->
+    <script>
+        $('#alert').delay('3000').fadeOut();
+    </script>
 </body>
 </html>
