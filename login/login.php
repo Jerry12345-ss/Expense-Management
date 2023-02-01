@@ -53,6 +53,19 @@
     </header>
     <main>
         <div class="container">
+        <?php
+            if(isset($_SESSION['message'])){
+                ?>
+                <div id="alert" style="border-radius: 4px; background-color: rgb(152, 241, 152); color: forestgreen;">
+                    <p style="padding: 1rem; margin-top:0; margin-bottom: 1rem;">
+                        <?php echo $_SESSION['message']; ?>
+                    </p>
+                </div>
+                <?php
+                // In order to show message once
+                unset($_SESSION['message']);
+            }
+        ?>
         <div class="error-message"></div>
             <div class="row ms-0 me-0">
                 <div class="card p-0">
@@ -99,5 +112,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
     <script src="../js/login.js"></script>
     <script src="../js/login_verify.js"></script>
+    <script>
+        $('#alert').delay('3000').fadeOut();
+    </script>
 </body>
 </html>

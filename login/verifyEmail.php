@@ -1,10 +1,55 @@
 <?php
-    include_once('./verifyEmail_process.php');
+    // Database config and connect
+    include('../config.php');
+
+    // Store all errors
+    $errors = [];
+
     // 如果已登入過，將會自動跳轉至 index.php (瀏覽器未關閉過的情況下)
     session_start();
     if(isset($_SESSION["login"]) && $_SESSION["login"] === true){
         header("Location: ../index.php");
         exit(); 
+    }
+
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if(isset($_POST['code'])){
+            $code = $_POST['code'];
+            
+            // Get user input email 
+            if(isset($_SESSION['email'])){
+                $email = $_SESSION['email'];
+            }
+
+            $getExpireQuery = "SELECT * FROM codes WHERE Email = '$email' ORDER BY id DESC LIMIT 1";
+            $getExpireResult = mysqli_query($con, $getExpireQuery);
+
+            if($getExpireResult){
+                if(mysqli_num_rows($getExpireResult) > 0){
+                    $row = mysqli_fetch_array($getExpireResult);
+                    $expire = $row['Expire'];
+                    $now_time = time();
+                }else{
+                    $errors['expire_errors'] = '查無資料!';
+                }
+            }else{
+                $errors['db_errors'] = '從資料庫裡讀取有效期限時發生錯誤!';
+            }
+
+            if($code == ''){
+                $errors['code_null'] = '請輸入驗證碼';
+            }else{
+                if($now_time > $expire){
+                    $errors['expire'] = '您的驗證碼已過有效期限';
+                }else{
+                    if($code !== $row['Code']){
+                        $errors['code_error'] = '您輸入的驗證碼有錯，請重新輸入';
+                    }else{
+                        header("location: resetPassword.php");
+                    }
+                }
+            }
+        }
     }
 ?>
 <!DOCTYPE html>
@@ -54,7 +99,6 @@
     </header>
     <main>
         <div class="container">
-        <div class="error-message"></div>
         <?php
             if(isset($_SESSION['message'])){
                 ?>
@@ -64,13 +108,19 @@
                     </p>
                 </div>
                 <?php
+                // In order to show message once
+                unset($_SESSION['message']);
             }
         ?>
         <?php
             if($errors > 0){
                 foreach($errors AS $displayErrors){
                 ?>
-                <div id="alert"><?php echo $displayErrors; ?></div>
+                <div id="errors" style="border-radius:4px; background-color: #fcd4d1; color: indianred;">
+                    <p style="padding: 1rem; margin-top: 0; margin-bottom: 1rem;">
+                        <?php echo $displayErrors; ?>
+                    </p>
+                </div>
                 <?php
                 }
             }
@@ -86,7 +136,6 @@
                                 <label for="code" class="form-label col-md-2">驗證碼</label>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" id="code" name="code">
-                                    <div id="error-name"></div>
                                 </div>
                             </div>
                             <div class="text-center">
@@ -106,7 +155,6 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
     <script src="../js/login.js"></script>
-    <!-- <script src="../js/forget2.js"></script> -->
     <script>
         $('#alert').delay('3000').fadeOut();
     </script>

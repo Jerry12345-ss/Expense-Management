@@ -69,7 +69,7 @@ const input_Check = () =>{
                     password_input.closest('div').lastElementChild.style.display = 'block';
                     password_input.closest('div').lastElementChild.innerHTML = `
                     <div class='error'>
-                        <span>密碼長度必須超過8個字元</span>
+                        <span>密碼長度不得少於8個字元</span>
                     </div>
                     `;
                     pass_val = false;

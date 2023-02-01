@@ -8,13 +8,13 @@
     use PHPMailer\PHPMailer\SMTP;
     use PHPMailer\PHPMailer\Exception;
 
-    // database config and connect
+    // Database config and connect
     include('../config.php');
 
-    // session start
+    // Session start
     session_start();
 
-    // set default timezone 
+    // Set default timezone 
     date_default_timezone_set('Asia/Taipei');
 
     if($_SERVER['REQUEST_METHOD'] === "POST"){
@@ -25,17 +25,13 @@
             if(filter_var($email, FILTER_VALIDATE_EMAIL) === false){
                 echo 0;
             }else{
-                // $Unix_time = strtotime(date('Y-m-d H:i:s'));
-                // $new_time = $Unix_time + (60*1);
-                // $format_time = date('Y-m-d H:i:s',$new_time);
-
                 $emailCheckQuery = "SELECT * FROM user WHERE Account = '$email'";
                 $emailCheckResult = mysqli_query($con,$emailCheckQuery);
 
                 if(mysqli_num_rows($emailCheckResult) > 0){
-                    // verification_code and expire time here
+                    // Verification_code and expire time here
                     $verification_code = rand(100000,999999);
-                    $expire = time() + (60 * 1); // test : 1 min , actual : 10 min
+                    $expire = time() + (60 * 10);
 
                     $forgetRecordQuery = "INSERT INTO codes(Email, Code, Expire) VALUES('$email','$verification_code','$expire')";
                     $forgetRecordResult = mysqli_query($con,$forgetRecordQuery);
@@ -58,7 +54,7 @@
                         $mail -> addAddress($email);
 
                         $output='<p>親愛的用戶您好，</p>';
-                        $output.='<p>非常感謝您使用本系統之服務，我們已收到您重設密碼的申請，以下為您的驗證碼 : </p>';
+                        $output.='<p>非常感謝您使用本系統之服務，我們已收到您重置密碼的申請，以下為您的驗證碼 : </p>';
                         $output.='<p><h2>'.$verification_code.'</h2></p>';
                         $output.='<p>※ 此驗證碼有效期限為10分鐘，敬請於期限內使用。</p>';  
                         $output.='<p>若你對此操作沒有印象，可能是有人未經許可使用了你的信箱，或嘗試盜用你的帳號。為保護你的帳號安全，請勿與其他人分享你的驗證碼。</p>';	
@@ -75,6 +71,8 @@
 
                         if($mail -> Send()){
                             $_SESSION['message'] = '我們已經寄送驗證碼到您的信箱了，請查看!';
+                            $_SESSION['email'] = $email;
+
                             echo "success";
                         }else{
                             echo "信件未成功送出, 錯誤資訊 : {$mail->ErrorInfo}";
