@@ -213,6 +213,7 @@
                             ?>
                         </div>
                     </div>
+                    <div class="load"></div>
                 </div>
             </div>
         </div>
@@ -269,7 +270,7 @@
             window.location.href = `../pages/incomes_change.php?id=${id}`;
         }
 
-        // let order = '';
+        let order = '';
 
         // $('.desc').click(()=>{
         //     $.ajax({
@@ -296,6 +297,34 @@
         //         }
         //     })
         // })
+
+        $('.desc').click(()=>{
+            $.ajax({
+                url : '../desc.php?order=DESC',
+                type : 'POST',
+                // dataType : 'json',
+                success :(response)=>{
+                    $('.load').load('../desc.php').fadeIn('slow');
+                },
+                error :(error)=>{
+                    console.log('error');
+                }
+            })
+        });
+
+        $('.asc').click(()=>{
+            $.ajax({
+                url : '../desc.php?order=ASC',
+                type : 'POST',
+                // dataType : 'json',
+                success :(response)=>{
+                    $('.load').load('../desc.php').fadeIn('slow');
+                },
+                error :(error)=>{
+                    console.log('error');
+                }
+            })
+        });
     </script>
 </body>
 </html>

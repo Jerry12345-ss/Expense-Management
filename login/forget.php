@@ -25,6 +25,28 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/register.css">
+    <style>
+        .loader{
+            width: 25px;
+            height: 25px;
+            display: inline-block;
+            border: 4px solid #fff;
+            border-top-color: transparent;
+            border-radius: 50%;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes rotation{
+            0%{
+                transform: rotate(0deg);
+            }
+            100%{
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -68,7 +90,8 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <input type="submit" class="form-btn" value="傳送驗證碼">
+                                <!-- <input type="submit" class="form-btn" value="傳送驗證碼"> -->
+                                <button type="submit" class="form-btn">傳送驗證碼</button>
                             </div>
                         </form>
                     </div>
@@ -84,6 +107,6 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
     <script src="../js/login.js"></script>
-    <script src="../js/forget.js"></script>
+    <script src="../js/forget2.js"></script>
 </body>
 </html>
