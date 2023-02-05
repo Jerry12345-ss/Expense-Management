@@ -26,8 +26,20 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/sum.css">
-    <link rel="stylesheet" href="./css/home2.css">
+    <link rel="stylesheet" href="./css/home.css">
     <link rel="stylesheet" href="./css/calculate2.css">
+    <style>
+        .no-chartData-div{
+            text-align: center;
+            margin: 2rem 0rem;
+        }
+
+        @media screen and (min-width:576px){
+            .no-chartData-div{
+                padding: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -57,26 +69,42 @@
 
         function Total($parameter, $username, $con, $month){
             if($parameter == 1){
-                $t_income = "SELECT SUM(Money) AS Total FROM `income` WHERE Name = '$username' && Month = '$month'";
-                $total_income = mysqli_query($con, $t_income);
+                $incomeTotalQuery = "SELECT SUM(Money) AS Total FROM `income` WHERE Name = '$username' AND Month = '$month'";
+                $incomeTotalResult = mysqli_query($con, $incomeTotalQuery);
 
-                while($row = mysqli_fetch_array($total_income)){
-                    if($row['Total'] == 0){
-                        echo 0;
+                if($incomeTotalResult){
+                    if(mysqli_num_rows($incomeTotalResult) > 0){
+                        while($row = mysqli_fetch_array($incomeTotalResult)){
+                            if($row['Total'] == 0){
+                                echo 0;
+                            }else{
+                                echo $row['Total'];
+                            }
+                        }
                     }else{
-                        echo $row['Total'];
+                        echo "查無此資料";
                     }
+                }else{
+                    echo "資料庫連線發生錯誤";
                 }
             }else if($parameter == 2){
-                $t_expense = "SELECT SUM(Money) AS Total FROM `expense` WHERE Name = '$username' && Month = '$month'";
-                $total_expense = mysqli_query($con, $t_expense);
+                $expenseTotalQuery = "SELECT SUM(Money) AS Total FROM `expense` WHERE Name = '$username' AND Month = '$month'";
+                $expenseTotalResult = mysqli_query($con, $expenseTotalQuery);
                                         
-                while($row2 = mysqli_fetch_array($total_expense)){
-                    if($row2['Total'] == 0){
-                        echo 0;
+                if($expenseTotalResult){
+                    if(mysqli_num_rows($expenseTotalResult) > 0){
+                        while($row2 = mysqli_fetch_array($expenseTotalResult)){
+                            if($row2['Total'] == 0){
+                                echo 0;
+                            }else{
+                                echo $row2['Total'];
+                            }
+                        }
                     }else{
-                        echo $row2['Total'];
+                        echo "查無此資料";
                     }
+                }else{
+                    echo "資料庫連線發生錯誤";
                 }
             }
         }
@@ -267,11 +295,16 @@
                         <div class="d-flex flex-column border border-1" style="border-radius: 4px;">
                             <div class="chart-title d-flex align-items-center justify-content-center">
                                 <i class='bx bxs-pie-chart-alt-2 me-2' style="font-size: 25px;"></i>
-                                <span style="font-weight: 700;"><?php echo $month." 月份統計圖表"; ?></span>
+                                <span style="font-weight: 700;"><?php echo $month." 月份收支統計圖表"; ?></span>
                             </div>
                             <div class="chart-content">
                                 <div class="chart-container">
                                     <canvas id="canvasPie" style="width: 400px; height:400px;"></canvas>
+                                    <div class="no-chartData">
+                                        <div class="no-chartData-div">
+                                            <h1>尚未有<?php echo $month; ?>月份收入/支出的資料!</h1>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -320,48 +353,62 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <script type="module" src="./js/main2.js"></script>
     <script src="./js/logout.js"></script>
     <script src="./js/calculate.js"></script>
 
     <script>
-        // Chart Test
+        // Chart of this month 
         let canvas = document.querySelector('#canvasPie');
         let ctx = canvas.getContext('2d');
 
-        let chart_income = '<?php Total(1,$username,$con,$month); ?>';
-        let chart_expense = '<?php Total(2,$username,$con,$month); ?>';
+        let chart_income = <?php Total(1,$username,$con,$month); ?>;
+        let chart_expense = <?php Total(2,$username,$con,$month); ?>;
 
-        const data = {
-        labels: ['expense', 'income'],
-        datasets: [
-                {
-                    fill: true,
-                    label: 'Dataset 1',
-                    backgroundColor: ['red','blue'],
-                    data: [chart_expense,chart_income],
-                }
-            ]
-        };
+        const createChart = () =>{
+            const data = {
+            labels: ['Expense', 'Income'],
+            datasets: [
+                    {
+                        fill: true,
+                        label: 'Expense / Income Statistic Chart',
+                        backgroundColor: ['rgb(255, 99, 132)','rgb(54, 162, 235)'],
+                        data: [chart_expense,chart_income],
+                        hoverOffset: 3
+                    }
+                ]
+            };
 
-        new Chart(ctx,{
-            type: 'pie',
-            data: data,
-            option: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    title: {
-                        display: true,
-                        text: 'Chart.js Pie Chart'
-                    },
-                    rotation: -0.7 * Math.PI
-                }
-            },
-        });
+            new Chart(ctx,{
+                type: 'pie',
+                data: data,
+                option: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Expense / Income Statistic Chart'
+                        },
+                        legend: {
+                            position : 'top'
+                        },
+                    }
+                },
+            });
+        } 
+
+        if(chart_expense == 0 && chart_income == 0){
+            canvas.style.display = 'none';
+            document.querySelector('.no-chartData').style.display = 'block';
+        }else{
+            canvas.style.display = 'block';
+            document.querySelector('.no-chartData').style.display = 'none';
+            document.querySelector('.chart-container').style.maxWidth = '500px';
+            createChart();
+        }
     </script>
 </body>
 </html>

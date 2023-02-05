@@ -12,6 +12,10 @@
         exit(); 
     }
 
+    if(isset($_GET['mode'])){
+        $test = $_GET['mode'];
+    }
+
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         if(isset($_POST['code'])){
             $code = $_POST['code'];
@@ -70,7 +74,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/register.css">
+    <link rel="stylesheet" href="../css/register2.css">
 </head>
 <body>
     <header>
@@ -99,13 +103,19 @@
     </header>
     <main>
         <div class="container">
+            <?php echo $test; ?>
         <?php
             if(isset($_SESSION['message'])){
                 ?>
-                <div id="alert" style="border-radius: 4px; background-color: rgb(152, 241, 152); color: forestgreen;">
-                    <p style="padding: 1rem; margin-top:0; margin-bottom: 1rem;">
-                        <?php echo $_SESSION['message']; ?>
-                    </p>
+                <div class="messagebox">
+                    <div class='msg msg-success'>
+                        <div class='msg-icon'>
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+                        <div class='msg-content'>
+                            <p><?php echo $_SESSION['message']; ?></p>
+                        </div>
+                    </div>
                 </div>
                 <?php
                 // In order to show message once
@@ -116,10 +126,15 @@
             if($errors > 0){
                 foreach($errors AS $displayErrors){
                 ?>
-                <div id="errors" style="border-radius:4px; background-color: #fcd4d1; color: indianred;">
-                    <p style="padding: 1rem; margin-top: 0; margin-bottom: 1rem;">
-                        <?php echo $displayErrors; ?>
-                    </p>
+                <div class="messagebox">
+                    <div class='msg msg-danger'>
+                        <div class='msg-icon'>
+                            <i class="fa-solid fa-xmark"></i>
+                        </div>
+                        <div class='msg-content'>
+                            <p><?php echo $displayErrors; ?></p>
+                        </div>
+                    </div>
                 </div>
                 <?php
                 }
@@ -156,7 +171,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
     <script src="../js/login.js"></script>
     <script>
-        $('#alert').delay('3000').fadeOut();
+        $('.messagebox').delay('3000').fadeOut();
     </script>
 </body>
 </html>

@@ -99,7 +99,7 @@ const Form_submit = (formData, parameter, action) =>{
         })
     }else{
         let a = document.querySelector('.content-wrapper form');
-        let id =a.id;
+        let id = a.id;
         
         $.ajax({
             url : `../Insert_edit.php?request=${parameter}&action=${action}&id=${id}`,

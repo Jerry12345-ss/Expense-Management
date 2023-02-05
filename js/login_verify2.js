@@ -99,8 +99,13 @@ const Handler = (res) =>{
         window.location.href = '../index.php';
     }else{
         error_div.innerHTML = `
-            <div class='error'>
-                <p>${res}</p>
+            <div class='error-msg msg-danger'>
+                <div class='msg-icon'>
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+                <div class='msg-content'>
+                    <p>${res}</p>
+                </div>
             </div>
         `;
         

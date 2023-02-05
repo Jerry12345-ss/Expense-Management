@@ -129,7 +129,7 @@ const Handler = (res) =>{
     const error_div = document.querySelector('.error-message');
     
     if(res === "註冊成功"){
-        window.location.href = '../login/login_success.php';
+        window.location.href = '../login/register_success.php';
     }else{
         error_div.innerHTML = `
             <div class='error'>

@@ -9,16 +9,6 @@
             $username = $_POST['name'];
             $con_password = $_POST['con_password'];
 
-            // if(! preg_match("/[a-z]/", $password)){
-            //     echo "密碼必須包含一個英文字母";
-            //     exit();
-            // }
-        
-            // if(! preg_match("/[0-9]/", $password)){
-            //     echo "密碼必須包含一個數字";
-            //     exit();
-            // }
-
             if($password !== $con_password){
                 echo "確認密碼匹配錯誤";
                 exit();

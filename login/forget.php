@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/register.css">
+    <link rel="stylesheet" href="../css/register2.css">
     <style>
         .loader{
             width: 25px;
@@ -75,7 +75,7 @@
     </header>
     <main>
         <div class="container">
-        <div class="error-message"></div>
+        <div class="messagebox"></div>
             <div class="row ms-0 me-0">
                 <div class="card p-0">
                     <div class="card-header">
@@ -107,6 +107,6 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
     <script src="../js/login.js"></script>
-    <script src="../js/forget2.js"></script>
+    <script src="../js/forget3.js"></script>
 </body>
 </html>

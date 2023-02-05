@@ -26,6 +26,21 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/income.css">
     <link rel="stylesheet" href="../css/calculate2.css">
+    <style>
+        .no-expense{
+            text-align: center;
+            border: 1px solid rgb(225, 223, 223);
+            border-radius: 4px;
+            margin: 2rem 0rem;
+            padding: 2rem;
+        }
+        @media screen and (min-width:768px){
+            .no-expense{
+                margin-left: 2rem;
+                margin-right: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -193,7 +208,7 @@
                                 }else{
                                     echo "
                                         <div>
-                                            <div style='text-align: center; margin: 2rem; padding: 2rem; border: 1px solid rgb(225, 223, 223); border-radius: 4px;'>
+                                            <div class='no-expense'>
                                                 <h1>尚未有支出的資料!</h1>
                                             </div>
                                         </div>

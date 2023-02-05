@@ -66,7 +66,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/register.css">
+    <link rel="stylesheet" href="../css/register2.css">
 </head>
 <body>
     <header>
@@ -99,10 +99,15 @@
             if($errors > 0){
                 foreach($errors AS $displayErrors){
                 ?>
-                <div id="errors" style="border-radius:4px; background-color: #fcd4d1; color: indianred;">
-                    <p style="padding: 1rem; margin-top: 0; margin-bottom: 1rem;">
-                        <?php echo $displayErrors; ?>
-                    </p>
+                <div class="messagebox">
+                    <div class='msg msg-danger'>
+                        <div class='msg-icon'>
+                            <i class="fa-solid fa-xmark"></i>
+                        </div>
+                        <div class='msg-content'>
+                            <p><?php echo $displayErrors; ?></p>
+                        </div>
+                    </div>
                 </div>
                 <?php
                 }

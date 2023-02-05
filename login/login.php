@@ -24,7 +24,57 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/register.css">
+    <link rel="stylesheet" href="../css/register2.css">
+    <style>
+        main .error-message .error-msg{
+            display: flex;
+            flex-wrap: nowrap;
+            width: 100%;
+            height: 100%;
+            min-height: 60px;
+            background-color: #FFF;
+            border: 1px solid black;
+            margin-bottom: 2rem;
+            box-shadow: 2px 4px 10px rgba(0,0,0,0.1);
+        }
+
+        main .error-message .error-msg .msg-icon{
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #FFF;
+            font-size: 1.6rem;
+            flex: 1;
+            padding: 0.5rem;
+        }
+
+        main .error-message .error-msg .msg-content{
+            background: #FFF;
+            color: black;
+            display: flex;
+            align-items: center;
+            flex: 8;
+            padding: 1.2rem;
+            font-size: 1.2rem;
+        }
+
+        main .error-message .error-msg.msg-danger{
+            border: 1px solid #d46361;
+        }
+
+        main .error-message .error-msg.msg-danger .msg-icon{
+            background: #d46361;
+        }
+
+        main .error-message .error-msg.msg-danger .msg-content{
+            color: #d46361;
+        }
+
+        main .error-message .error-msg .msg-content p{
+            margin-bottom: 0;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -56,10 +106,15 @@
         <?php
             if(isset($_SESSION['message'])){
                 ?>
-                <div id="alert" style="border-radius: 4px; background-color: rgb(152, 241, 152); color: forestgreen;">
-                    <p style="padding: 1rem; margin-top:0; margin-bottom: 1rem;">
-                        <?php echo $_SESSION['message']; ?>
-                    </p>
+                <div class="messagebox">
+                    <div class='msg msg-success'>
+                        <div class='msg-icon'>
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+                        <div class='msg-content'>
+                            <p><?php echo $_SESSION['message']; ?></p>
+                        </div>
+                    </div>
                 </div>
                 <?php
                 // In order to show message once
@@ -111,9 +166,9 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
     <script src="../js/login.js"></script>
-    <script src="../js/login_verify.js"></script>
+    <script src="../js/login_verify2.js"></script>
     <script>
-        $('#alert').delay('3000').fadeOut();
+        $('.messagebox').delay('3000').fadeOut();
     </script>
 </body>
 </html>

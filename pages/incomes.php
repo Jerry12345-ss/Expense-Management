@@ -27,6 +27,22 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/income.css">
     <link rel="stylesheet" href="../css/calculate2.css">
+    <style>
+        .no-income{
+            text-align: center;
+            border: 1px solid rgb(225, 223, 223);
+            border-radius: 4px;
+            margin: 2rem 0rem;
+            padding: 2rem;
+        }
+
+        @media screen and (min-width:768px){
+            .no-income{
+                margin-left: 2rem;
+                margin-right: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -204,7 +220,7 @@
                                 }else{
                                     echo "
                                         <div>
-                                            <div style='text-align: center; margin: 2rem; padding: 2rem; border: 1px solid rgb(225, 223, 223); border-radius: 4px;'>
+                                            <div class='no-income'>
                                                 <h1>尚未有收入的資料!</h1>
                                             </div>
                                         </div>
@@ -212,6 +228,14 @@
                                 }
                             ?>
                         </div>
+                    </div>
+                    <div class="test">
+                    <?php
+                        //$order = '';
+                        if(isset($_SESSION['order'])){
+                            $order = $_SESSION['order'];
+                        }                        
+                    ?>
                     </div>
                     <div class="load"></div>
                 </div>
@@ -300,11 +324,11 @@
 
         $('.desc').click(()=>{
             $.ajax({
-                url : '../desc.php?order=DESC',
+                url : '../desc.php',
                 type : 'POST',
-                // dataType : 'json',
                 success :(response)=>{
-                    $('.load').load('../desc.php').fadeIn('slow');
+                    console.log(response);
+                    //$('.load').load('../desc.php').fadeIn('slow');
                 },
                 error :(error)=>{
                     console.log('error');
@@ -314,11 +338,10 @@
 
         $('.asc').click(()=>{
             $.ajax({
-                url : '../desc.php?order=ASC',
+                url : '../asc.php',
                 type : 'POST',
-                // dataType : 'json',
                 success :(response)=>{
-                    $('.load').load('../desc.php').fadeIn('slow');
+                    $('.load').load('../asc.php').fadeIn('slow');
                 },
                 error :(error)=>{
                     console.log('error');
