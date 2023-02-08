@@ -12,46 +12,76 @@
         exit(); 
     }
 
-    if(isset($_GET['mode'])){
-        $test = $_GET['mode'];
+    if(isset($_SESSION['mode'])){
+        $mode = $_SESSION['mode'];
     }
 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         if(isset($_POST['code'])){
             $code = $_POST['code'];
-            
-            // Get user input email 
-            if(isset($_SESSION['email'])){
-                $email = $_SESSION['email'];
-            }
 
-            $getExpireQuery = "SELECT * FROM codes WHERE Email = '$email' ORDER BY id DESC LIMIT 1";
-            $getExpireResult = mysqli_query($con, $getExpireQuery);
-
-            if($getExpireResult){
-                if(mysqli_num_rows($getExpireResult) > 0){
-                    $row = mysqli_fetch_array($getExpireResult);
-                    $expire = $row['Expire'];
-                    $now_time = time();
-                }else{
-                    $errors['expire_errors'] = '查無資料!';
+            function checkVailication($con, $code, $mode){
+                // Get user input email 
+                if(isset($_SESSION['email'])){
+                    $email = $_SESSION['email'];
                 }
-            }else{
-                $errors['db_errors'] = '從資料庫裡讀取有效期限時發生錯誤!';
-            }
 
-            if($code == ''){
-                $errors['code_null'] = '請輸入驗證碼';
-            }else{
-                if($now_time > $expire){
-                    $errors['expire'] = '您的驗證碼已過有效期限';
-                }else{
-                    if($code !== $row['Code']){
-                        $errors['code_error'] = '您輸入的驗證碼有錯，請重新輸入';
+                $getExpireQuery = "SELECT * FROM codes WHERE Email = '$email' ORDER BY id DESC LIMIT 1";
+                $getExpireResult = mysqli_query($con, $getExpireQuery);
+
+                if($getExpireResult){
+                    if(mysqli_num_rows($getExpireResult) > 0){
+                        $row = mysqli_fetch_array($getExpireResult);
+                        $expire = $row['Expire'];
+                        $now_time = time();
                     }else{
-                        header("location: resetPassword.php");
+                        // $errors['expire_errors'] = '查無資料!';
+                        return '查無資料!';
+                    }
+                }else{
+                    // $errors['db_errors'] = '資料庫讀取或連線時發生錯誤!';
+                    return '資料庫讀取或連線時發生錯誤!';
+                }
+
+                if($code == ''){
+                    // $errors['code_null'] = '請輸入驗證碼';
+                    return '請輸入驗證碼';
+                }else{
+                    if($now_time > $expire){
+                        // $errors['expire'] = '您的驗證碼已過有效期限';
+                        return '您的驗證碼已過有效期限';
+                    }else{
+                        if($code !== $row['Code']){
+                            // $errors['code_error'] = '您輸入的驗證碼有錯，請重新輸入';
+                            return '您輸入的驗證碼有錯，請重新輸入';
+                        }else{
+                            // if($mode === 'forgetPassword'){
+                            //     return '0';
+                            // }else if($mode === 'registerUser'){
+                            //     return '1';
+                            // }
+                            return $mode;
+                        }
                     }
                 }
+            }
+
+            $message_string = checkVailication($con, $code, $mode);
+            
+            // if($message_string == '0'){
+            //     header("location: resetPassword.php");
+            // }else if($message_string == '1'){
+            //     header("location: login.php");
+            // }else{
+            //     array_push($errors,$message_string);
+            // }
+
+            if($message_string == 'forgetPassword'){
+                header("location: resetPassword.php");
+            }else if($message_string == 'registerUser'){
+                header("location: login.php");
+            }else{
+                array_push($errors,$message_string);
             }
         }
     }
@@ -74,7 +104,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/register2.css">
+    <link rel="stylesheet" href="../css/register.css">
 </head>
 <body>
     <header>
@@ -103,7 +133,6 @@
     </header>
     <main>
         <div class="container">
-            <?php echo $test; ?>
         <?php
             if(isset($_SESSION['message'])){
                 ?>
@@ -171,7 +200,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
     <script src="../js/login.js"></script>
     <script>
-        $('.messagebox').delay('3000').fadeOut();
+        $('.msg-success').delay('3000').fadeOut();
     </script>
 </body>
 </html>

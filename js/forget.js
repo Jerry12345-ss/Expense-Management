@@ -19,23 +19,13 @@ document.querySelector('.card-body .forget_form').addEventListener('submit',(eve
             type : 'POST',
             data : { email : email },
             success : (response)=>{
-                if(response === '0'){
-                    submit_button.innerHTML = '傳送驗證碼';
-                    submit_button.disabled = false;
-                    showErrorMessage('無效的電子郵件');
-                    email_input.value = "";
-                }else if(response === '1'){
-                    submit_button.innerHTML = '傳送驗證碼';
-                    submit_button.disabled = false;
-                    showErrorMessage('此電子郵件尚未註冊');
-                    email_input.value = "";
-                }else if(response === 'success'){
-                    window.location.href = '../login/verifyEmail.php?mode=resetPassword'
+                if(response === 'success'){
+                    window.location.href = '../login/verifyEmail.php?mode=forgetPassword';
                 }else{
-                    // Mail could not be sent
                     submit_button.innerHTML = '傳送驗證碼';
                     submit_button.disabled = false;
-                    console.log(response);
+                    showErrorMessage(response);
+                    email_input.value = "";
                 }
             },
             error : (error)=>{

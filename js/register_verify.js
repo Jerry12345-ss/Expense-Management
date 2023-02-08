@@ -4,6 +4,8 @@ let password_input = document.querySelector('#password');
 let conf_input = document.querySelector('#con_password');
 
 let input = document.querySelectorAll('.card-body .form-control');
+let submit_button = document.querySelector('.card-body .form-btn');
+let error_div = document.querySelector('.messagebox');
 let name_val,email_val,pass_val,con_val;
 
 // check input condition before form submit
@@ -102,6 +104,9 @@ input.forEach(filter_input=>{
 })
 
 $('.card-body form').submit((event)=>{
+    submit_button.innerHTML = 'Loading <span class="loader"></span>';
+    submit_button.disabled = true;
+
     let data = {
         name : name_input.value,
         email : email_input.value,
@@ -114,32 +119,36 @@ $('.card-body form').submit((event)=>{
         type : 'POST',
         data : data,
         success : (response)=>{
-            Handler(response);
+            if(response === 'success'){
+                window.location.href = '../login/verifyEmail.php?mode=registerUser';
+            }else{
+                submit_button.innerHTML = '註冊';
+                submit_button.disabled = false;
+                showErrorMessage(response);
+
+                name_input.value = "";
+                email_input.value = "";
+                password_input.value = "";
+                conf_input.value = "";
+            }
         },
         error : (error)=>{
             console.log(error);
         }
     });
+
+    function showErrorMessage(errormessage){
+        error_div.innerHTML = `
+            <div class='msg msg-danger'>
+                <div class='msg-icon'>
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+                <div class='msg-content'>
+                    <p>${errormessage}</p>
+                </div>
+            </div>
+        `;
+    }
     
     event.preventDefault();
 });
-
-// handling error and success after form submit
-const Handler = (res) =>{
-    const error_div = document.querySelector('.error-message');
-    
-    if(res === "註冊成功"){
-        window.location.href = '../login/register_success.php';
-    }else{
-        error_div.innerHTML = `
-            <div class='error'>
-                <p>${res}</p>
-            </div>
-        `
-        name_input.value = "";
-        email_input.value = "";
-        password_input.value = "";
-        conf_input.value = "";
-    }
-}
-

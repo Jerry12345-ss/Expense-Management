@@ -38,9 +38,9 @@
                         if($resetPasswordResult){
                             $_SESSION['message'] = '密碼重置成功';
                             unset($_SESSION['email']);
-                            header('location: login.php');                           
+                            header('location: login.php');                          
                         }else{
-                            $errors['db_errors'] = '從資料庫裡更新密碼時發生錯誤!';
+                            $errors['db_errors'] = '資料庫讀取或連線時發生錯誤!';
                         }
                     }
                 }
@@ -66,7 +66,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/register2.css">
+    <link rel="stylesheet" href="../css/register.css">
 </head>
 <body>
     <header>

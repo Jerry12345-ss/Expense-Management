@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/register2.css">
+    <link rel="stylesheet" href="../css/register.css">
     <style>
         main .error-message .error-msg{
             display: flex;
@@ -168,7 +168,7 @@
     <script src="../js/login.js"></script>
     <script src="../js/login_verify2.js"></script>
     <script>
-        $('.messagebox').delay('3000').fadeOut();
+        $('.msg-success').delay('3000').fadeOut();
     </script>
 </body>
 </html>

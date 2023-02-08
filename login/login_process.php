@@ -47,11 +47,9 @@
                     exit();
                 }else{
                     echo("密碼錯誤");
-                    exit();
                 }
             }else{
                 echo("無此帳號");
-                exit();
             }
         }
     }

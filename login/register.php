@@ -17,6 +17,28 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/register.css">
+    <style>
+        .loader{
+            width: 25px;
+            height: 25px;
+            display: inline-block;
+            border: 4px solid #fff;
+            border-top-color: transparent;
+            border-radius: 50%;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes rotation{
+            0%{
+                transform: rotate(0deg);
+            }
+            100%{
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -45,7 +67,7 @@
     </header>
     <main>
         <div class="container">
-            <div class="error-message"></div>
+            <div class="messagebox"></div>
             <div class="row ms-0 me-0">
                 <div class="card p-0">
                     <div class="card-header">
@@ -56,33 +78,34 @@
                             <div class="mb-3 row justify-content-center">
                                 <label for="name" class="form-label col-md-2">使用者名稱</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" id="name" name="name" required>
+                                    <input type="text" class="form-control" id="name" name="name" >
                                     <div id="error-name"></div>
                                 </div>
                             </div>
                             <div class="mb-3 row justify-content-center">
                                 <label for="email" class="form-label col-md-2">電子郵件</label>
                                 <div class="col-md-6">
-                                    <input type="email" class="form-control" id="email" name="email" required>
+                                    <input type="email" class="form-control" id="email" name="email" >
                                     <div id="error-name"></div>
                                 </div>
                             </div>
                             <div class="mb-3 row justify-content-center">
                                 <label for="password" class="form-label col-md-2">密碼</label>
                                 <div class="col-md-6">
-                                    <input type="password" class="form-control" id="password" name="password" required>
+                                    <input type="password" class="form-control" id="password" name="password" >
                                     <div id="error-name"></div>
                                 </div>
                             </div>
                             <div class="mb-3 row justify-content-center">
                                 <label for="con_password" class="form-label col-md-2">確認密碼</label>
                                 <div class="col-md-6">
-                                    <input type="password" class="form-control" id="con_password" name="con_password" required>
+                                    <input type="password" class="form-control" id="con_password" name="con_password" > <!--required-->
                                     <div id="error-name"></div>
                                 </div>
                             </div>
                             <div class="text-center">
-                                <input type="submit" class="form-btn" value="註冊" disabled>
+                                <!-- <input type="submit" class="form-btn" value="註冊">  -->
+                                <button type="submit" class="form-btn" disabled>註冊</button>
                             </div>
                         </form>
                     </div>
