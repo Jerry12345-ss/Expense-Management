@@ -44,6 +44,7 @@
                     $_SESSION['login'] = true;
                     $_SESSION['id'] = $row['ID'];
                     $_SESSION['name'] = $row['Name'];
+                    $_SESSION['warning_message'] = true;
                     exit();
                 }else{
                     echo("密碼錯誤");

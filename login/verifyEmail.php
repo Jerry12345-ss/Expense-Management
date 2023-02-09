@@ -16,16 +16,24 @@
         $mode = $_SESSION['mode'];
     }
 
+    if(isset($_SESSION['email'])){
+        $email = $_SESSION['email'];
+    }
+  
+    if(isset($_SESSION['username'])){
+        $username = $_SESSION['username'];
+    }
+    
+    if(isset($_SESSION['password_hash'])){
+        $password_hash = $_SESSION['password_hash'];
+    }
+
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         if(isset($_POST['code'])){
             $code = $_POST['code'];
 
-            function checkVailication($con, $code, $mode){
-                // Get user input email 
-                if(isset($_SESSION['email'])){
-                    $email = $_SESSION['email'];
-                }
-
+            function checkVailication($con, $code, $mode, $email){
+                // Get and check vailication code is it due 
                 $getExpireQuery = "SELECT * FROM codes WHERE Email = '$email' ORDER BY id DESC LIMIT 1";
                 $getExpireResult = mysqli_query($con, $getExpireQuery);
 
@@ -55,31 +63,29 @@
                             // $errors['code_error'] = '您輸入的驗證碼有錯，請重新輸入';
                             return '您輸入的驗證碼有錯，請重新輸入';
                         }else{
-                            // if($mode === 'forgetPassword'){
-                            //     return '0';
-                            // }else if($mode === 'registerUser'){
-                            //     return '1';
-                            // }
                             return $mode;
                         }
                     }
                 }
             }
 
-            $message_string = checkVailication($con, $code, $mode);
-            
-            // if($message_string == '0'){
-            //     header("location: resetPassword.php");
-            // }else if($message_string == '1'){
-            //     header("location: login.php");
-            // }else{
-            //     array_push($errors,$message_string);
-            // }
+            $message_string = checkVailication($con, $code, $mode, $email);
 
             if($message_string == 'forgetPassword'){
                 header("location: resetPassword.php");
             }else if($message_string == 'registerUser'){
-                header("location: login.php");
+                // Insert new user( account ) into database
+                $insertUserQuery = "INSERT INTO user(Account, Password, Name) VALUES('$email', '$password_hash', '$username')";
+                $insertUserResult = mysqli_query($con, $insertUserQuery);
+
+                if($insertUserResult){
+                    $_SESSION['success_message'] = '帳號註冊成功';
+                    unset($_SESSION['username']);
+                    unset($_SESSION['password_hash']);
+                    header('location: login.php');
+                }else{
+                    echo "資料庫讀取或連線時發生錯誤!";
+                }
             }else{
                 array_push($errors,$message_string);
             }

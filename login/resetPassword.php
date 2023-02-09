@@ -36,7 +36,7 @@
                         $resetPasswordResult = mysqli_query($con, $resetPasswordQuery);
 
                         if($resetPasswordResult){
-                            $_SESSION['message'] = '密碼重置成功';
+                            $_SESSION['success_message'] = '密碼重置成功';
                             unset($_SESSION['email']);
                             header('location: login.php');                          
                         }else{

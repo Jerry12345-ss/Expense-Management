@@ -104,7 +104,7 @@
     <main>
         <div class="container">
         <?php
-            if(isset($_SESSION['message'])){
+            if(isset($_SESSION['success_message'])){
                 ?>
                 <div class="messagebox">
                     <div class='msg msg-success'>
@@ -112,13 +112,13 @@
                             <i class="fa-solid fa-check"></i>
                         </div>
                         <div class='msg-content'>
-                            <p><?php echo $_SESSION['message']; ?></p>
+                            <p><?php echo $_SESSION['success_message']; ?></p>
                         </div>
                     </div>
                 </div>
                 <?php
-                // In order to show message once
-                unset($_SESSION['message']);
+                // In order to show success message once
+                unset($_SESSION['success_message']);
             }
         ?>
         <div class="error-message"></div>

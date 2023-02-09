@@ -39,9 +39,45 @@
                 padding: 1rem;
             }
         }
+
+        .popup_out{
+            z-index: 10000;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            position: fixed;
+            display: flex;
+            align-items: center;
+        }
+
+        .popup_out .important_message{
+            margin: 0 auto;
+            color: red;
+            border: 1px solid red;
+            padding: 15px;
+            animation: messagebox 0.5s linear both;
+        }
+
+        @keyframes messagebox {
+            0%{
+                transform: scale(0);
+            }
+            100%{
+                transform: scale(1);
+            }
+        }
     </style>
 </head>
 <body>
+<?php
+        if(isset($_SESSION['warning_message'])){?>
+            <div class="popup_out">
+                <div class="important_message">提醒視窗</div>
+            </div>
+        <?php 
+            // unset($_SESSION['warning_message']);
+        }
+    ?>
     <header>
         <nav class="navbar-area" style="position : fixed; z-index : 5000;">
             <div class="container-fluid">

@@ -83,6 +83,8 @@
                                 if($mail -> Send()){
                                     $_SESSION['message'] = '我們已經寄送驗證碼到您的信箱了，請查看!';
                                     $_SESSION['email'] = $account;
+                                    $_SESSION['username'] = $username;
+                                    $_SESSION['password_hash'] = $password_hash;
                                     $_SESSION['mode'] = 'registerUser';
         
                                     echo "success";
