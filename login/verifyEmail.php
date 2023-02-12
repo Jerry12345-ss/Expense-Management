@@ -2,9 +2,6 @@
     // Database config and connect
     include('../config.php');
 
-    // Store all errors
-    $errors = [];
-
     // 如果已登入過，將會自動跳轉至 index.php (瀏覽器未關閉過的情況下)
     session_start();
     if(isset($_SESSION["login"]) && $_SESSION["login"] === true){
@@ -22,74 +19,14 @@
   
     if(isset($_SESSION['username'])){
         $username = $_SESSION['username'];
+    }else{
+        $username = '';
     }
     
     if(isset($_SESSION['password_hash'])){
         $password_hash = $_SESSION['password_hash'];
-    }
-
-    if($_SERVER['REQUEST_METHOD'] === 'POST'){
-        if(isset($_POST['code'])){
-            $code = $_POST['code'];
-
-            function checkVailication($con, $code, $mode, $email){
-                // Get and check vailication code is it due 
-                $getExpireQuery = "SELECT * FROM codes WHERE Email = '$email' ORDER BY id DESC LIMIT 1";
-                $getExpireResult = mysqli_query($con, $getExpireQuery);
-
-                if($getExpireResult){
-                    if(mysqli_num_rows($getExpireResult) > 0){
-                        $row = mysqli_fetch_array($getExpireResult);
-                        $expire = $row['Expire'];
-                        $now_time = time();
-                    }else{
-                        // $errors['expire_errors'] = '查無資料!';
-                        return '查無資料!';
-                    }
-                }else{
-                    // $errors['db_errors'] = '資料庫讀取或連線時發生錯誤!';
-                    return '資料庫讀取或連線時發生錯誤!';
-                }
-
-                if($code == ''){
-                    // $errors['code_null'] = '請輸入驗證碼';
-                    return '請輸入驗證碼';
-                }else{
-                    if($now_time > $expire){
-                        // $errors['expire'] = '您的驗證碼已過有效期限';
-                        return '您的驗證碼已過有效期限';
-                    }else{
-                        if($code !== $row['Code']){
-                            // $errors['code_error'] = '您輸入的驗證碼有錯，請重新輸入';
-                            return '您輸入的驗證碼有錯，請重新輸入';
-                        }else{
-                            return $mode;
-                        }
-                    }
-                }
-            }
-
-            $message_string = checkVailication($con, $code, $mode, $email);
-
-            if($message_string == 'forgetPassword'){
-                header("location: resetPassword.php");
-            }else if($message_string == 'registerUser'){
-                // Insert new user( account ) into database
-                $insertUserQuery = "INSERT INTO user(Account, Password, Name) VALUES('$email', '$password_hash', '$username')";
-                $insertUserResult = mysqli_query($con, $insertUserQuery);
-
-                if($insertUserResult){
-                    $_SESSION['success_message'] = '帳號註冊成功';
-                    unset($_SESSION['username']);
-                    unset($_SESSION['password_hash']);
-                    header('location: login.php');
-                }else{
-                    echo "資料庫讀取或連線時發生錯誤!";
-                }
-            }else{
-                array_push($errors,$message_string);
-            }
-        }
+    }else{
+        $password_hash = '';
     }
 ?>
 <!DOCTYPE html>
@@ -111,6 +48,39 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/register.css">
+    <style>
+        .remain-text .time{
+            display: flex;
+            justify-content: center;
+        }
+        .remain-text .time span{
+            margin: 0 0.5rem;
+        }
+        .remain-text .resend{
+            text-align: center;
+        }
+
+        .remain-text .resend a{
+            pointer-events: none;
+            color: rgb(163, 163, 163);
+        }
+
+        @media screen and (min-width:576px){
+            .remain-text .time{
+                justify-content: flex-start;
+            }
+
+            .remain-text .resend{
+                text-align: end;
+            }
+        }
+
+        @media screen and (min-width:768px){
+            .remain-text .time span{
+                margin: 0px;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -139,6 +109,7 @@
     </header>
     <main>
         <div class="container">
+        <div class="messagebox"></div>
         <?php
             if(isset($_SESSION['message'])){
                 ?>
@@ -157,24 +128,6 @@
                 unset($_SESSION['message']);
             }
         ?>
-        <?php
-            if($errors > 0){
-                foreach($errors AS $displayErrors){
-                ?>
-                <div class="messagebox">
-                    <div class='msg msg-danger'>
-                        <div class='msg-icon'>
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class='msg-content'>
-                            <p><?php echo $displayErrors; ?></p>
-                        </div>
-                    </div>
-                </div>
-                <?php
-                }
-            }
-        ?> 
             <div class="row ms-0 me-0">
                 <div class="card p-0">
                     <div class="card-header">
@@ -188,6 +141,20 @@
                                     <input type="text" class="form-control" id="code" name="code">
                                 </div>
                             </div>
+                            <?php
+                                if(isset($_SESSION['mode'])){ ?>
+                                    <div class="remain-text mb-3 row justify-content-center align-items-baseline">
+                                        <div class="time col-sm-6 col-md-4 mb-3">
+                                            <span class=" col-md-5" style="margin-left: 0px;">剩餘時間</span>
+                                            <span class=" col-md-2">:</span>
+                                            <span class="timer col-md-5" style="color: indianred;"></span>
+                                        </div>
+                                        <div class="resend col-sm-6 col-md-4">   
+                                            <a href='#' style="text-decoration: underline;">重新寄送驗證碼</a>
+                                        </div>
+                                    </div>
+                                <?php }
+                            ?>
                             <div class="text-center">
                                 <input type="submit" class="form-btn" value="驗證">
                             </div>
@@ -207,6 +174,110 @@
     <script src="../js/login.js"></script>
     <script>
         $('.msg-success').delay('3000').fadeOut();
+
+        // Check VerifyEmail From 
+        let mode = '<?php echo $mode; ?>';
+        let email = '<?php echo $email; ?>';
+        let username = '<?php echo $username; ?>';
+        let password_hash = '<?php echo $password_hash; ?>';
+        let resend = document.querySelector('.resend a');
+        let submit_button = document.querySelector('.card-body .form-btn');
+        let code_input = document.querySelector('#code');
+        let error_div = document.querySelector('.messagebox');
+
+
+        document.querySelector('.card-body .verify_form').addEventListener('submit',(event)=>{
+            let code = code_input.value;
+            
+            if(code === ''){
+                showErrorMessage('請輸入您的驗證碼');
+            }else{
+                $.ajax({
+                    url : '../login/verifyEmail_process.php',
+                    type : 'POST',
+                    data : {
+                        mode : mode,
+                        email :email,
+                        username : username,
+                        password_hash : password_hash,
+                        code : code
+                    },
+                    success : (response)=>{
+                        if(response === 'forgetProcess success'){
+                            window.location.href = './resetPassword.php';
+                        }else if(response === 'registerProcess success'){
+                            window.location.href = './login.php';
+                        }else{
+                            showErrorMessage(response);
+                        }
+                    },
+                    error : (error)=>{
+                        console.log(error);
+                    }
+                })
+            }
+
+            function showErrorMessage(errormessage){
+                error_div.innerHTML = `
+                    <div class='msg msg-danger'>
+                        <div class='msg-icon'>
+                            <i class="fa-solid fa-xmark"></i>
+                        </div>
+                        <div class='msg-content'>
+                            <p>${errormessage}</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            event.preventDefault();
+        });
+
+        // OTP Countdown timer
+        let timer = 60 * 2;
+        let display_time = document.querySelector('.timer');
+        startTimer(timer, display_time);
+
+        function startTimer(duration, display) {
+            let time = duration, minutes, seconds;
+            let countdown = setInterval(()=>{
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    timer = duration;
+                    clearInterval(countdown);
+                    display.textContent = '時間結束!';
+                    resend.style.color = 'cadetblue';
+                    resend.style.pointerEvents = 'auto';
+                }
+            }, 1000);
+        }
+
+        // Resend Vailication code 
+        resend.addEventListener('click',()=>{
+            $.ajax({
+                url : './resend_process.php',
+                type : 'POST',
+                data : {
+                    mode : mode,
+                    email : email
+                },
+                success : (response)=>{
+                    if(response === 'success'){
+                        window.location.href = './verifyEmail.php';
+                    }
+                },
+                error : (error)=>{
+                    console.log(error);
+                }
+            })
+        });
     </script>
 </body>
 </html>

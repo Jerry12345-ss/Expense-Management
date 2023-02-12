@@ -78,28 +78,28 @@
                             <div class="mb-3 row justify-content-center">
                                 <label for="name" class="form-label col-md-2">使用者名稱</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" id="name" name="name" >
+                                    <input type="text" class="form-control" id="name" name="name">
                                     <div id="error-name"></div>
                                 </div>
                             </div>
                             <div class="mb-3 row justify-content-center">
                                 <label for="email" class="form-label col-md-2">電子郵件</label>
                                 <div class="col-md-6">
-                                    <input type="email" class="form-control" id="email" name="email" >
+                                    <input type="email" class="form-control" id="email" name="email">
                                     <div id="error-name"></div>
                                 </div>
                             </div>
                             <div class="mb-3 row justify-content-center">
                                 <label for="password" class="form-label col-md-2">密碼</label>
                                 <div class="col-md-6">
-                                    <input type="password" class="form-control" id="password" name="password" >
+                                    <input type="password" class="form-control" id="password" name="password">
                                     <div id="error-name"></div>
                                 </div>
                             </div>
                             <div class="mb-3 row justify-content-center">
                                 <label for="con_password" class="form-label col-md-2">確認密碼</label>
                                 <div class="col-md-6">
-                                    <input type="password" class="form-control" id="con_password" name="con_password" > <!--required-->
+                                    <input type="password" class="form-control" id="con_password" name="con_password">
                                     <div id="error-name"></div>
                                 </div>
                             </div>

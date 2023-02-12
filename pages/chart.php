@@ -220,7 +220,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <button class="test">查詢</button>
+                        <!-- <button class="test">查詢</button> -->
                     </div>
                     <div class="chart-div" style="overflow-x: scroll;">
                         <div class="border border-1" style="border-radius: 4px;">

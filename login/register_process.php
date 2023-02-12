@@ -42,7 +42,7 @@
                         }else{
                             // Verification_code and expire time here
                             $verification_code = rand(100000,999999);
-                            $expire = time() + (60 * 10);
+                            $expire = time() + (60 * 2);
 
                             $registerRecordQuery = "INSERT INTO codes(Email, Code, Expire) VALUES('$account','$verification_code','$expire')";
                             $registerRecordResult = mysqli_query($con, $registerRecordQuery);
@@ -67,7 +67,7 @@
                                 $output='<p>親愛的用戶您好，</p>';
                                 $output.='<p>您正在註冊帳號並綁定電子信箱，以下為您的驗證碼 : </p>';
                                 $output.='<p><h2>'.$verification_code.'</h2></p>';
-                                $output.='<p>※ 此驗證碼有效期限為10分鐘，敬請於期限內使用。</p>';  
+                                $output.='<p>※ 此驗證碼有效期限為2分鐘，敬請於期限內使用。</p>';  
                                 $output.='<p>若你對此操作沒有印象，可能是有人未經許可使用了你的信箱，或嘗試盜用你的帳號。為保護你的帳號安全，請勿與其他人分享你的驗證碼。</p>';	
                                 $output.='<p>-------------------------------------------------------------</p>';
                                 $output.='<p>本郵件為自動送出，請勿直接回覆。</p>';

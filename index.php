@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="./css/sum.css">
     <link rel="stylesheet" href="./css/home.css">
     <link rel="stylesheet" href="./css/calculate2.css">
+    <link rel="stylesheet" href="./css/popup3.css">
     <style>
         .no-chartData-div{
             text-align: center;
@@ -39,43 +40,27 @@
                 padding: 1rem;
             }
         }
-
-        .popup_out{
-            z-index: 10000;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.4);
-            position: fixed;
-            display: flex;
-            align-items: center;
-        }
-
-        .popup_out .important_message{
-            margin: 0 auto;
-            color: red;
-            border: 1px solid red;
-            padding: 15px;
-            animation: messagebox 0.5s linear both;
-        }
-
-        @keyframes messagebox {
-            0%{
-                transform: scale(0);
-            }
-            100%{
-                transform: scale(1);
-            }
-        }
     </style>
 </head>
 <body>
 <?php
         if(isset($_SESSION['warning_message'])){?>
-            <div class="popup_out">
-                <div class="important_message">提醒視窗</div>
+            <div class="popup-out">
+                <div class="important-message">
+                    <div class="important-title">
+                        <p style="margin-bottom: 0px;">重要公告</p>
+                        <div class="close-btn">
+                            <i class="fa-solid fa-xmark"></i>
+                        </div>
+                    </div>
+                    <div class="important-content">
+                        <p style="margin-bottom: 0px;">親愛的用戶您好 : </p>
+                        <p style="margin-bottom: 0px;">因時程安排與功能修改上遇到一些問題，目前<span style="color:red;">統計圖表的功能暫時無法使用</span>，使用者在圖表部分進行任何操作時將不會顯示相對應資料。使用上造成您的不便，敬請見諒。</p>
+                    </div>
+                </div>
             </div>
         <?php 
-            // unset($_SESSION['warning_message']);
+            unset($_SESSION['warning_message']);
         }
     ?>
     <header>
@@ -174,7 +159,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="./pages/chart.php" class="d-flex align-items-center"><i class='bx bxs-chart'></i><span>統計圖表</span></a>
+                                <a href="#" class="d-flex align-items-center"><i class='bx bxs-chart'></i><span>統計圖表</span></a>
                             </li>
                         </ul>
                         <div class="username-logout">
@@ -445,6 +430,24 @@
             document.querySelector('.chart-container').style.maxWidth = '500px';
             createChart();
         }
+
+        // Important message close event
+        let important_message = document.querySelector('.important-message');
+
+        const MessageZoom = ()=>{
+            document.querySelector('.popup-out').style.animation = 'zoomOut 0.5s linear both';
+            setTimeout(()=>{
+                document.querySelector('.popup-out').classList.add('disappear');
+            },'500');
+        };
+
+        document.querySelector('.close-btn').addEventListener('click',()=>{
+            MessageZoom();
+        });
+
+        window.addEventListener('click',()=>{
+            MessageZoom();
+        });
     </script>
 </body>
 </html>

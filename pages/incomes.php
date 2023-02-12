@@ -28,6 +28,34 @@
     <link rel="stylesheet" href="../css/income.css">
     <link rel="stylesheet" href="../css/calculate2.css">
     <style>
+        /* Order Button */
+        .record-content .filter{
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .record-content .filter button{
+            padding: 8px 16px;
+            border-radius: 6px;
+            background-color: rgba(40, 44, 52, 0.05);
+            color: #2e79c4;
+            border: 1px solid transparent;
+            margin: 5px;
+            display: inline-block;
+            transition: all 0.25s ease;
+        }
+
+        .record-content .filter button:hover{
+            background-color: rgba(214, 233, 254, 0.9);
+            border: 1px solid rgb(147, 197, 249);
+        }
+
+        .record-content .filter button.active{
+            background-color: rgba(214, 233, 254, 0.9);
+            border: 1px solid rgb(147, 197, 249);
+        }
+
+        /* No-Income */
         .no-income{
             text-align: center;
             border: 1px solid rgb(225, 223, 223);
@@ -178,18 +206,12 @@
                         </div>
                     </div>
                     <div class="record-content">
-                        <div class="filter" style="text-align: end;">
-                                <button class="desc">desc</button>
-                                <button class="asc">asc</button>
+                        <div class="filter mb-3">
+                            <button class="order_asc">日期 : 前 <i class="fa-sharp fa-solid fa-arrow-right"></i> 後</button>
+                            <button class="order_desc">日期 : 後 <i class="fa-sharp fa-solid fa-arrow-right"></i> 前</button>
                         </div>
                         <div class="row">
                             <?php
-                                // $variable = 'DESC';
-
-                                // if(isset($_GET['order'])){
-                                //     $variable = $_GET['order'];
-                                // }
-
                                 $sql = "SELECT * FROM `income` WHERE Name = '$username' ORDER BY `Date_billing` DESC , `Time_create` DESC";
                                 $query = mysqli_query($con, $sql);
 
@@ -229,15 +251,6 @@
                             ?>
                         </div>
                     </div>
-                    <div class="test">
-                    <?php
-                        //$order = '';
-                        if(isset($_SESSION['order'])){
-                            $order = $_SESSION['order'];
-                        }                        
-                    ?>
-                    </div>
-                    <div class="load"></div>
                 </div>
             </div>
         </div>
@@ -286,7 +299,6 @@
     <script src="../js/logout.js"></script>
     <script src="../js/card_delete.js"></script>
     <script src="../js/calculate.js"></script>
-    <!-- <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script> -->
 
     <script>
         // Edit card
@@ -294,60 +306,44 @@
             window.location.href = `../pages/incomes_change.php?id=${id}`;
         }
 
+        // Order Button active
+        $('.record-content .filter button').on('click',function(){
+            $('.record-content .filter button').removeClass('active');
+
+            $('.record-content .filter button').each(()=>{
+                $(this).addClass('active')
+            })
+        });
+
+        // Content Order ( DESC / ASC )
+        let username = '<?php echo $username; ?>';
         let order = '';
 
-        // $('.desc').click(()=>{
-        //     $.ajax({
-        //         url : './incomes.php?order=DESC',
-        //         type : "POST",
-        //         success : (response)=>{
-        //             window.location.href = './incomes.php?order=DESC'
-        //         },
-        //         error : (error)=>{
-        //             console.log('error');
-        //         }
-        //     })
-        // })
+        $('.order_desc').click(()=>{
+            order = 'desc';
 
-        // $('.asc').click(()=>{
-        //     $.ajax({
-        //         url : './incomes.php?order=ASC',
-        //         type : "POST",
-        //         success : (response)=>{
-        //             window.location.href = './incomes.php?order=ASC'
-        //         },
-        //         error : (error)=>{
-        //             console.log('error');
-        //         }
-        //     })
-        // })
-
-        $('.desc').click(()=>{
-            $.ajax({
-                url : '../desc.php',
-                type : 'POST',
-                success :(response)=>{
-                    console.log(response);
-                    //$('.load').load('../desc.php').fadeIn('slow');
-                },
-                error :(error)=>{
-                    console.log('error');
-                }
-            })
+            ContentOrder(order);
         });
 
-        $('.asc').click(()=>{
+        $('.order_asc').click(()=>{
+            order = 'asc';
+
+            ContentOrder(order);
+        });
+
+        const ContentOrder = (order) =>{
             $.ajax({
-                url : '../asc.php',
+                url : `./incomes_order.php?order=${order}`,
                 type : 'POST',
+                data : { username : username },
                 success :(response)=>{
-                    $('.load').load('../asc.php').fadeIn('slow');
+                    document.querySelector('.record-content .row').innerHTML = `${response}`;
                 },
                 error :(error)=>{
-                    console.log('error');
+                    console.log(error);
                 }
             })
-        });
+        }
     </script>
 </body>
 </html>

@@ -27,6 +27,34 @@
     <link rel="stylesheet" href="../css/income.css">
     <link rel="stylesheet" href="../css/calculate2.css">
     <style>
+        /* Order Button */
+        .record-content .filter{
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .record-content .filter button{
+            padding: 8px 16px;
+            border-radius: 6px;
+            background-color: rgba(40, 44, 52, 0.05);
+            color: #2e79c4;
+            border: 1px solid transparent;
+            margin: 5px;
+            display: inline-block;
+            transition: all 0.25s ease;
+        }
+
+        .record-content .filter button:hover{
+            background-color: rgba(214, 233, 254, 0.9);
+            border: 1px solid rgb(147, 197, 249);
+        }
+
+        .record-content .filter button.active{
+            background-color: rgba(214, 233, 254, 0.9);
+            border: 1px solid rgb(147, 197, 249);
+        }
+
+        /* No-Expense */
         .no-expense{
             text-align: center;
             border: 1px solid rgb(225, 223, 223);
@@ -176,6 +204,10 @@
                         </div>
                     </div>
                     <div class="record-content">
+                        <div class="filter mb-3">
+                            <button class="order_asc">日期 : 前 <i class="fa-sharp fa-solid fa-arrow-right"></i> 後</button>
+                            <button class="order_desc">日期 : 後 <i class="fa-sharp fa-solid fa-arrow-right"></i> 前</button>
+                        </div>
                         <div class="row">
                             <?php
                                 $sql = "SELECT * FROM `expense` WHERE Name = '$username' ORDER BY `Date_billing` DESC, `Time_create` DESC";
@@ -270,6 +302,45 @@
         // Edit card
         const editCard = (id) =>{
             window.location.href = `../pages/expenses_change.php?id=${id}`;
+        }
+
+        // Order Button active
+        $('.record-content .filter button').on('click',function(){
+            $('.record-content .filter button').removeClass('active');
+
+            $('.record-content .filter button').each(()=>{
+                $(this).addClass('active')
+            })
+        });
+
+        // Content Order ( DESC / ASC )
+        let username = '<?php echo $username; ?>';
+        let order = '';
+
+        $('.order_desc').click(()=>{
+            order = 'desc';
+
+            ContentOrder(order);
+        });
+
+        $('.order_asc').click(()=>{
+            order = 'asc';
+
+            ContentOrder(order);
+        });
+
+        const ContentOrder = (order) =>{
+            $.ajax({
+                url : `./expenses_order.php?order=${order}`,
+                type : 'POST',
+                data : { username : username },
+                success :(response)=>{
+                    document.querySelector('.record-content .row').innerHTML = `${response}`;
+                },
+                error :(error)=>{
+                    console.log(error);
+                }
+            })
         }
     </script>
 </body>

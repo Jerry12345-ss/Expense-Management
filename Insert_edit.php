@@ -1,8 +1,9 @@
 <?php
-    // Session start
-    session_start();
     // Database config and connect
     include('./config.php');
+
+    // Session start
+    session_start();
 
     // Form Submit Data
     $amount = $_POST['amount'];
