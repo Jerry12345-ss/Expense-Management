@@ -44,8 +44,8 @@
   display: grid;
   justify-content: center;
   align-content: center;
-  grid-template-columns: repeat(4, 80px);
-  grid-template-rows: minmax(120px, auto) repeat(5, 80px);
+  grid-template-columns: repeat(4, 60px);
+  grid-template-rows: minmax(120px, auto) repeat(5, 60px);
   gap: 8px;
 }
 
@@ -119,4 +119,18 @@
   visibility: visible;
   transform: scale(1.0);
   transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
+
+@media screen and (min-width : 576px){
+  .calculate{
+    grid-template-columns: repeat(4, 70px);
+    grid-template-rows: minmax(120px, auto) repeat(5, 70px);
+  }
+}
+
+@media screen and (min-width : 768px){
+  .calculate{
+    grid-template-columns: repeat(4, 80px);
+    grid-template-rows: minmax(120px, auto) repeat(5, 80px);
+  }
 }

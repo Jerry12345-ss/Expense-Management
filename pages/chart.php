@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/chart.css">
-    <link rel="stylesheet" href="../css/calculate2.css">
+    <link rel="stylesheet" href="../css/calculate.css">
 </head>
 <body>
     <header>
@@ -220,7 +220,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <!-- <button class="test">查詢</button> -->
+                        <button class="test">查詢</button>
                     </div>
                     <div class="chart-div" style="overflow-x: scroll;">
                         <div class="border border-1" style="border-radius: 4px;">
@@ -289,9 +289,9 @@
         let month_prev = document.querySelector('#month_prev');
         let month_fol = document.querySelector('#month_fol');
 
-        let data_year = '';
-        let data_month_prev = '';
-        let data_month_fol = '';
+        let data_year = year.value.slice(0,-1);
+        let data_month_prev = month_prev.value.slice(0,-1);
+        let data_month_fol = month_fol.value.slice(0,-1);
 
         year.addEventListener('change',()=>{
             console.log(year.value.slice(0,-1));
@@ -317,23 +317,6 @@
         let array_month_expense = <?php echo json_encode($array_month_expense);?>;
         let array_sum_income = <?php echo json_encode($array_sum_income);?>;
         let array_sum_expense = <?php echo json_encode($array_sum_expense);?>;
-        
-        // let result_month = (array_month_income.length > array_month_expense.length ? array_month_income : array_month_expense);
-
-        // const arr_function = result_month.map((month, index) =>{
-        //     let monthObject = {};
-        //     monthObject.month = month;
-        //     monthObject.income = {};
-        //     monthObject.income = array_sum_income[index];
-        //     monthObject.expense = {};
-        //     monthObject.expense = array_sum_expense[index];
-        //     // monthObject.sum = {};
-        //     // monthObject.sum = array_sum[index];
-
-        //     return monthObject;
-        // });
-
-        // console.log(arr_function);
 
         const createDoughnut = () =>{
             const mychart = new Chart(ctg,{
@@ -378,7 +361,7 @@
                         {
                             fill: true,
                             label : 'Income',
-                             data : array_sum_income,
+                            data : array_sum_income,
                             backgroundColor : 'rgb(54, 162, 235)',
                             borderColor : 'rgb(54, 162, 235)',
                             borderWidth : 1
@@ -386,7 +369,7 @@
                         {
                             fill: true,
                             label : 'Expense',
-                             data : array_sum_expense,
+                            data : array_sum_expense,
                             backgroundColor : 'rgb(255, 99, 132)',
                             borderColor : 'rgb(255, 99, 132)',
                             borderWidth : 1
@@ -463,11 +446,19 @@
         const createMixed = () =>{}
 
         $('.test').on('click',()=>{
+            let test = [];
+            let test2 = [];
+            array_month_expense.forEach(element => {
+                console.log(element);
+            });
             $.ajax({
                 url : `../test.php?year=${data_year}&prev=${data_month_prev}&fol=${data_month_fol}`,
                 type : 'GET',
                 success : (response)=>{
+                    // test = response;
                     console.log(response)
+                    // test = response.split(',');
+                    // console.log(test);
                 },
                 error : (error)=>{
                     console.log(error);

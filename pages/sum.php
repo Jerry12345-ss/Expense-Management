@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/sum.css">
-    <link rel="stylesheet" href="../css/calculate2.css">
+    <link rel="stylesheet" href="../css/calculate.css">
     <style>
         /* Order Button */
         .record-content .filter{

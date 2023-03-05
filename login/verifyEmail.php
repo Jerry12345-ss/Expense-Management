@@ -49,6 +49,26 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/register.css">
     <style>
+        .loader{
+            width: 25px;
+            height: 25px;
+            display: inline-block;
+            border: 4px solid #fff;
+            border-top-color: transparent;
+            border-radius: 50%;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes rotation{
+            0%{
+                transform: rotate(0deg);
+            }
+            100%{
+                transform: rotate(360deg);
+            }
+        }
         .remain-text .time{
             display: flex;
             justify-content: center;
@@ -156,7 +176,8 @@
                                 <?php }
                             ?>
                             <div class="text-center">
-                                <input type="submit" class="form-btn" value="驗證">
+                                <!-- <input type="submit" class="form-btn" value="驗證"> -->
+                                <button type="submit" class="form-btn">驗證</button>
                             </div>
                         </form>
                     </div>
@@ -184,7 +205,6 @@
         let submit_button = document.querySelector('.card-body .form-btn');
         let code_input = document.querySelector('#code');
         let error_div = document.querySelector('.messagebox');
-
 
         document.querySelector('.card-body .verify_form').addEventListener('submit',(event)=>{
             let code = code_input.value;
@@ -261,6 +281,9 @@
 
         // Resend Vailication code 
         resend.addEventListener('click',()=>{
+            submit_button.innerHTML = 'Loading <span class="loader"></span>';
+            submit_button.disabled = true;
+
             $.ajax({
                 url : './resend_process.php',
                 type : 'POST',
@@ -274,6 +297,8 @@
                     }
                 },
                 error : (error)=>{
+                    submit_button.innerHTML = '驗證';
+                    submit_button.disabled = false;
                     console.log(error);
                 }
             })

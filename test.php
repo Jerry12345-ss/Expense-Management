@@ -16,15 +16,22 @@
 
     $username = $_SESSION['name'];
 
-    $sql = "SELECT Month,SUM(Money) FROM `income` WHERE Month BETWEEN '$month_prev' AND '$month_fol' AND Name = '$username' AND Year = '$year'";
+    $sql = "SELECT * FROM `expense` WHERE Month BETWEEN '$month_prev' AND '$month_fol' AND Name = '$username' AND Year = '$year' GROUP BY Month";
     $query = mysqli_query($con, $sql);
     
     $array_month = array();
     $array_sum = array();
 
-    while($row = mysqli_fetch_array($query)){
-        //$array_month = $row['Month'];
-        echo $row['Month'];
-        echo $row['SUM(Money)'];
+    while($row = mysqli_fetch_assoc($query)){
+        array_push($array_month, $row['Month']);
+        array_push($array_sum, $row['Money']);
     }
+
+    // array_merge($array_month, $array_sum)
+    // $string = implode(',', $array_month);
+    // echo $string;
+    // $string = implode(',', $array_sum);
+    // echo $string2;
+    // print_r($array_month);
+    // print_r($array_sum);
 ?>
