@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./css/style2.css">
+    <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/sum.css">
     <link rel="stylesheet" href="./css/home.css">
     <link rel="stylesheet" href="./css/calculate.css">
@@ -138,32 +138,37 @@
                     <div class="sidebar-navbar toggle">
                         <ul>
                             <li class="active">
-                                <a href="./index.php" class="d-flex align-items-center"><i class='bx bxs-dashboard'></i><span>控制台</span></a>
+                                <a href="./index.php" class="align-items-center"><i class='bx bxs-dashboard'></i><span>控制台</span></a>
+                                <span class="tooltips">控制台</span>
                             </li>
                             <li>
-                                <a href="./pages/incomes.php" class="d-flex align-items-center ">
+                                <a href="./pages/incomes.php" class=" align-items-center ">
                                     <i class="fa-solid fa-money-check-dollar"></i>
                                     <span>收入</span>
                                 </a>
+                                <span class="tooltips">收入</span>
                             </li>
                             <li>
-                                <a href="./pages/expenses.php" class="d-flex align-items-center ">
+                                <a href="./pages/expenses.php" class=" align-items-center ">
                                     <i class="fa-solid fa-dollar-sign"></i>
                                     <span>支出</span>
                                 </a>
+                                <span class="tooltips">支出</span>
                             </li>
                             <li>
-                                <a href="./pages/sum.php" class="d-flex align-items-center ">
+                                <a href="./pages/sum.php" class=" align-items-center ">
                                     <i class="fa-solid fa-sack-dollar"></i>
                                     <span>總和</span>
                                 </a>
+                                <span class="tooltips">總和</span>
                             </li>
                             <li>
-                                <a href="#" class="d-flex align-items-center"><i class='bx bxs-chart'></i><span>統計圖表</span></a>
+                                <a href="#" class=" align-items-center"><i class='bx bxs-chart'></i><span>統計圖表</span></a>
+                                <span class="tooltips">統計圖表</span>
                             </li>
                         </ul>
                         <div class="username-logout">
-                            <div class="log-out d-flex align-items-center" style="color: white;">
+                            <div class="log-out align-items-center" style="color: white;">
                                 <i class='bx bxs-user-circle'></i>
                                 <div class="username" style="flex: 1 1 0;">
                                     <span>

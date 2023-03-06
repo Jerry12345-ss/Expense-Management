@@ -91,12 +91,7 @@ main .wrapper .sidebar .sidebar-navbar ul {
 main .wrapper .sidebar .sidebar-navbar ul li {
   display: block;
   border-radius: 8px;
-  /* transition: all 0.2s ease; */
-
-
-  /* new */
-  height: 50px;
-  width: 50px;
+  position: relative;
   transition: all 0.5s ease;
 }
 
@@ -104,40 +99,24 @@ main .wrapper .sidebar .sidebar-navbar ul li a {
   text-align: left;
   color: white;
   font-weight: 700;
-  /* flex-direction: column; */
-  /* padding: 15px; */
-  opacity: 0;
-  transition: all 0.5s ease;
-
-  /* new */
   padding: 0;
+  opacity: 0;
   white-space: nowrap;
+  display: none;
+  transition: all 0.5s ease;
 }
 
 main .wrapper .sidebar .sidebar-navbar ul li a i {
-  /* min-width: 30px; */
   text-align: center;
   font-size: 23px;
-
-  /* new */
   min-width: 50px;
   height: 50px;
   line-height: 50px;
 }
 
 main .wrapper .sidebar .sidebar-navbar ul li a span {
-  /* font-size: 10px; */
-
-
-  /* new */
   opacity: 0;
-  font-size: 0px;
 }
-
-/* main .wrapper .sidebar .sidebar-navbar ul li a {
-  opacity: 0;
-  transition: all 0.5s ease;
-} */
 
 main .wrapper .sidebar .sidebar-navbar ul li:hover {
   background-color: rgba(94, 93, 93, 0.8);
@@ -148,18 +127,17 @@ main .wrapper .sidebar .sidebar-navbar ul li:hover a {
 }
 
 main .wrapper .sidebar .sidebar-navbar.toggle {
-  /* width: 100px; */
-  height: 100%;
-  /* padding-left: 8px; */
-  /* padding-right: 8px; */
-
-
-  /* new */
   width: 80px;
   padding: 0 15px;
 }
 
+main .wrapper .sidebar .sidebar-navbar.toggle ul li {
+  width: 50px;
+  height: 50px;
+}
+
 main .wrapper .sidebar .sidebar-navbar.toggle ul li a{
+ display: flex;
  opacity: 1;
 }
 
@@ -172,12 +150,38 @@ main .wrapper .sidebar .sidebar-navbar.toggle ul li.active a {
   font-weight: 700;
 }
 
+main .wrapper .sidebar .sidebar-navbar ul li .tooltips{
+  position: absolute;
+  top: 0;
+  color: #11101d;
+  background-color: #fff;
+  left: 130px;
+  width: 120px;
+  border-radius: 6px;
+  height: 35px;
+  opacity: 0;
+  transition: all 0.3s ease;
+  line-height: 35px;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 5px 20px rgb(0 0 0 / 30%);
+  font-weight: 700;
+  pointer-events: none;
+  display: block;
+}
+
+main .wrapper .sidebar .sidebar-navbar.toggle ul li:hover .tooltips{
+  opacity: 1;
+  top: 50%;
+}
+
 /* Main Sidebar Username */
 main .wrapper .sidebar .sidebar-navbar .username-logout{
   position: absolute;
   bottom: 70px;
-  padding-right: 1rem;
+  padding-right: 2.5rem;
   width: 100%;
+  white-space: nowrap;
 }
 
 main .wrapper .sidebar .sidebar-navbar .username-logout .log-out{
@@ -186,10 +190,12 @@ main .wrapper .sidebar .sidebar-navbar .username-logout .log-out{
   padding: 15px 10px;
   opacity: 0;
   transition: all 0.5s ease;
+  display: none;
 }
 
 main .wrapper .sidebar .sidebar-navbar.toggle .username-logout .log-out{
   opacity: 1;
+  display: flex;
 }
 
 main .wrapper .sidebar .sidebar-navbar .username-logout .log-out i{
@@ -317,17 +323,22 @@ main .wrapper .content-wrapper .record-content .card.expense_card{
 @media screen and (min-width: 768px) {
   /* Main Sidebar */
   main .wrapper .sidebar .sidebar-navbar {
-    /* width: 100px;
-    padding-left: 8px;
-    padding-right: 8px; */
-
-    /* new */
     width: 80px;
     padding: 0 15px;
   }
 
+  main .wrapper .sidebar .sidebar-navbar ul li {
+    width: 50px;
+  }
+
   main .wrapper .sidebar .sidebar-navbar ul li a {
+    display: flex;
     opacity: 1;
+  }
+
+  main .wrapper .sidebar .sidebar-navbar ul li a span{
+    opacity: 0;
+    transition: all 0.3s ease;
   }
 
   main .wrapper .sidebar .sidebar-navbar ul li.active {
@@ -338,11 +349,15 @@ main .wrapper .content-wrapper .record-content .card.expense_card{
     color: #11101d;
   }
 
+  main .wrapper .sidebar-navbar ul li:hover .tooltips{
+    opacity: 1;
+    top: 50%;
+  }
+
   main .wrapper .sidebar .sidebar-navbar.toggle {
     width: 250px;
   }
 
-  /* new */
   main .wrapper .sidebar .sidebar-navbar.toggle ul li{
     width: 220px;
   }
@@ -354,13 +369,17 @@ main .wrapper .content-wrapper .record-content .card.expense_card{
   main .wrapper .sidebar .sidebar-navbar.toggle ul li a span {
     margin-left: 1rem;
     font-size: 1rem;
-
-    /* new */
     opacity: 1;
+  }
+
+  main .wrapper .sidebar-navbar.toggle ul li:hover .tooltips{
+    opacity: 0;
+    display: none;
   }
 
   /* Main Siderbar Username */
   main .wrapper .sidebar .sidebar-navbar .username-logout .log-out {
+    display: flex;
     opacity: 1;
   }
 
@@ -374,7 +393,7 @@ main .wrapper .content-wrapper .record-content .card.expense_card{
 
   main .wrapper .sidebar .sidebar-navbar.toggle .username-logout .log-out span {
     opacity: 1;
-    margin-left: 1rem;
+    margin-left: 0.5rem;
     font-size: 1rem;
   }
 

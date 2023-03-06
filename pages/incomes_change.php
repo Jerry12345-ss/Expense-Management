@@ -65,27 +65,32 @@
                         <ul>
                             <li>
                                 <a href="../index.php" class="d-flex align-items-center"><i class='bx bxs-dashboard'></i><span>控制台</span></a>
+                                <span class="tooltips">控制台</span>
                             </li>
                             <li class="active">
                                 <a href="./incomes.php" class="d-flex align-items-center">
                                     <i class="fa-solid fa-money-check-dollar"></i>
                                     <span>收入</span>
                                 </a>
+                                <span class="tooltips">收入</span>
                             </li>
                             <li>
                                 <a href="./expenses.php" class="d-flex align-items-center">
                                     <i class="fa-solid fa-dollar-sign"></i>
                                     <span>支出</span>
                                 </a>
+                                <span class="tooltips">支出</span>
                             </li>
                             <li>
                                 <a href="./sum.php" class="d-flex align-items-center">
                                     <i class="fa-solid fa-sack-dollar"></i>
                                     <span>總和</span>
                                 </a>
+                                <span class="tooltips">總和</span>
                             </li>
                             <li>
                                 <a href="./chart.php" class="d-flex align-items-center"><i class='bx bxs-chart'></i><span>統計圖表</span></a>
+                                <span class="tooltips">統計圖表</span>
                             </li>
                         </ul>
                         <div class="username-logout">
