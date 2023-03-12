@@ -21,4 +21,7 @@
     ** 應用程式密碼 : https://ithelp.ithome.com.tw/articles/10254488
 
     ** register user account -> send email -> redirect verifyEmail.php -> input verification code -> redirect login.php (register success)
+
+
+    ** Highchart.js
 -->

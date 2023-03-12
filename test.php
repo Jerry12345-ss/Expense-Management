@@ -16,22 +16,30 @@
 
     $username = $_SESSION['name'];
 
-    $sql = "SELECT * FROM `expense` WHERE Month BETWEEN '$month_prev' AND '$month_fol' AND Name = '$username' AND Year = '$year' GROUP BY Month";
+    $sql = "SELECT SUM(Money), Month FROM `income` WHERE Month BETWEEN '$month_prev' AND '$month_fol' AND Name = '$username' AND Year = '$year' GROUP BY Month";
     $query = mysqli_query($con, $sql);
+    $sql2 = "SELECT SUM(Money), Month FROM `expense` WHERE Month BETWEEN '$month_prev' AND '$month_fol' AND Name = '$username' AND Year = '$year' GROUP BY Month";
+    $query2 = mysqli_query($con, $sql2);
     
-    $array_month = array();
-    $array_sum = array();
+    $income_array = array();
+    $expense_array = array();
 
     while($row = mysqli_fetch_assoc($query)){
-        array_push($array_month, $row['Month']);
-        array_push($array_sum, $row['Money']);
+        array_push($income_array,[
+            'year' => $year,
+            'month' => $row['Month'],
+            'money' => $row['SUM(Money)']
+        ]);
     }
 
-    // array_merge($array_month, $array_sum)
-    // $string = implode(',', $array_month);
-    // echo $string;
-    // $string = implode(',', $array_sum);
-    // echo $string2;
-    // print_r($array_month);
-    // print_r($array_sum);
+    while($row = mysqli_fetch_assoc($query2)){
+        array_push($expense_array,[
+            'year' => $year,
+            'month' => $row['Month'],
+            'money' => $row['SUM(Money)']
+        ]);
+    }
+
+    $arr = array($income_array,$expense_array);
+    echo json_encode($arr);
 ?>

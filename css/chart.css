@@ -9,9 +9,19 @@ main .wrapper .content-wrapper .chart-button button{
     transition: all 0.25s ease;
 }
 
-main .wrapper .content-wrapper .chart-button button:hover{
+main .wrapper .content-wrapper .chart-button button:hover, main .wrapper .content-wrapper .chart-button button.active{
     background-color: rgba(214, 233, 254, 0.9);
     border: 1px solid rgb(147, 197, 249);
+}
+
+main .wrapper .content-wrapper .chart-search .chart-paint{
+    background-color: rgb(89, 89, 231);
+    border: none;
+    padding: 8px 16px;
+}
+
+main .wrapper .content-wrapper .chart-search .chart-paint:hover{
+    background-color: rgb(72, 72, 194);
 }
 
 main .wrapper .content-wrapper .chart-div .chart-content{
@@ -19,16 +29,16 @@ main .wrapper .content-wrapper .chart-div .chart-content{
 }
 
 main .wrapper .content-wrapper .chart-div .chart-content .chart-container{
-    max-width: 800px;
+    max-width: 1000px;
     margin-left: auto;
     margin-right: auto;
     min-width: 200px;
 }
 
-main .wrapper .content-wrapper .chart-div .chart-content .chart-container .chart{
+/* main .wrapper .content-wrapper .chart-div .chart-content .chart-container .chart{
     display: none !important;
 }
 
 main .wrapper .content-wrapper .chart-div .chart-content .chart-container .chart.active{
     display: inline-block!important;
-}
+} */

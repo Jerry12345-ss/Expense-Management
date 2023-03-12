@@ -163,7 +163,7 @@
                                 <span class="tooltips">總和</span>
                             </li>
                             <li>
-                                <a href="#" class=" align-items-center"><i class='bx bxs-chart'></i><span>統計圖表</span></a>
+                                <a href="./pages/chart.php" class=" align-items-center"><i class='bx bxs-chart'></i><span>統計圖表</span></a>
                                 <span class="tooltips">統計圖表</span>
                             </li>
                         </ul>

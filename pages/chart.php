@@ -53,34 +53,6 @@
         $username =$_SESSION['name'];
         $year = date('Y');
         $new_year = $year-1911;
-
-        $array_month_income = array();
-        $array_month_expense = array();
-        $array_sum_income = array();
-        $array_sum_expense = array();
-
-        $sql = "SELECT MAX(Month) AS month , SUM(Money) FROM `income` WHERE Name = '$username' GROUP BY Month";
-        $sql2 = "SELECT MAX(Month) AS month , SUM(Money) FROM `expense` WHERE Name = '$username' GROUP BY Month";
-        $query = mysqli_query($con, $sql);
-        $query2 = mysqli_query($con, $sql2);
-        $row = mysqli_fetch_array($query);
-        $row2 = mysqli_fetch_array($query2);
-
-        while($row = mysqli_fetch_array($query)){
-            $income_month = $row['month'].'月';
-            $income_sum = $row['SUM(Money)'];
-            array_push($array_month_income, $income_month);
-            array_push($array_sum_income, $income_sum);
-        }
-
-        while($row2 = mysqli_fetch_array($query2)){
-            $expense_month = $row2['month'].'月';
-            $expense_sum = $row2['SUM(Money)'];
-            array_push($array_month_expense, $expense_month);
-            array_push($array_sum_expense, $expense_sum);
-        }
-
-        $result = count($array_month_income) > count($array_month_expense) ? $array_month_income : $array_month_expense;
     ?>
 
     <main>
@@ -214,10 +186,10 @@
                                     <div class="chart-button">
                                         <div class="d-flex justify-content-start">
                                             <div class="button-sections">
-                                                <button onclick="createDoughnut()" data-type="doughnut" >Doughnut</button>
-                                                <button onclick="createBar()" data-type="bar">Groupd Bar</button>
-                                                <button onclick="createLine()" data-type="line">Line</button>
-                                                <button onclick="createMixed()" data-type="mixed">Mixed</button>
+                                                <button data-type="line" class="active">折線圖</button>
+                                                <button data-type="bar">長條圖</button>                                       
+                                                <button data-type="mixed">長條折線圖</button>
+                                                <button data-type="horizontal-bar">橫條圖</button>
                                             </div>
                                         </div>
                                     </div>
@@ -225,16 +197,18 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <button class="test">查詢</button>
+                        <div class="chart-search text-center">
+                            <button class="chart-paint btn btn-primary">查詢</button>
+                        </div>
                     </div>
-                    <div class="chart-div" style="overflow-x: scroll;">
+                    <div class="chart-div mt-3" style="overflow-x: scroll;">
                         <div class="border border-1" style="border-radius: 4px;">
                             <div class="chart-content">
                                 <div class="chart-container">
-                                    <canvas id="canvasDoughnut" class="chart active" data-content="doughnut" style="width: 400px; height: 400px;"></canvas>
-                                    <canvas id="canvasBar" class="chart" data-content="bar" style="width: 400px; height: 400px;"></canvas>
-                                    <canvas id="canvasLine" class="chart" data-content="line" style="width: 400px; height: 400px;"></canvas>
-                                    <canvas id="canvasMixed" class="chart" data-content="mixed"></canvas>
+                                    <canvas id="canvasBar" class="chart" data-content="doughnut" style="width: 400px; height: 400px; max-height: 550px;"></canvas>
+                                    <!-- <canvas id="canvasBar" class="chart active" data-content="bar" style="width: 400px; height: 400px;max-height:500px;"></canvas>
+                                    <canvas id="canvasLine" class="chart active" data-content="line" style="width: 400px; height: 400px;"></canvas>
+                                    <canvas id="canvasMixed" class="chart active" data-content="mixed"></canvas> -->
                                 </div>
                             </div>
                         </div>
@@ -285,7 +259,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.js"></script>
     <script type="module" src="../js/main2.js"></script>
     <script src="../js/logout.js"></script>
-    <script src="../js/chart2.js"></script>
+    <!-- <script src="../js/chart2.js"></script> -->
     <script src="../js/calculate.js"></script>
 
     <script>
@@ -293,11 +267,14 @@
         let year = document.querySelector('#year');
         let month_prev = document.querySelector('#month_prev');
         let month_fol = document.querySelector('#month_fol');
+        let types = document.querySelectorAll('.chart-button button');
+        let type = 'line';
 
         let data_year = year.value.slice(0,-1);
         let data_month_prev = month_prev.value.slice(0,-1);
         let data_month_fol = month_fol.value.slice(0,-1);
 
+        // Selected year / month_prev / month_fol
         year.addEventListener('change',()=>{
             console.log(year.value.slice(0,-1));
             data_year = year.value.slice(0,-1);
@@ -313,60 +290,94 @@
             data_month_fol = month_fol.value.slice(0,-1);
         });
 
-        // Chart Test
-        const ctg = document.getElementById('canvasDoughnut');
-        const ctx = document.getElementById('canvasBar');
-        const ctl = document.getElementById('canvasLine');
-
-        let array_month_income = <?php echo json_encode($array_month_income);?>;
-        let array_month_expense = <?php echo json_encode($array_month_expense);?>;
-        let array_sum_income = <?php echo json_encode($array_sum_income);?>;
-        let array_sum_expense = <?php echo json_encode($array_sum_expense);?>;
-
-        const createDoughnut = () =>{
-            const mychart = new Chart(ctg,{
-                type : 'doughnut',
-                data : {
-                    labels : ['Income','Expense'],
-                    datasets : [{
-                        fill: true,
-                        label : 'Test',
-                        data : [60, 40],
-                        backgroundColor : ['rgb(54, 162, 235)','rgb(255, 99, 132)'],
-                        borderColor : ['rgb(54, 162, 235)','rgb(255, 99, 132)'],
-                        borderWidth : 1
-                    }]
-                },
-                option : {
-                    title : {
-                        display : true,
-                        text : 'Expense Management Doughnut'
-                    },
-                    animation : {
-                        animateScale : true,
-                        animateRotate : true
-                    },
-                    responsive : true,
-                    maintainAspectRatio: false,
-                    legend: {
-                        position: 'right',
-                    },
-                }
+        // Chart type button active
+        types.forEach((btn)=>{
+            btn.addEventListener('click',()=>{
+                document.querySelector('button.active').classList.remove('active');
+                btn.classList.add('active');
+                type = btn.getAttribute('data-type');
             })
-        }
-        
-        createDoughnut();
+        })
 
-        const createBar = () =>{
-            const mychart = new Chart(ctx,{
-                type : 'bar',
+        // Chart Test
+        const ctx = document.getElementById('canvasBar');
+
+        let test;
+        let test2;
+        let a = 0;
+
+        let arrays = [];
+        let arrays2 = [];
+        let arrays3 = [];
+        let arrays4 = [];
+        let mychart;
+        
+        $('.chart-paint').on('click',()=>{
+            $.ajax({
+                url : `../test.php?year=${data_year}&prev=${data_month_prev}&fol=${data_month_fol}`,
+                type : 'GET',
+                success : (response)=>{
+                    const data = JSON.parse(response);
+                    test = data[0];
+                    test2 = data[1];
+                    Object.keys(test).forEach(key=>{
+                        arrays.push(test[key].money)
+                    });
+                    Object.keys(test2).forEach(key=>{
+                        arrays2.push(test2[key].money)
+                    });
+                    Object.keys(test2).forEach(key=>{
+                        arrays3.push(test2[key].month)
+                    });
+                    Object.keys(test2).forEach(key=>{
+                        arrays4.push(test2[key].month)
+                    });
+                    ChartType(type);
+                },
+                error : (error)=>{
+                    console.log(error);
+                }
+            });
+            if(a == 0){
+                mychart.destroy();
+                arrays = [];
+                arrays2 = [];
+                arrays3 = [];
+                arrays4 = [];
+                a = 1;
+            }else if(a == 1){
+                mychart.destroy();
+                arrays = [];
+                arrays2 = [];
+                arrays3 = [];
+                arrays4 = [];
+                a = 0;
+            }
+        })
+
+        
+        const ChartType = (type)=>{
+            if(type === 'bar'){
+                createBar(ctx, type);
+            }else if(type === 'line'){
+                createLine(ctx, type);
+            }else if(type === 'mixed'){
+                createMixed(ctx, type);
+            }else if(type === 'horizontal-bar'){
+                createHorizontalBar(ctx, type);
+            }
+        }
+
+        const createBar = (section, type) =>{          
+            mychart = new Chart(section,{
+                type : type,
                 data : {
-                    labels : array_month_expense,
+                    labels : arrays3,
                     datasets : [
                         {
                             fill: true,
                             label : 'Income',
-                            data : array_sum_income,
+                            data : arrays,
                             backgroundColor : 'rgb(54, 162, 235)',
                             borderColor : 'rgb(54, 162, 235)',
                             borderWidth : 1
@@ -374,7 +385,7 @@
                         {
                             fill: true,
                             label : 'Expense',
-                            data : array_sum_expense,
+                            data : arrays2,
                             backgroundColor : 'rgb(255, 99, 132)',
                             borderColor : 'rgb(255, 99, 132)',
                             borderWidth : 1
@@ -382,9 +393,8 @@
 
                     ]
                 },
-                option : {
+                options : {
                     responsive : true,
-                    maintainAspectRatio: false,
                     plugins :{
                         title : {
                             display : true,
@@ -395,46 +405,40 @@
                         }
                     }
                 }
-            })
+            });
         }
 
-        const createLine = () =>{
-            const mychart = new Chart(ctl,{
+        const createLine = (section, type) =>{
+            mychart = new Chart(section,{
                 type : 'line',
                 data : {
-                    labels : ['8月','9月','10月','11月','12月'],
+                    labels : arrays3,
                     datasets : [
                         {
-                            fill: true,
+                            fill: false,
                             label : 'Income',
-                            data : [30200,29874,32541,36745,35108],
-                            // backgroundColor : 'rgb(54, 162, 235)',
-                            // borderColor : 'rgb(54, 162, 235)',
-                            // borderWidth : 1
-                            fillColor : "rgba(220,220,220,0.2)",
-                            strokeColor : "rgba(220,220,220,1)",
-                            pointColor : "rgba(220,220,220,1)",
-                            pointStrokeColor : "#fff",
-                            pointHighlightFill : "#fff",
-                            pointHighlightStroke: "rgba(220,220,220,1)",
+                            data : arrays,
+                            borderColor : 'rgb(54, 162, 235)',
+                            backgroundColor : 'rgb(54, 162, 235)',
                         },
                         {
-                            fill: true,
+                            fill: false,
                             label : 'Expense',
-                            data : [16543,12789,14200,12900,21630],
-                            fillColor: "rgba(151,187,205,0.2)",
-                            strokeColor: "rgba(151,187,205,1)",
-                            pointColor: "rgba(151,187,205,1)",
-                            pointStrokeColor: "#fff",
-                            pointHighlightFill: "#fff",
-                            pointHighlightStroke: "rgba(151,187,205,1)",
+                            data : arrays2,
+                            borderColor : 'rgb(255, 99, 132)',
+                            backgroundColor : 'rgb(255, 99, 132)',
+                            // fillColor: "rgba(151,187,205,0.2)",
+                            // strokeColor: "rgba(151,187,205,1)",
+                            // pointColor: "rgba(151,187,205,1)",
+                            // pointStrokeColor: "#fff",
+                            // pointHighlightFill: "#fff",
+                            // pointHighlightStroke: "rgba(151,187,205,1)",
                         },
 
                     ]
                 },
-                option : {
+                options  : {
                     responsive : true,
-                    maintainAspectRatio: false,
                     plugins :{
                         title : {
                             display : true,
@@ -445,31 +449,66 @@
                         }
                     }
                 }
-            })
+            });
         }
 
-        const createMixed = () =>{}
-
-        $('.test').on('click',()=>{
-            let test = [];
-            let test2 = [];
-            array_month_expense.forEach(element => {
-                console.log(element);
-            });
-            $.ajax({
-                url : `../test.php?year=${data_year}&prev=${data_month_prev}&fol=${data_month_fol}`,
-                type : 'GET',
-                success : (response)=>{
-                    // test = response;
-                    console.log(response)
-                    // test = response.split(',');
-                    // console.log(test);
-                },
-                error : (error)=>{
-                    console.log(error);
+        
+        const createMixed = (secion, type) =>{
+            mychart = new Chart(section,{
+                type : 'bar',
+                data : {
+                    labels : arrays3,
+                    datasets : [
+                        //
+                    ]
                 }
-            })
-        })
+            });
+        }
+
+        const createHorizontalBar = (section, type) =>{
+            mychart = new Chart(section,{
+                type : 'bar',
+                data : {
+                    labels : arrays3,
+                    datasets : [
+                        {
+                            fill: true,
+                            label : 'Income',
+                            data : arrays,
+                            backgroundColor : 'rgb(54, 162, 235)',
+                            borderColor : 'rgb(54, 162, 235)',
+                            borderWidth : 1
+                        },
+                        {
+                            fill: true,
+                            label : 'Expense',
+                            data : arrays2,
+                            backgroundColor : 'rgb(255, 99, 132)',
+                            borderColor : 'rgb(255, 99, 132)',
+                            borderWidth : 1
+                        },
+
+                    ]
+                },
+                options : {
+                    responsive : true,
+                    indexAxis: 'y',
+                    plugins :{
+                        title : {
+                            display : true,
+                            text : 'Expense Management Bar'
+                        },
+                        legend : {
+                            display : true,
+                            position: 'right',
+                        }
+                    },
+                    // scales : {
+                    //     beginAtZero : true,
+                    // }
+                } 
+            });
+        }
     </script>
 </body>
 </html>
