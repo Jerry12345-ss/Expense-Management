@@ -1,4 +1,5 @@
 <?php 
+    // Database config and connect
     include('./config.php');
 
     $id = $_POST['id'];

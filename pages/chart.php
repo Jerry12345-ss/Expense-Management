@@ -257,12 +257,17 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/duration.js"></script>
     <script type="module" src="../js/main2.js"></script>
     <script src="../js/logout.js"></script>
     <!-- <script src="../js/chart2.js"></script> -->
     <script src="../js/calculate.js"></script>
 
     <script>
+        // Day.JS
+        dayjs.extend(window.dayjs_plugin_duration);
+
         // Select 
         let year = document.querySelector('#year');
         let month_prev = document.querySelector('#month_prev');
@@ -297,66 +302,92 @@
                 btn.classList.add('active');
                 type = btn.getAttribute('data-type');
             })
-        })
+        });
 
         // Chart Test
         const ctx = document.getElementById('canvasBar');
 
-        let test;
-        let test2;
-        let a = 0;
-
-        let arrays = [];
-        let arrays2 = [];
-        let arrays3 = [];
-        let arrays4 = [];
         let mychart;
+        let isPaint = false;
+        let result = [];
+
+        let income_month = [];
+        let income_money = [];
+        let expense_month = [];
+        let expense_money = [];
         
         $('.chart-paint').on('click',()=>{
-            $.ajax({
-                url : `../test.php?year=${data_year}&prev=${data_month_prev}&fol=${data_month_fol}`,
-                type : 'GET',
-                success : (response)=>{
-                    const data = JSON.parse(response);
-                    test = data[0];
-                    test2 = data[1];
-                    Object.keys(test).forEach(key=>{
-                        arrays.push(test[key].money)
-                    });
-                    Object.keys(test2).forEach(key=>{
-                        arrays2.push(test2[key].money)
-                    });
-                    Object.keys(test2).forEach(key=>{
-                        arrays3.push(test2[key].month)
-                    });
-                    Object.keys(test2).forEach(key=>{
-                        arrays4.push(test2[key].month)
-                    });
-                    ChartType(type);
-                },
-                error : (error)=>{
-                    console.log(error);
-                }
-            });
-            if(a == 0){
-                mychart.destroy();
-                arrays = [];
-                arrays2 = [];
-                arrays3 = [];
-                arrays4 = [];
-                a = 1;
-            }else if(a == 1){
-                mychart.destroy();
-                arrays = [];
-                arrays2 = [];
-                arrays3 = [];
-                arrays4 = [];
-                a = 0;
+            if(data_month_prev > data_month_fol){
+                Swal.fire({
+                    icon : 'error',
+                    title : '輸入錯誤',
+                    text : '前面選擇的月份不能大於後面月份!',
+                    showCloseButton: true
+                });
+            }else{
+                const begin = dayjs(`${data_year}-${data_month_prev}`);
+                const end = dayjs(`${data_year}-${data_month_fol}`);
+
+                const monthDiff = Math.abs(dayjs.duration(begin.diff(end)).months());
+
+                $.ajax({
+                    url : `../test.php?year=${data_year}&prev=${data_month_prev}&fol=${data_month_fol}`,
+                    type : 'GET',
+                    success : (response)=>{
+                        
+                        for(let i = 0;i <= monthDiff; i++){
+                            const date = begin.add(i, 'months');
+                            result.push({year: date.year(), month: date.month()+1, money: null});
+                        }
+
+                        // console.log(result);
+                        if(isPaint){
+                            // Clear painted canvas and array
+                            mychart.destroy();
+                            income_month = [];
+                            income_money = [];
+                            expense_month = [];
+                            expense_money = [];
+                            isPaint = false;
+                        }
+
+                        let data = JSON.parse(response);
+
+                        // 解構賦值
+                        [income_Object, expense_Object] = [data[0], data[1]];
+        
+                        result.forEach(r=>{
+                            r.money = expense_Object.find(d=>d.month === r.month)?.money ??0;
+                        });
+
+                        console.log(result);
+
+                        Object.keys(result).forEach(key =>{
+                            expense_month.push(result[key].month);
+                            expense_money.push(result[key].money);                          
+                        });
+
+                        // Object.keys(income_Object).forEach(key =>{
+                        //     income_month.push(income_Object[key].month);
+                        //     income_money.push(income_Object[key].money);                          
+                        // });
+                        // Object.keys(expense_Object).forEach(key =>{
+                        //     expense_month.push(expense_Object[key].month);
+                        //     expense_money.push(expense_Object[key].money);                           
+                        // });
+
+                        ChartType(type);
+                    },
+                    error : (error)=>{
+                        console.log(error);
+                    }
+                });
             }
-        })
+        });
 
         
         const ChartType = (type)=>{
+            isPaint = true;
             if(type === 'bar'){
                 createBar(ctx, type);
             }else if(type === 'line'){
@@ -372,12 +403,12 @@
             mychart = new Chart(section,{
                 type : type,
                 data : {
-                    labels : arrays3,
+                    labels : expense_month,
                     datasets : [
                         {
                             fill: true,
                             label : 'Income',
-                            data : arrays,
+                            data : income_money,
                             backgroundColor : 'rgb(54, 162, 235)',
                             borderColor : 'rgb(54, 162, 235)',
                             borderWidth : 1
@@ -385,7 +416,7 @@
                         {
                             fill: true,
                             label : 'Expense',
-                            data : arrays2,
+                            data : expense_money,
                             backgroundColor : 'rgb(255, 99, 132)',
                             borderColor : 'rgb(255, 99, 132)',
                             borderWidth : 1
@@ -412,19 +443,19 @@
             mychart = new Chart(section,{
                 type : 'line',
                 data : {
-                    labels : arrays3,
+                    labels : expense_month,
                     datasets : [
                         {
                             fill: false,
                             label : 'Income',
-                            data : arrays,
+                            data : income_money,
                             borderColor : 'rgb(54, 162, 235)',
                             backgroundColor : 'rgb(54, 162, 235)',
                         },
                         {
                             fill: false,
                             label : 'Expense',
-                            data : arrays2,
+                            data : expense_money,
                             borderColor : 'rgb(255, 99, 132)',
                             backgroundColor : 'rgb(255, 99, 132)',
                             // fillColor: "rgba(151,187,205,0.2)",
@@ -457,7 +488,7 @@
             mychart = new Chart(section,{
                 type : 'bar',
                 data : {
-                    labels : arrays3,
+                    labels : expense_month,
                     datasets : [
                         //
                     ]
@@ -469,12 +500,12 @@
             mychart = new Chart(section,{
                 type : 'bar',
                 data : {
-                    labels : arrays3,
+                    labels : expense_month,
                     datasets : [
                         {
                             fill: true,
                             label : 'Income',
-                            data : arrays,
+                            data : income_money,
                             backgroundColor : 'rgb(54, 162, 235)',
                             borderColor : 'rgb(54, 162, 235)',
                             borderWidth : 1
@@ -482,7 +513,7 @@
                         {
                             fill: true,
                             label : 'Expense',
-                            data : arrays2,
+                            data : expense_money,
                             backgroundColor : 'rgb(255, 99, 132)',
                             borderColor : 'rgb(255, 99, 132)',
                             borderWidth : 1
