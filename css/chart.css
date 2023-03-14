@@ -24,8 +24,28 @@ main .wrapper .content-wrapper .chart-search .chart-paint:hover{
     background-color: rgb(72, 72, 194);
 }
 
+main .wrapper .content-wrapper .chart-div{
+    display: none;
+}
+
 main .wrapper .content-wrapper .chart-div .chart-content{
     padding: 15px;
+}
+
+main .wrapper .content-wrapper .chart-div .chart-content .chart-export button{
+    padding: 8px 16px;
+    border-radius: 6px;
+    background-color: rgba(40, 44, 52, 0.05);
+    color: #2e79c4;
+    border: 1px solid transparent;
+    margin: 0 5px;
+    display: inline-block;
+    transition: all 0.25s ease;
+}
+
+main .wrapper .content-wrapper .chart-div .chart-content .chart-export button:hover{
+    background-color: rgba(214, 233, 254, 0.9);
+    border: 1px solid rgb(147, 197, 249);
 }
 
 main .wrapper .content-wrapper .chart-div .chart-content .chart-container{
