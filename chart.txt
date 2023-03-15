@@ -1,0 +1,291 @@
+        const createLine = (section, type) =>{
+            mychart = new Chart(section,{
+                type : 'line',
+                data : {
+                    labels : expense_month,
+                    datasets : [
+                        {
+                            fill: false,
+                            label : '收入',
+                            data : income_money,
+                            borderColor : 'rgb(54, 162, 235)',
+                            backgroundColor : 'rgb(54, 162, 235)',
+                            hoverBackgroundColor: 'rgba(54, 162, 235, 0.5)',
+                            pointRadius: 8,
+                            pointHoverRadius : 10,
+                        },
+                        {
+                            fill: false,
+                            label : '支出',
+                            data : expense_money,
+                            borderColor : 'rgb(255, 99, 132)',
+                            backgroundColor : 'rgb(255, 99, 132)',
+                            hoverBackgroundColor: 'rgba(255, 99, 132, 0.5)',
+                            pointRadius: 8,
+                            pointHoverRadius : 10,
+                        },
+                    ]
+                },
+                options  : {
+                    responsive : true,
+                    plugins :{
+                        tooltip : {
+                            backgroundColor: 'rgba(245, 245, 245, 0.7)',
+                            borderColor : 'rgba(169, 169, 169, 0.8)',
+                            borderWidth : 1,
+                            titleColor : 'gray',
+                            bodyColor : 'gray',
+                            caretSize : 0,
+                            titleFont : { size : 18, weight : 'bold' },
+                            bodyFont : { size : 18, weight : 'bold' },
+                            padding : 10,
+                        },
+                        title : {
+                            display : true,
+                            text : `${data_year}年統計圖表`,
+                            padding : {
+                                top : 15,
+                                bottom : 25
+                            },
+                            font : {
+                                size : 22
+                            }
+                        },
+                        legend : {
+                            display : true,
+                            position: 'bottom',
+                            labels: {
+                                padding: 30
+                            }
+                        },
+                    },
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                        },
+                    }
+                }
+            });
+        }
+
+        const createBar = (section, type) =>{          
+            mychart = new Chart(section,{
+                type : type,
+                data : {
+                    labels : expense_month,
+                    datasets : [
+                        {
+                            fill: true,
+                            label : '收入',
+                            data : income_money,
+                            backgroundColor : 'rgb(54, 162, 235)',
+                            borderColor : 'rgb(54, 162, 235)',
+                            borderWidth : 1,
+                            hoverBackgroundColor: 'rgba(54, 162, 235, 0.5)',
+                        },
+                        {
+                            fill: true,
+                            label : '支出',
+                            data : expense_money,
+                            backgroundColor : 'rgb(255, 99, 132)',
+                            borderColor : 'rgb(255, 99, 132)',
+                            borderWidth : 1,
+                            hoverBackgroundColor: 'rgba(255, 99, 132, 0.5)',
+                        },
+                    ]
+                },
+                options : {
+                    responsive : true,
+                    plugins :{
+                        tooltip : {
+                            backgroundColor: 'rgba(245, 245, 245, 0.7)',
+                            borderColor : 'rgba(169, 169, 169, 0.8)',
+                            borderWidth : 1,
+                            titleColor : 'gray',
+                            bodyColor : 'gray',
+                            caretSize : 0,
+                            titleFont : { size : 18, weight : 'bold' },
+                            bodyFont : { size : 18, weight : 'bold' },
+                            padding : 10,
+                        },
+                        title : {
+                            display : true,
+                            text : `${data_year}年統計圖表`,
+                            padding : {
+                                top : 15,
+                                bottom : 25
+                            },
+                            font : {
+                                size : 22
+                            }
+                        },
+                        legend : {
+                            display : true,
+                            position: 'bottom',
+                            labels: {
+                                padding: 30
+                            }
+                        },
+                    },
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                        },
+                    }
+                }
+            });
+        }
+        
+        const createStacked = (section, type) =>{
+            mychart = new Chart(section,{
+                type : 'bar',
+                data : {
+                    labels : expense_month,
+                    datasets : [
+                        {
+                            fill: true,
+                            label : '收入',
+                            data : income_money,
+                            backgroundColor : 'rgb(54, 162, 235)',
+                            borderColor : 'rgb(54, 162, 235)',
+                            borderWidth : 1,
+                            hoverBackgroundColor: 'rgba(54, 162, 235, 0.5)'
+                        },
+                        {
+                            fill: true,
+                            label : '支出',
+                            data : expense_money,
+                            backgroundColor : 'rgb(255, 99, 132)',
+                            borderColor : 'rgb(255, 99, 132)',
+                            borderWidth : 1,
+                            hoverBackgroundColor: 'rgba(255, 99, 132, 0.5)'
+                        },
+                    ],
+                },
+                options : {
+                    responsive : true,
+                    plugins :{
+                        tooltip : {
+                            backgroundColor: 'rgba(245, 245, 245, 0.7)',
+                            borderColor : 'rgba(169, 169, 169, 0.8)',
+                            borderWidth : 1,
+                            titleColor : 'gray',
+                            bodyColor : 'gray',
+                            caretSize : 0,
+                            titleFont : { size : 18, weight : 'bold' },
+                            bodyFont : { size : 18, weight : 'bold' },
+                            padding : 10,
+                        },
+                        title : {
+                            display : true,
+                            text : `${data_year}年統計圖表`,
+                            padding : {
+                                top : 15,
+                                bottom : 25
+                            },
+                            font : {
+                                size : 22
+                            }
+                        },
+                        legend : {
+                            display : true,
+                            position: 'bottom',
+                            labels: {
+                                padding: 30
+                            }
+                        }
+                    },
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    scales: {
+                        x:{
+                            stacked : true
+                        },
+                        y: {
+                            stacked : true,
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                        },
+                    }
+                }
+            });
+        }
+
+        const createHorizontalBar = (section, type) =>{
+            mychart = new Chart(section,{
+                type : 'bar',
+                data : {
+                    labels : expense_month,
+                    datasets : [
+                        {
+                            fill: true,
+                            label : '收入',
+                            data : income_money,
+                            backgroundColor : 'rgb(54, 162, 235)',
+                            borderColor : 'rgb(54, 162, 235)',
+                            borderWidth : 1,
+                            hoverBackgroundColor: 'rgba(54, 162, 235, 0.5)'
+                        },
+                        {
+                            fill: true,
+                            label : '支出',
+                            data : expense_money,
+                            backgroundColor : 'rgb(255, 99, 132)',
+                            borderColor : 'rgb(255, 99, 132)',
+                            borderWidth : 1,
+                            hoverBackgroundColor: 'rgba(255, 99, 132, 0.5)'
+                        },
+                    ]
+                },
+                options : {
+                    responsive : true,
+                    indexAxis: 'y',
+                    plugins :{
+                        tooltip : {
+                            backgroundColor: 'rgba(245, 245, 245, 0.7)',
+                            borderColor : 'rgba(169, 169, 169, 0.8)',
+                            borderWidth : 1,
+                            titleColor : 'gray',
+                            bodyColor : 'gray',
+                            caretSize : 0,
+                            titleFont : { size : 18, weight : 'bold' },
+                            bodyFont : { size : 18, weight : 'bold' },
+                            padding : 10,
+                        },
+                        title : {
+                            display : true,
+                            text : `${data_year}年統計圖表`,
+                            padding : {
+                                top : 15,
+                                bottom : 25
+                            },
+                            font : {
+                                size : 22
+                            }
+                        },
+                        legend : {
+                            display : true,
+                            position: 'bottom',
+                            labels: {
+                                padding: 30
+                            }
+                        }
+                    },
+                } 
+            });
+        }

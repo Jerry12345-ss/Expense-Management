@@ -395,14 +395,13 @@
 
         const createChart = () =>{
             const data = {
-            labels: ['Expense', 'Income'],
+            labels: ['收入', '支出'],
             datasets: [
                     {
                         fill: true,
-                        label: 'Expense / Income Statistic Chart',
-                        backgroundColor: ['rgb(255, 99, 132)','rgb(54, 162, 235)'],
-                        data: [chart_expense,chart_income],
-                        hoverOffset: 3
+                        backgroundColor: ['rgb(54, 162, 235)', 'rgb(255, 99, 132)'],
+                        data: [chart_income, chart_expense],
+                        hoverOffset: 2
                     }
                 ]
             };
@@ -410,16 +409,27 @@
             new Chart(ctx,{
                 type: 'pie',
                 data: data,
-                option: {
+                options: {
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        title: {
-                            display: true,
-                            text: 'Expense / Income Statistic Chart'
+                        tooltip : {
+                            backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                            borderColor : 'rgba(169, 169, 169, 0.8)',
+                            borderWidth : 1,
+                            titleColor : 'gray',
+                            bodyColor : 'gray',
+                            caretSize : 0,
+                            titleFont : { size : 18, weight : 'bold' },
+                            bodyFont : { size : 18, weight : 'bold' },
+                            padding : 15,
                         },
                         legend: {
-                            position : 'top'
+                            display : true,
+                            position: 'bottom',
+                            labels : {
+                                padding : 30
+                            }
                         },
                     }
                 },

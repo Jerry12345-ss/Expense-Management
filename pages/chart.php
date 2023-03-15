@@ -206,30 +206,15 @@
                         <div class="border border-1" style="border-radius: 4px;">
                             <div class="chart-content">
                                 <div class="chart-export text-end">
-                                    <button class="btn-export" onclick="test()">匯出</button>
+                                    <button class="btn-export" onclick="exportImage()">匯出</button>
                                 </div>
                                 <div class="chart-container">
                                     <canvas id="canvasBar" class="chart" data-content="doughnut" style="width: 400px; height: 400px; max-height: 550px;"></canvas>
+                                    <div class="chart-result-table"></div>
                                     <!-- <canvas id="canvasBar" class="chart active" data-content="bar" style="width: 400px; height: 400px;max-height:500px;"></canvas>
                                     <canvas id="canvasLine" class="chart active" data-content="line" style="width: 400px; height: 400px;"></canvas>
                                     <canvas id="canvasMixed" class="chart active" data-content="mixed"></canvas> -->
                                 </div>
-                                <!-- <table class="table table-bordered">
-                                    <tbody>
-                                        <tr>
-                                            <th style="text-align: end;">統計期間 (年)</th>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th style="text-align: end;">統計期間 (月)</th>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th style="vertical-align: middle; text-align: end;">顯示格式</th>
-                                            <td></td>
-                                        </tr>
-                                    </tbody>
-                                </table> -->
                             </div>
                         </div>
                     </div>
@@ -325,7 +310,7 @@
             })
         });
 
-        // Chart Test
+        // Chart Code
         const ctx = document.getElementById('canvasBar');
 
         let type = 'line';
@@ -381,7 +366,7 @@
                         // 解構賦值
                         [income_Object, expense_Object] = [data[0], data[1]];
         
-                        // ES2020
+                        // Push data into array
                         income_data.forEach( r =>{
                             r.money = (income_Object.find( d=> d.month === r.month)) ?.money ?? 0;
                             income_month.push(`${r.month}月`);
@@ -393,7 +378,7 @@
                             expense_money.push(r.money);
                         });
 
-                        ChartType(type);
+                        Chart_paint(type);
                     },
                     error : (error)=>{
                         console.log(error);
@@ -401,55 +386,83 @@
                 });
             }
         });
-
         
-        const ChartType = (type)=>{
+        const Chart_paint = (type)=>{
             isPaint = true;
             document.querySelector('.chart-div').style.display = 'block';
-            if(type === 'bar'){
-                createBar(ctx, type);
-            }else if(type === 'line'){
-                createLine(ctx, type);
-            }else if(type === 'stacked'){
-                createStacked(ctx, type);
-            }else if(type === 'horizontal-bar'){
-                createHorizontalBar(ctx, type);
-            }else if(type === 'table'){
-                createTable(document.query());
+
+            if(type == 'table'){
+                document.querySelector('.chart-container canvas').style.display = 'none';
+                document.querySelector('.chart-container .chart-result-table').style.display = 'block'; 
+                Generate_table();
+            }else{
+                document.querySelector('.chart-container canvas').style.display = 'block';
+                document.querySelector('.chart-container .chart-result-table').style.display = 'none';
+                Painting(type);
             }
         }
 
-        const createLine = (section, type) =>{
-            mychart = new Chart(section,{
-                type : 'line',
-                data : {
-                    labels : expense_month,
-                    datasets : [
-                        {
-                            fill: false,
-                            label : '收入',
-                            data : income_money,
-                            borderColor : 'rgb(54, 162, 235)',
-                            backgroundColor : 'rgb(54, 162, 235)',
-                        },
-                        {
-                            fill: false,
-                            label : '支出',
-                            data : expense_money,
-                            borderColor : 'rgb(255, 99, 132)',
-                            backgroundColor : 'rgb(255, 99, 132)',
-                        },
-                    ]
-                },
-                options  : {
+        // Export(Download) Image
+        const exportImage = () => {
+            // 背景黑色暫不處理
+            let a = document.createElement('a');
+            a.href = ctx.toDataURL('image/png', 1.0);
+            a.download = 'chart.png';
+            a.click();
+        }
+
+        const data = (type) => {
+            return {
+                labels : expense_month,
+                datasets : [
+                    {
+                        fill: (type == 'line')?false:true,
+                        label : '收入',
+                        data : income_money,
+                        backgroundColor : 'rgb(54, 162, 235)',
+                        borderColor : 'rgb(54, 162, 235)',
+                        borderWidth : (type == 'line')?3:1,
+                        hoverBackgroundColor: 'rgba(54, 162, 235, 0.5)',
+                        pointRadius: (type == 'line')?8:0,
+                        pointHoverRadius : (type == 'line')?10:0,
+                    },
+                    {
+                        fill: (type == 'line')?false:true,
+                        label : '支出',
+                        data : expense_money,
+                        backgroundColor : 'rgb(255, 99, 132)',
+                        borderColor : 'rgb(255, 99, 132)',
+                        borderWidth : (type == 'line')?3:1,
+                        hoverBackgroundColor: 'rgba(255, 99, 132, 0.5)',
+                        pointRadius: (type == 'line')?8:0,
+                        pointHoverRadius : (type == 'line')?10:0,
+                    },
+                ]
+            } 
+        };
+
+        const config = (type) =>{
+            if(type == 'horizontal-bar'){
+                return {
                     responsive : true,
                     plugins :{
+                        tooltip : {
+                            backgroundColor: 'rgba(245, 245, 245, 0.7)',
+                            borderColor : 'rgba(169, 169, 169, 0.8)',
+                            borderWidth : 1,
+                            titleColor : 'gray',
+                            bodyColor : 'gray',
+                            caretSize : 0,
+                            titleFont : { size : 18, weight : 'bold' },
+                            bodyFont : { size : 18, weight : 'bold' },
+                            padding : 10,
+                        },
                         title : {
                             display : true,
                             text : `${data_year}年統計圖表`,
                             padding : {
                                 top : 15,
-                                bottom : 15
+                                bottom : 25
                             },
                             font : {
                                 size : 22
@@ -457,218 +470,121 @@
                         },
                         legend : {
                             display : true,
-                            position: 'top',
-                        }
+                            position: 'bottom',
+                            labels: {
+                                padding: 30
+                            }
+                        },
+                    },
+                    indexAxis: 'y',
+                }  
+            }else{
+                return {
+                    responsive : true,
+                    plugins :{
+                        tooltip : {
+                            backgroundColor: 'rgba(245, 245, 245, 0.7)',
+                            borderColor : 'rgba(169, 169, 169, 0.8)',
+                            borderWidth : 1,
+                            titleColor : 'gray',
+                            bodyColor : 'gray',
+                            caretSize : 0,
+                            titleFont : { size : 18, weight : 'bold' },
+                            bodyFont : { size : 18, weight : 'bold' },
+                            padding : 10,
+                        },
+                        title : {
+                            display : true,
+                            text : `${data_year}年統計圖表`,
+                            padding : {
+                                top : 15,
+                                bottom : 25
+                            },
+                            font : {
+                                size : 22
+                            }
+                        },
+                        legend : {
+                            display : true,
+                            position: 'bottom',
+                            labels: {
+                                padding: 30
+                            }
+                        },
+                    },
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    }, 
+                    scales: {
+                        x : {
+                            stacked : (type == 'stacked')?true:false
+                        },
+                        y: {
+                            stacked : (type == 'stacked')?true:false,
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                        },
                     }
                 }
+            }
+        };
+
+        // Special type convert
+        const Type = (type) =>{
+            if(type === 'bar'){
+                return type;
+            }else if(type === 'line'){
+                return type;
+            }else if(type === 'stacked'){
+                return 'bar';
+            }else if(type === 'horizontal-bar'){
+                return 'bar';
+            }
+        }
+
+        // Painting the chart
+        const Painting = (type) =>{
+            mychart =  new Chart(ctx, {
+                type : Type(type),
+                data : data(type),
+                options : config(type)
             });
         }
 
-        const createBar = (section, type) =>{          
-            mychart = new Chart(section,{
-                type : type,
-                data : {
-                    labels : expense_month,
-                    datasets : [
-                        {
-                            fill: true,
-                            label : '收入',
-                            data : income_money,
-                            backgroundColor : 'rgb(54, 162, 235)',
-                            borderColor : 'rgb(54, 162, 235)',
-                            borderWidth : 1
-                        },
-                        {
-                            fill: true,
-                            label : '支出',
-                            data : expense_money,
-                            backgroundColor : 'rgb(255, 99, 132)',
-                            borderColor : 'rgb(255, 99, 132)',
-                            borderWidth : 1
-                        },
-                    ]
-                },
-                options : {
-                    responsive : true,
-                    plugins :{
-                        title : {
-                            display : true,
-                            text : `${data_year}年統計圖表`,
-                            padding : {
-                                top : 15,
-                                bottom : 15
-                            },
-                            font : {
-                                size : 22
-                            }
-                        },
-                        legend : {
-                            display : true,
-                            position: 'top',
-                        }
-                    }
-                }
+        // Generate statistical table
+        const Generate_table = () =>{
+            document.querySelector('.chart-container .chart-result-table').innerHTML = `
+                <table class='table table-bordered'>
+                    <thead>
+                        <tr>
+                            <th>年份</th>
+                            <th>月份</th>
+                            <th>收入</th>
+                            <th>支出</th>
+                            <th>結餘</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>${myFunction()}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            `
+        }
+
+        const myFunction = () =>{
+            income_data.forEach(element =>{
+                console.log(element.money)
+                return  (element.money).toString();
             });
         }
         
-        const createStacked = (section, type) =>{
-            mychart = new Chart(section,{
-                type : 'bar',
-                data : {
-                    labels : expense_month,
-                    datasets : [
-                        {
-                            fill: true,
-                            label : '收入',
-                            data : income_money,
-                            backgroundColor : 'rgb(54, 162, 235)',
-                            borderColor : 'rgb(54, 162, 235)',
-                            borderWidth : 1
-                        },
-                        {
-                            fill: true,
-                            label : '支出',
-                            data : expense_money,
-                            backgroundColor : 'rgb(255, 99, 132)',
-                            borderColor : 'rgb(255, 99, 132)',
-                            borderWidth : 1
-                        },
-                    ],
-                },
-                options : {
-                    responsive : true,
-                    plugins :{
-                        title : {
-                            display : true,
-                            text : `${data_year}年統計圖表`,
-                            padding : {
-                                top : 15,
-                                bottom : 15
-                            },
-                            font : {
-                                size : 22
-                            }
-                        },
-                        legend : {
-                            display : true,
-                            position: 'top',
-                        }
-                    },
-                    scales: {
-                        x :{
-                            stacked : true
-                        },
-                        y : {
-                            stacked : true
-                        }     
-                    }
-                }
-            });
-        }
-
-        const createHorizontalBar = (section, type) =>{
-            mychart = new Chart(section,{
-                type : 'bar',
-                data : {
-                    labels : expense_month,
-                    datasets : [
-                        {
-                            fill: true,
-                            label : '收入',
-                            data : income_money,
-                            backgroundColor : 'rgb(54, 162, 235)',
-                            borderColor : 'rgb(54, 162, 235)',
-                            borderWidth : 1
-                        },
-                        {
-                            fill: true,
-                            label : '支出',
-                            data : expense_money,
-                            backgroundColor : 'rgb(255, 99, 132)',
-                            borderColor : 'rgb(255, 99, 132)',
-                            borderWidth : 1
-                        },
-                    ]
-                },
-                options : {
-                    responsive : true,
-                    indexAxis: 'y',
-                    plugins :{
-                        title : {
-                            display : true,
-                            text : `${data_year}年統計圖表`,
-                            padding : {
-                                top : 15,
-                                bottom : 5
-                            },
-                            font : {
-                                size : 22
-                            }
-                        },
-                        legend : {
-                            display : true,
-                            position: 'top',
-                        }
-                    },
-                } 
-            });
-        }
-
-        function test(){
-            const element = ctx;
-            const image = element.toDataURL('image/png', 1.0);
-            console.log(image)
-
-            const pdf = new jsPDF('landscape');
-            pdf.addImage(image, 'PNG',15,15,280,150);
-            pdf.save('chart.pdf');
-        }
-
-        // const data = (type) => {
-        //     return {
-        //         labels : expense_month,
-        //         datasets : [
-        //             {
-        //                 fill: (type == 'line')?false:true,
-        //                 label : 'Income',
-        //                 data : income_money,
-        //                 backgroundColor : 'rgb(54, 162, 235)',
-        //                 borderColor : 'rgb(54, 162, 235)',
-        //                 borderWidth : 1
-        //             },
-        //             {
-        //                 fill: (type == 'line')?false:true,
-        //                 label : 'Expense',
-        //                 data : expense_money,
-        //                 backgroundColor : 'rgb(255, 99, 132)',
-        //                 borderColor : 'rgb(255, 99, 132)',
-        //                 borderWidth : 1
-        //             },
-        //         ]
-        //     } 
-        // };
-
-        // const config = (type) =>{
-        //     console.log(type)
-        //     return {
-        //         type : (type == 'horizontal-bar')?'bar':type,
-        //         data: data(type),
-        //         options : {
-        //             responsive : true,
-        //             indexAxis : (type == 'horizontal-bar')?'y':'x',
-        //             plugins :{
-        //                 title : {
-        //                     display : true,
-        //                 text : 'Expense Management Bar'
-        //                     },
-        //                 legend : {
-        //                     display : true,
-        //                     position: 'right',
-        //                 }
-        //             },
-        //         } 
-        //     }
-        // };
+        // <tr>
+        //     <td>${myFunction()}</td>
+        // </tr>
     </script>
 </body>
 </html>
