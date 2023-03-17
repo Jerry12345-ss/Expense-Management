@@ -311,7 +311,8 @@
         });
 
         // Chart Code
-        const ctx = document.getElementById('canvasBar');
+        const canvas = document.getElementById('canvasBar');
+        const ctx = canvas.getContext('2d');
 
         let type = 'line';
         let mychart;
@@ -581,10 +582,6 @@
                 return  (element.money).toString();
             });
         }
-        
-        // <tr>
-        //     <td>${myFunction()}</td>
-        // </tr>
     </script>
 </body>
 </html>

@@ -1,3 +1,46 @@
+/* Net-asset Section */
+main .wrapper .content-wrapper .net-asset-div .net-asset-title{
+    padding: 1rem 2rem;
+    font-size: 1.25rem;
+    position: relative;
+    border-bottom: 1px solid #dee2e6;
+    background-color: rgba(210, 210, 210, 0.1);
+}
+
+main .wrapper .content-wrapper .net-asset-div .net-asset-content{
+    padding: 2rem
+}
+
+/* main .wrapper .content-wrapper .net-asset-div .net-asset-title span::after{
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 1px solid rgba(210, 210, 210, 0.4);
+    width: 93%;
+    margin: 0 auto;
+} */
+
+/* Chart Section */
+main .wrapper .content-wrapper .chart-div .chart-title{
+    padding: 0.5rem 2rem;
+    font-size: 1.25rem;
+    border-bottom: 1px solid #dee2e6;
+    background-color: rgba(210, 210, 210, 0.1);
+}
+
+main .wrapper .content-wrapper .chart-div .chart-content{
+    padding: 15px;
+}
+
+main .wrapper .content-wrapper .chart-div .chart-content .chart-container{
+    /* max-width: 500px; */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Link Section */
 main .wrapper .content-wrapper .link-div .card-new{
     border-radius: 4px;
     color: white;
@@ -40,19 +83,3 @@ main .wrapper .content-wrapper .link-div .card-new .card-link i{
     font-size: 1rem;
 }
 
-main .wrapper .content-wrapper .chart-div .chart-title{
-    padding: 0.5rem 2rem;
-    font-size: 1.25rem;
-    border-bottom: 1px solid #dee2e6;
-    background-color: rgba(210, 210, 210, 0.2);
-}
-
-main .wrapper .content-wrapper .chart-div .chart-content{
-    padding: 15px;
-}
-
-main .wrapper .content-wrapper .chart-div .chart-content .chart-container{
-    /* max-width: 500px; */
-    margin-left: auto;
-    margin-right: auto;
-}

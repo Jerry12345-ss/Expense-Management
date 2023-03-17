@@ -40,6 +40,30 @@
                 padding: 1rem;
             }
         }
+
+
+        .myProgress {
+  width: 100%;
+  background-color: #ddd;
+}
+
+.myBar {
+  width: 10%;
+  height: 30px;
+  background-color: #04AA6D;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+}
+
+.myBar2 {
+  width: 10%;
+  height: 30px;
+  background-color: #04AA6D;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+}
     </style>
 </head>
 <body>
@@ -87,6 +111,9 @@
 
         $username = $_SESSION['name'];
         $month = date('m');
+        
+        $income_sum = '';
+        $expense_sum = '';
 
         function Total($parameter, $username, $con, $month){
             if($parameter == 1){
@@ -129,6 +156,26 @@
                 }
             }
         }
+
+        
+            $netIncomeQuery = "SELECT SUM(Money) AS Total FROM `income` WHERE Name = '$username'";
+            $netIncomeResult = mysqli_query($con, $netIncomeQuery);
+            $netExpenseQuery = "SELECT SUM(Money) AS Total FROM `expense` WHERE Name = '$username'";
+            $netExpenseResult = mysqli_query($con, $netExpenseQuery);
+
+            if($netExpenseResult && $netIncomeResult){
+                if(mysqli_num_rows($netIncomeResult) > 0 && mysqli_num_rows($netExpenseResult) > 0){
+                    $row = mysqli_fetch_assoc($netIncomeResult);
+                    $row2 = mysqli_fetch_assoc($netExpenseResult);
+
+                    $income_sum =$row['Total'];
+                    $expense_sum = $row2['Total'];
+
+                    // echo $row['Total'] - $row2['Total'];
+                }
+            }else{
+                echo "資料庫連線發生錯誤";
+            }
     ?>
 
     <main>
@@ -185,13 +232,12 @@
                 <div class="content-wrapper toggle">
                     <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                          <li class="breadcrumb-item"><a href="./index.php">控制台</a></li>
-
+                          <li class="breadcrumb-item active" aria-current="page">控制台</li>
                         </ol>
                     </nav>
                     <div class="sum-data total-div">
                         <ul class="d-flex flex-column">
-                            <li class="text-center title"><?php echo $month." 月份"; ?></li>
+                            <li class="text-center title"><?php echo "本月收支總和 - ".$month." 月份"; ?></li>
                             <li class="d-flex justify-content-between">
                                 總收入
                                 <span class="income-total">$
@@ -228,7 +274,61 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="link-div mt-4">
+                    <div class="net-asset-div mt-3 mb-3">
+                        <div class="d-flex flex-column border border-1" style="border-radius: 4px;">
+                            <div class="net-asset-title d-flex justify-content-between align-items-center">
+                                <span style="font-weight: 700;">淨資產</span>
+                                <span style="color: rgb(55, 180, 139); font-weight:700; font-size:1.5rem;">
+                                    $ <?php // Net_asset($username, $con, $income_sum, $expense_sum);
+                                        echo $income_sum - $expense_sum;
+                                    ?>
+                                </span>
+                            </div>
+                            <div class="net-asset-content">
+                                <div class="net-asset-container">
+                                    <div class="net-income">
+                                        <div class="net-income-text">
+                                            <span>收入</span>
+                                            <span><?php echo $income_sum; ?></span>
+                                        </div>
+                                        <!-- <canvas id="canvasIncome"></canvas> -->
+                                        <div class="myProgress">
+                                            <div class="myBar">10%</div>
+                                        </div>
+                                    </div>
+                                    <div class="net-expense">
+                                        <div class="net-expense-text">
+                                            <span>支出</span>
+                                            <span><?php echo $expense_sum; ?></span>
+                                        </div>
+                                        <div class="myProgress">
+                                            <div class="myBar2">10%</div>
+                                        </div>
+                                        <!-- <canvas id="canvasExpense"></canvas> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-div" style="overflow-x: scroll;">
+                        <div class="d-flex flex-column border border-1" style="border-radius: 4px;">
+                            <div class="chart-title d-flex align-items-center justify-content-center">
+                                <i class='bx bxs-pie-chart-alt-2 me-2' style="font-size: 25px;"></i>
+                                <span style="font-weight: 700;"><?php echo $month." 月份收支統計圖表"; ?></span>
+                            </div>
+                            <div class="chart-content">
+                                <div class="chart-container">
+                                    <canvas id="canvasPie" style="width: 400px; height:400px;"></canvas>
+                                    <div class="no-chartData">
+                                        <div class="no-chartData-div">
+                                            <h1>尚未有<?php echo $month; ?>月份收入/支出的資料!</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="link-div mt-4 mb-2">
                         <div class="row">
                             <div class="col-sm-6 col-lg-3 mb-3">
                                 <div class="card-new card-income d-flex flex-column">
@@ -312,24 +412,6 @@
                                                 <i class='bx bx-chevron-right'></i>
                                             </div>
                                         </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="chart-div" style="overflow-x: scroll;">
-                        <div class="d-flex flex-column border border-1" style="border-radius: 4px;">
-                            <div class="chart-title d-flex align-items-center justify-content-center">
-                                <i class='bx bxs-pie-chart-alt-2 me-2' style="font-size: 25px;"></i>
-                                <span style="font-weight: 700;"><?php echo $month." 月份收支統計圖表"; ?></span>
-                            </div>
-                            <div class="chart-content">
-                                <div class="chart-container">
-                                    <canvas id="canvasPie" style="width: 400px; height:400px;"></canvas>
-                                    <div class="no-chartData">
-                                        <div class="no-chartData-div">
-                                            <h1>尚未有<?php echo $month; ?>月份收入/支出的資料!</h1>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -456,13 +538,82 @@
             },'500');
         };
 
-        document.querySelector('.close-btn').addEventListener('click',()=>{
-            MessageZoom();
-        });
+        // document.querySelector('.close-btn').addEventListener('click',()=>{
+        //     MessageZoom();
+        // });
 
-        window.addEventListener('click',()=>{
-            MessageZoom();
-        });
+        // window.addEventListener('click',()=>{
+        //     MessageZoom();
+        // });
+
+        let cti = document.querySelector('#canvasIncome');
+        let cte = document.querySelector('#canvasExpense');
+        let income_total = `<?php echo $income_sum; ?>`;
+        let expense_total = `<?php echo $expense_sum;?>`;
+
+        let i = 0;
+        const Paint = () =>{
+            // const mychart = new Chart(cti,{
+            //     type : 'bar',
+            //     data : {
+            //         labels : 'income',
+            //         datasets : [{
+            //             data : [20],
+            //             backgroundColor : 'rgb(54, 162, 235)',
+            //             borderColor : 'rgb(54, 162, 235)',
+            //         }]
+            //     },
+            //     options : {
+            //         responsive : true,
+            //         plugin : {
+            //             legend : {
+            //                 display : false
+            //             },
+            //             title : {
+            //                 display : false
+            //             },
+            //             tooltip : {
+            //                 display : false
+            //             },
+            //         },
+            //         scales : {
+            //             x : {
+            //                 display : false
+            //             },
+            //             y : {
+            //                 display : false
+            //             } 
+            //         },
+            //         indexAxis: 'y',
+            //     }
+            // });
+            if (i == 0) {
+                i = 1;
+                var elem = document.querySelector(".myBar");
+                var elem2 = document.querySelector(".myBar2");
+
+                var width = 10;
+                var id = setInterval(frame, 10);
+
+                function frame() {
+                if (width >= 100) {
+                    clearInterval(id);
+                    i = 0;
+                } else {
+                    width++;
+                    elem.style.width = width + "%";
+                    elem.innerHTML = width  + "%";
+
+                    elem2.style.width = width + "%";
+                    elem2.innerHTML = width  + "%";
+                }
+                }
+            }
+        }
+
+        window.onload = function(){
+            Paint();
+        };
     </script>
 </body>
 </html>

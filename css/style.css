@@ -243,6 +243,7 @@ main .wrapper .content-wrapper nav {
   margin-bottom: 1rem;
   border-radius: 4px;
   background-color: rgb(240, 238, 238) !important;
+  font-weight: 700;
 }
 
 main .wrapper .content-wrapper nav ol {
