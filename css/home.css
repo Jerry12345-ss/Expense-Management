@@ -11,20 +11,47 @@ main .wrapper .content-wrapper .net-asset-div .net-asset-content{
     padding: 2rem
 }
 
-/* main .wrapper .content-wrapper .net-asset-div .net-asset-title span::after{
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border: 1px solid rgba(210, 210, 210, 0.4);
-    width: 93%;
-    margin: 0 auto;
-} */
+main .wrapper .content-wrapper .net-asset-div .net-asset-content .net-box{
+    margin: 2rem 0;
+}
+
+main .wrapper .content-wrapper .net-asset-div .net-asset-content .net-box .net-text{
+    margin: 1rem 0;
+    font-size: 1.25rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+main .wrapper .content-wrapper .net-asset-div .net-asset-content .net-box .myProgress{
+    width: 100%;
+    border-radius: 4px;
+}
+
+.myBar {
+    width: 0%;
+    height: 30px;
+    background-color: rgb(85, 130, 214);
+    border-radius: 4px;
+}
+  
+  .myBar2 {
+    width: 0%;
+    height: 30px;
+    background-color: indianred;
+    border-radius: 4px;
+}
 
 /* Chart Section */
+main .wrapper .content-wrapper .chart-div{
+    flex-direction: column;
+}
+
+main .wrapper .content-wrapper .chart-div .chart-section:first-child{
+    margin-bottom: 2rem;
+}
+
 main .wrapper .content-wrapper .chart-div .chart-title{
-    padding: 0.5rem 2rem;
+    padding: 1rem 2rem;
     font-size: 1.25rem;
     border-bottom: 1px solid #dee2e6;
     background-color: rgba(210, 210, 210, 0.1);
@@ -47,7 +74,7 @@ main .wrapper .content-wrapper .link-div .card-new{
 }
 
 main .wrapper .content-wrapper .link-div .card-income{
-    background-color: #007bff;
+    background-color: rgb(85, 130, 214);
 }
 
 main .wrapper .content-wrapper .link-div .card-expense{
@@ -81,5 +108,27 @@ main .wrapper .content-wrapper .link-div .card-new .card-link i{
     color: white;
     font-weight: bold;
     font-size: 1rem;
+}
+
+@media screen and (min-width:768px) {
+    main .wrapper .content-wrapper .net-asset-div .net-asset-content{
+        padding: 2rem 5rem;
+    }
+}
+
+@media screen and (min-width:992px) {
+    main .wrapper .content-wrapper .chart-div {
+        flex-direction: row;
+    }
+
+    main .wrapper .content-wrapper .chart-div .chart-section{
+        /* flex: 0 0 auto; */
+        width: 50%;
+    }
+
+    main .wrapper .content-wrapper .chart-div .chart-section:first-child{
+        margin-bottom: 0;
+        margin-right: 2rem;
+    }
 }
 

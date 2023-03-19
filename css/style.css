@@ -222,7 +222,7 @@ main .wrapper .sidebar .sidebar-navbar .username-logout .log-out .bx-log-out{
 main .wrapper .content-wrapper.toggle{
   width: calc(100% - 100px);
   margin-left: 100px;
-  padding: 15px;
+  padding: 28px 18px;
   overflow-x: hidden;
   transition: all 0.5s ease;
   margin-top: 70px;
@@ -231,7 +231,7 @@ main .wrapper .content-wrapper.toggle{
 main .wrapper .content-wrapper{
   width: 100%;
   margin-left: 0;
-  padding: 15px;
+  padding: 28px;
   overflow-x: hidden;
   transition: all 0.5s ease;
   margin-top: 70px;
@@ -240,7 +240,7 @@ main .wrapper .content-wrapper{
 /* Main Content Breadcrumb */
 main .wrapper .content-wrapper nav {
   padding: 0.75rem 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   border-radius: 4px;
   background-color: rgb(240, 238, 238) !important;
   font-weight: 700;
@@ -403,7 +403,7 @@ main .wrapper .content-wrapper .record-content .card.expense_card{
   main .wrapper .content-wrapper.toggle{
     width: calc(100% - 250px);
     margin-left: 250px;
-    padding: 15px;
+    padding: 28px;
     overflow-x: hidden;
     transition: all 0.5s ease;
     margin-top: 70px;
@@ -413,7 +413,7 @@ main .wrapper .content-wrapper .record-content .card.expense_card{
     /* width: 100%; */
     width: calc(100% - 100px);
     margin-left: 100px;
-    padding: 15px;
+    padding: 28px;
     overflow-x: hidden;
     transition: all 0.5s ease;
     margin-top: 70px;

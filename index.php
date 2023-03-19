@@ -40,30 +40,6 @@
                 padding: 1rem;
             }
         }
-
-
-        .myProgress {
-  width: 100%;
-  background-color: #ddd;
-}
-
-.myBar {
-  width: 10%;
-  height: 30px;
-  background-color: #04AA6D;
-  text-align: center;
-  line-height: 30px;
-  color: white;
-}
-
-.myBar2 {
-  width: 10%;
-  height: 30px;
-  background-color: #04AA6D;
-  text-align: center;
-  line-height: 30px;
-  color: white;
-}
     </style>
 </head>
 <body>
@@ -79,7 +55,7 @@
                     </div>
                     <div class="important-content">
                         <p style="margin-bottom: 0px;">親愛的用戶您好 : </p>
-                        <p style="margin-bottom: 0px;">因時程安排與功能修改上遇到一些問題，目前<span style="color:red;">統計圖表的功能暫時無法使用</span>，使用者在圖表部分進行任何操作時將不會顯示相對應資料。使用上造成您的不便，敬請見諒。</p>
+                        <p style="margin-bottom: 0px;">因時程安排的問題，目前<span style="color:red;">網站還有少許功能還未建置完成</span>，如果使用上造成您的不便，敬請見諒。</p>
                     </div>
                 </div>
             </div>
@@ -111,22 +87,27 @@
 
         $username = $_SESSION['name'];
         $month = date('m');
-        
-        $income_sum = '';
-        $expense_sum = '';
+        $year = date('Y');
 
-        function Total($parameter, $username, $con, $month){
+        function Total($parameter, $username, $con, $value, $text){
             if($parameter == 1){
-                $incomeTotalQuery = "SELECT SUM(Money) AS Total FROM `income` WHERE Name = '$username' AND Month = '$month'";
+                if($text == 'Month'){
+                    $incomeTotalQuery = "SELECT SUM(Money) AS Total FROM `income` WHERE Name = '$username' AND Month = '$value'";
+                }else if($text == 'Year'){
+                    $incomeTotalQuery = "SELECT SUM(Money) AS Total FROM `income` WHERE Name = '$username' AND Year = '$value'"; 
+                }else{
+                    $incomeTotalQuery = "SELECT SUM(Money) AS Total FROM `income` WHERE Name = '$username'"; 
+                }
+
                 $incomeTotalResult = mysqli_query($con, $incomeTotalQuery);
 
                 if($incomeTotalResult){
                     if(mysqli_num_rows($incomeTotalResult) > 0){
                         while($row = mysqli_fetch_array($incomeTotalResult)){
                             if($row['Total'] == 0){
-                                echo 0;
+                                return 0;
                             }else{
-                                echo $row['Total'];
+                                return $row['Total'];
                             }
                         }
                     }else{
@@ -136,16 +117,23 @@
                     echo "資料庫連線發生錯誤";
                 }
             }else if($parameter == 2){
-                $expenseTotalQuery = "SELECT SUM(Money) AS Total FROM `expense` WHERE Name = '$username' AND Month = '$month'";
+                if($text == 'Month'){
+                    $expenseTotalQuery = "SELECT SUM(Money) AS Total FROM `expense` WHERE Name = '$username' AND Month = '$value'";
+                }else if($text == 'Year'){
+                    $expenseTotalQuery = "SELECT SUM(Money) AS Total FROM `expense` WHERE Name = '$username' AND Year = '$value'"; 
+                }else{
+                    $expenseTotalQuery = "SELECT SUM(Money) AS Total FROM `expense` WHERE Name = '$username'";
+                }
+
                 $expenseTotalResult = mysqli_query($con, $expenseTotalQuery);
                                         
                 if($expenseTotalResult){
                     if(mysqli_num_rows($expenseTotalResult) > 0){
                         while($row2 = mysqli_fetch_array($expenseTotalResult)){
                             if($row2['Total'] == 0){
-                                echo 0;
+                                return 0;
                             }else{
-                                echo $row2['Total'];
+                                return $row2['Total'];
                             }
                         }
                     }else{
@@ -156,26 +144,6 @@
                 }
             }
         }
-
-        
-            $netIncomeQuery = "SELECT SUM(Money) AS Total FROM `income` WHERE Name = '$username'";
-            $netIncomeResult = mysqli_query($con, $netIncomeQuery);
-            $netExpenseQuery = "SELECT SUM(Money) AS Total FROM `expense` WHERE Name = '$username'";
-            $netExpenseResult = mysqli_query($con, $netExpenseQuery);
-
-            if($netExpenseResult && $netIncomeResult){
-                if(mysqli_num_rows($netIncomeResult) > 0 && mysqli_num_rows($netExpenseResult) > 0){
-                    $row = mysqli_fetch_assoc($netIncomeResult);
-                    $row2 = mysqli_fetch_assoc($netExpenseResult);
-
-                    $income_sum =$row['Total'];
-                    $expense_sum = $row2['Total'];
-
-                    // echo $row['Total'] - $row2['Total'];
-                }
-            }else{
-                echo "資料庫連線發生錯誤";
-            }
     ?>
 
     <main>
@@ -237,12 +205,12 @@
                     </nav>
                     <div class="sum-data total-div">
                         <ul class="d-flex flex-column">
-                            <li class="text-center title"><?php echo "本月收支總和 - ".$month." 月份"; ?></li>
+                            <li class="text-center title"><?php echo "本月收支總和 - ".$month." 月"; ?></li>
                             <li class="d-flex justify-content-between">
                                 總收入
                                 <span class="income-total">$
                                     <?php
-                                        Total(1,$username,$con,$month); 
+                                        echo Total(1,$username,$con,$month,'Month'); 
                                     ?>
                                 </span>
                             </li>
@@ -250,7 +218,7 @@
                                 總支出
                                 <span class="expense-total">$
                                     <?php
-                                        Total(2,$username,$con,$month); 
+                                        echo Total(2,$username,$con,$month,'Month'); 
                                     ?>
                                 </span>
                             </li>
@@ -274,61 +242,75 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="net-asset-div mt-3 mb-3">
+                    <div class="net-asset-div" style="margin-top: 2rem; margin-bottom: 2rem;">
                         <div class="d-flex flex-column border border-1" style="border-radius: 4px;">
                             <div class="net-asset-title d-flex justify-content-between align-items-center">
                                 <span style="font-weight: 700;">淨資產</span>
-                                <span style="color: rgb(55, 180, 139); font-weight:700; font-size:1.5rem;">
-                                    $ <?php // Net_asset($username, $con, $income_sum, $expense_sum);
-                                        echo $income_sum - $expense_sum;
+                                <span style="font-weight:700; font-size:1.5rem;" id="net-asset-money">
+                                    $ <?php 
+                                        echo intval(Total(1, $username, $con, 0, '')) - intval(Total(2, $username, $con, 0, ''));
                                     ?>
                                 </span>
                             </div>
                             <div class="net-asset-content">
                                 <div class="net-asset-container">
-                                    <div class="net-income">
-                                        <div class="net-income-text">
+                                    <div class="net-income net-box">
+                                        <div class="net-text">
                                             <span>收入</span>
-                                            <span><?php echo $income_sum; ?></span>
+                                            <span style="color: rgb(85, 130, 214);">$ <?php echo Total(1, $username, $con, 0, ''); ?></span>
                                         </div>
-                                        <!-- <canvas id="canvasIncome"></canvas> -->
                                         <div class="myProgress">
-                                            <div class="myBar">10%</div>
+                                            <div class="myBar"></div>
                                         </div>
                                     </div>
-                                    <div class="net-expense">
-                                        <div class="net-expense-text">
+                                    <div class="net-expense net-box">
+                                        <div class="net-text">
                                             <span>支出</span>
-                                            <span><?php echo $expense_sum; ?></span>
+                                            <span style="color: indianred;">$ <?php echo Total(2, $username, $con, 0, ''); ?></span>
                                         </div>
                                         <div class="myProgress">
-                                            <div class="myBar2">10%</div>
+                                            <div class="myBar2"></div>
                                         </div>
-                                        <!-- <canvas id="canvasExpense"></canvas> -->
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="chart-div" style="overflow-x: scroll;">
-                        <div class="d-flex flex-column border border-1" style="border-radius: 4px;">
+                    <div class="chart-div d-flex">
+                        <div class="d-flex flex-column border border-1 chart-section" style="border-radius: 4px; overflow-x: scroll;">
                             <div class="chart-title d-flex align-items-center justify-content-center">
                                 <i class='bx bxs-pie-chart-alt-2 me-2' style="font-size: 25px;"></i>
-                                <span style="font-weight: 700;"><?php echo $month." 月份收支統計圖表"; ?></span>
+                                <span style="font-weight: 700;"><?php echo " 當月收支統計圖表 - ".$month."月"; ?></span>
                             </div>
                             <div class="chart-content">
                                 <div class="chart-container">
-                                    <canvas id="canvasPie" style="width: 400px; height:400px;"></canvas>
-                                    <div class="no-chartData">
+                                    <canvas id="canvasPieMonth" style="width: 400px; height:400px;"></canvas>
+                                    <div class="no-chartData-month">
                                         <div class="no-chartData-div">
-                                            <h1>尚未有<?php echo $month; ?>月份收入/支出的資料!</h1>
+                                            <h1>尚未有<?php echo $month; ?>月收入/支出的資料!</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column border border-1 chart-section" style="border-radius: 4px; overflow-x: scroll;">
+                            <div class="chart-title d-flex align-items-center justify-content-center">
+                                <i class='bx bxs-pie-chart-alt-2 me-2' style="font-size: 25px;"></i>
+                                <span style="font-weight: 700;"><?php echo "當年收支統計圖表 - ".($year-1911)."年"; ?></span>
+                            </div>
+                            <div class="chart-content">
+                                <div class="chart-container">
+                                    <canvas id="canvasPieYear" style="width: 400px; height:400px;"></canvas>
+                                    <div class="no-chartData-year">
+                                        <div class="no-chartData-div">
+                                            <h1>尚未有<?php echo ($year - 1911); ?>年收入/支出的資料!</h1>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="link-div mt-4 mb-2">
+                    <div class="link-div" style="margin-top: 2rem;">
                         <div class="row">
                             <div class="col-sm-6 col-lg-3 mb-3">
                                 <div class="card-new card-income d-flex flex-column">
@@ -461,72 +443,153 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <script type="module" src="./js/main2.js"></script>
     <script src="./js/logout.js"></script>
     <script src="./js/calculate.js"></script>
 
     <script>
-        // Chart of this month 
-        let canvas = document.querySelector('#canvasPie');
-        let ctx = canvas.getContext('2d');
+        // Chart of this month and this year
+        let canvasMonth = document.querySelector('#canvasPieMonth');
+        let canvasYear = document.querySelector('#canvasPieYear');
+        let ctx = canvasMonth.getContext('2d');
+        let cti = canvasYear.getContext('2d');
 
-        let chart_income = <?php Total(1,$username,$con,$month); ?>;
-        let chart_expense = <?php Total(2,$username,$con,$month); ?>;
+        let chart_income_month = <?php echo Total(1,$username,$con,$month,'Month'); ?>;
+        let chart_expense_month = <?php echo Total(2,$username,$con,$month,'Month'); ?>;
 
-        const createChart = () =>{
+        let chart_income_year = <?php echo Total(1,$username,$con,$year,'Year'); ?>;
+        let chart_expense_year = <?php echo Total(2,$username,$con,$year,'Year'); ?>;
+
+        let chart_income = <?php echo Total(1,$username,$con,0,''); ?>;
+        let chart_expense = <?php echo Total(2,$username,$con,0,''); ?>;
+
+        // Chart options
+        const options = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                tooltip : {
+                    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                    borderColor : 'rgba(169, 169, 169, 0.8)',
+                    borderWidth : 1,
+                    titleColor : 'gray',
+                    bodyColor : 'gray',
+                    caretSize : 0,
+                    titleFont : { size : 18, weight : 'bold' },
+                    bodyFont : { size : 18, weight : 'bold' },
+                    padding : 15,
+                },
+                legend: {
+                    display : true,
+                    position: 'top',
+                    labels : {
+                        padding : 15
+                    }
+                },
+                datalabels: {
+                    formatter: (value, context) =>{
+                        return 'hello'
+                    }
+                }
+            } 
+        }
+
+        const createChartMonth = (option) =>{
             const data = {
             labels: ['收入', '支出'],
             datasets: [
                     {
                         fill: true,
                         backgroundColor: ['rgb(54, 162, 235)', 'rgb(255, 99, 132)'],
-                        data: [chart_income, chart_expense],
+                        data: [chart_income_month, chart_expense_month],
                         hoverOffset: 2
                     }
                 ]
             };
 
-            new Chart(ctx,{
+            new Chart(ctx ,{
                 type: 'pie',
                 data: data,
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        tooltip : {
-                            backgroundColor: 'rgba(255, 255, 255, 0.7)',
-                            borderColor : 'rgba(169, 169, 169, 0.8)',
-                            borderWidth : 1,
-                            titleColor : 'gray',
-                            bodyColor : 'gray',
-                            caretSize : 0,
-                            titleFont : { size : 18, weight : 'bold' },
-                            bodyFont : { size : 18, weight : 'bold' },
-                            padding : 15,
-                        },
-                        legend: {
-                            display : true,
-                            position: 'bottom',
-                            labels : {
-                                padding : 30
-                            }
-                        },
-                    }
-                },
+                options: option,
             });
         } 
 
-        if(chart_expense == 0 && chart_income == 0){
-            canvas.style.display = 'none';
-            document.querySelector('.no-chartData').style.display = 'block';
+        const createChartYear = (option) =>{
+            const data = {
+            labels: ['收入', '支出'],
+            datasets: [
+                    {
+                        fill: true,
+                        backgroundColor: ['rgb(54, 162, 235)', 'rgb(255, 99, 132)'],
+                        data: [chart_income_year, chart_expense_year],
+                        hoverOffset: 2
+                    }
+                ]
+            };
+
+            new Chart(cti,{
+                type: 'pie',
+                data: data,
+                options: option,
+            });
+        } 
+
+        // Change section style if data is not exist
+        if(chart_expense_month == 0 && chart_income_month == 0){
+            canvasMonth.style.display = 'none';
+            document.querySelector('.no-chartData-month').style.display = 'block';
         }else{
-            canvas.style.display = 'block';
-            document.querySelector('.no-chartData').style.display = 'none';
+            canvasMonth.style.display = 'block';
+            document.querySelector('.no-chartData-month').style.display = 'none';
             document.querySelector('.chart-container').style.maxWidth = '500px';
-            createChart();
+            createChartMonth(options);
         }
+
+        if(chart_expense_year == 0 && chart_income_year == 0){
+            canvasYear.style.display = 'none';
+            document.querySelector('.no-chartData-year').style.display = 'block';
+        }else{
+            canvasYear.style.display = 'block';
+            document.querySelector('.no-chartData-year').style.display = 'none';
+            document.querySelector('.chart-container').style.maxWidth = '500px';
+            createChartYear(options);
+        }
+
+        // Net-asset ProgressLine (參考W3C)
+        let i = 0;
+
+        window.onload = function(){
+            if (i == 0) {
+                i = 1;
+                let elem = document.querySelector(".myBar");
+                let elem2 = document.querySelector(".myBar2");
+
+                let income_width = 0;
+                let expense_width = 0;
+                let id = setInterval(Income_frame, 5);
+                let id2 = setInterval(Expense_frame, 5);
+
+                function Income_frame() {
+                    if (income_width >= 100) {
+                        clearInterval(id);
+                        i = 0;
+                    } else {
+                        income_width++;
+                        elem.style.width = income_width + "%";
+                    }
+                }
+
+                function Expense_frame() {
+                    if (expense_width >= (chart_expense/chart_income)*100) {
+                        clearInterval(id2);
+                        i = 0;
+                    } else {
+                        expense_width++;
+                        elem2.style.width = expense_width + "%";
+                    }
+                }
+            }
+        };
 
         // Important message close event
         let important_message = document.querySelector('.important-message');
@@ -538,82 +601,13 @@
             },'500');
         };
 
-        // document.querySelector('.close-btn').addEventListener('click',()=>{
-        //     MessageZoom();
-        // });
+        document.querySelector('.close-btn').addEventListener('click',()=>{
+            MessageZoom();
+        });
 
-        // window.addEventListener('click',()=>{
-        //     MessageZoom();
-        // });
-
-        let cti = document.querySelector('#canvasIncome');
-        let cte = document.querySelector('#canvasExpense');
-        let income_total = `<?php echo $income_sum; ?>`;
-        let expense_total = `<?php echo $expense_sum;?>`;
-
-        let i = 0;
-        const Paint = () =>{
-            // const mychart = new Chart(cti,{
-            //     type : 'bar',
-            //     data : {
-            //         labels : 'income',
-            //         datasets : [{
-            //             data : [20],
-            //             backgroundColor : 'rgb(54, 162, 235)',
-            //             borderColor : 'rgb(54, 162, 235)',
-            //         }]
-            //     },
-            //     options : {
-            //         responsive : true,
-            //         plugin : {
-            //             legend : {
-            //                 display : false
-            //             },
-            //             title : {
-            //                 display : false
-            //             },
-            //             tooltip : {
-            //                 display : false
-            //             },
-            //         },
-            //         scales : {
-            //             x : {
-            //                 display : false
-            //             },
-            //             y : {
-            //                 display : false
-            //             } 
-            //         },
-            //         indexAxis: 'y',
-            //     }
-            // });
-            if (i == 0) {
-                i = 1;
-                var elem = document.querySelector(".myBar");
-                var elem2 = document.querySelector(".myBar2");
-
-                var width = 10;
-                var id = setInterval(frame, 10);
-
-                function frame() {
-                if (width >= 100) {
-                    clearInterval(id);
-                    i = 0;
-                } else {
-                    width++;
-                    elem.style.width = width + "%";
-                    elem.innerHTML = width  + "%";
-
-                    elem2.style.width = width + "%";
-                    elem2.innerHTML = width  + "%";
-                }
-                }
-            }
-        }
-
-        window.onload = function(){
-            Paint();
-        };
+        window.addEventListener('click',()=>{
+            MessageZoom();
+        });
     </script>
 </body>
 </html>

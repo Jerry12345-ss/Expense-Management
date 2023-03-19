@@ -190,7 +190,7 @@
                                                 <button data-type="bar">長條圖</button>                                       
                                                 <button data-type="stacked">堆疊圖</button>
                                                 <button data-type="horizontal-bar">橫條圖</button>
-                                                <button data-type="table">網頁</button>
+                                                <button data-type="table" style="display: none;">網頁</button>
                                             </div>
                                         </div>
                                     </div>
@@ -206,7 +206,7 @@
                         <div class="border border-1" style="border-radius: 4px;">
                             <div class="chart-content">
                                 <div class="chart-export text-end">
-                                    <button class="btn-export" onclick="exportImage()">匯出</button>
+                                    <button class="btn-export" onclick="exportImage()" style="display: none;">匯出</button>
                                 </div>
                                 <div class="chart-container">
                                     <canvas id="canvasBar" class="chart" data-content="doughnut" style="width: 400px; height: 400px; max-height: 550px;"></canvas>
@@ -341,7 +341,7 @@
                 const monthDiff = Math.abs(dayjs.duration(begin.diff(end)).months());
 
                 $.ajax({
-                    url : `../test.php?year=${data_year}&prev=${data_month_prev}&fol=${data_month_fol}`,
+                    url : `../chart_process.php?year=${data_year}&prev=${data_month_prev}&fol=${data_month_fol}`,
                     type : 'GET',
                     success : (response)=>{
                         if(isPaint){
