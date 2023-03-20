@@ -443,6 +443,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.37/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
     <script type="module" src="./js/main2.js"></script>
     <script src="./js/logout.js"></script>
     <script src="./js/calculate.js"></script>
@@ -488,8 +489,21 @@
                 },
                 datalabels: {
                     formatter: (value, context) =>{
-                        return 'hello'
-                    }
+                        const datapoints = context.chart.data.datasets[0].data;
+                        const totalValue = datapoints.reduce((total, datapoint)=>{
+                            return total + datapoint
+                        }, 0);
+                        const percentage = ((value/totalValue)*100).toFixed(1);
+                        return `${percentage}%`;
+                    },
+                    color : 'rgb(255, 255, 255)',
+                    labels : {
+                        title : {
+                            font : {
+                                size : '22px'
+                            }
+                        }
+                    },
                 }
             } 
         }
@@ -501,6 +515,7 @@
                     {
                         fill: true,
                         backgroundColor: ['rgb(54, 162, 235)', 'rgb(255, 99, 132)'],
+                        borderColor : 'rgba(255, 255, 255, 0.5)',
                         data: [chart_income_month, chart_expense_month],
                         hoverOffset: 2
                     }
@@ -510,6 +525,7 @@
             new Chart(ctx ,{
                 type: 'pie',
                 data: data,
+                plugins : [ChartDataLabels],    
                 options: option,
             });
         } 
@@ -521,15 +537,17 @@
                     {
                         fill: true,
                         backgroundColor: ['rgb(54, 162, 235)', 'rgb(255, 99, 132)'],
+                        borderColor : 'rgba(255, 255, 255, 0.5)',
                         data: [chart_income_year, chart_expense_year],
                         hoverOffset: 2
                     }
                 ]
             };
 
-            new Chart(cti,{
+            new Chart(cti, {
                 type: 'pie',
                 data: data,
+                plugins : [ChartDataLabels],
                 options: option,
             });
         } 
