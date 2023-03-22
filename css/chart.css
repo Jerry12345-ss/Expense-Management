@@ -28,6 +28,10 @@ main .wrapper .content-wrapper .chart-div{
     display: none;
 }
 
+main .wrapper .content-wrapper .chart-div .bordered{
+    border: 1px solid #dee2e6;
+}
+
 main .wrapper .content-wrapper .chart-div .chart-content{
     padding: 15px;
 }
@@ -53,6 +57,26 @@ main .wrapper .content-wrapper .chart-div .chart-content .chart-container{
     margin-left: auto;
     margin-right: auto;
     min-width: 200px;
+}
+
+main .wrapper .content-wrapper .chart-div .chart-content .chart-container .chart-result-table h3{
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+main .wrapper .content-wrapper .chart-div .chart-content .chart-container .chart-result-table table{
+    text-align: end;
+}
+
+main .wrapper .content-wrapper .chart-div .chart-content .chart-container .chart-result-table table thead tr{
+    color: #fff;
+    background-color: rgb(85, 130, 214);
+}
+
+@media screen and (min-width: 768px){
+    main .wrapper .content-wrapper .chart-div .chart-content{
+        padding: 50px;
+    }
 }
 
 /* main .wrapper .content-wrapper .chart-div .chart-content .chart-container .chart{

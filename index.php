@@ -588,20 +588,38 @@
                 let id2 = setInterval(Expense_frame, 5);
 
                 function Income_frame() {
-                    if (income_width >= 100) {
+                    if (chart_income == 0) {
+                       elem.style.width = 0;
+                       clearInterval(id);
+                       i = 0;
+                    } else if (income_width >= 100) {
                         clearInterval(id);
                         i = 0;
-                    } else {
+                    }
+                    else {
                         income_width++;
                         elem.style.width = income_width + "%";
                     }
                 }
 
                 function Expense_frame() {
-                    if (expense_width >= (chart_expense/chart_income)*100) {
+                    if (chart_expense == 0) {
+                        elem2.style.width = 0;
+                        clearInterval(id2);
+                        i = 0; 
+                    } else if (chart_income == 0) {
+                        if(expense_width >= 100){
+                            clearInterval(id2);
+                            i = 0; 
+                        }else{
+                            expense_width++;
+                            elem2.style.width = expense_width + "%";
+                        }
+                    } else if (expense_width >= (chart_expense/chart_income)*100) {
                         clearInterval(id2);
                         i = 0;
-                    } else {
+                    }
+                    else {
                         expense_width++;
                         elem2.style.width = expense_width + "%";
                     }

@@ -190,7 +190,7 @@
                                                 <button data-type="bar">長條圖</button>                                       
                                                 <button data-type="stacked">堆疊圖</button>
                                                 <button data-type="horizontal-bar">橫條圖</button>
-                                                <button data-type="table" style="display: none;">網頁</button>
+                                                <button data-type="table">網頁</button>
                                             </div>
                                         </div>
                                     </div>
@@ -203,7 +203,7 @@
                         </div>
                     </div>
                     <div class="chart-div mt-3" style="overflow-x: scroll;">
-                        <div class="border border-1" style="border-radius: 4px;">
+                        <div class="bordered border-1" style="border-radius: 4px;">
                             <div class="chart-content">
                                 <div class="chart-export text-end">
                                     <button class="btn-export" onclick="exportImage()" style="display: none;">匯出</button>
@@ -345,16 +345,16 @@
                     type : 'GET',
                     success : (response)=>{
                         if(isPaint){
-                            // Clear painted canvas and array
                             mychart.destroy();
-                            income_data = [],
-                            expense_data = [],
-                            income_month = [];
-                            income_money = [];
-                            expense_month = [];
-                            expense_money = [];
                             isPaint = false;
                         }
+
+                        income_data = [],
+                        expense_data = [],
+                        income_month = [];
+                        income_money = [];
+                        expense_month = [];
+                        expense_money = [];
 
                         for(let i = 0; i <= monthDiff; i++){
                             const date = begin.add(i, 'month');
@@ -389,16 +389,18 @@
         });
         
         const Chart_paint = (type)=>{
-            isPaint = true;
             document.querySelector('.chart-div').style.display = 'block';
 
             if(type == 'table'){
+                document.querySelector('.chart-div .bordered').style.borderWidth = '0px';
                 document.querySelector('.chart-container canvas').style.display = 'none';
                 document.querySelector('.chart-container .chart-result-table').style.display = 'block'; 
                 Generate_table();
             }else{
+                document.querySelector('.chart-div .bordered').style.borderWidth = '1px';
                 document.querySelector('.chart-container canvas').style.display = 'block';
                 document.querySelector('.chart-container .chart-result-table').style.display = 'none';
+                isPaint = true;
                 Painting(type);
             }
         }
@@ -407,7 +409,7 @@
         const exportImage = () => {
             // 背景黑色暫不處理
             let a = document.createElement('a');
-            a.href = ctx.toDataURL('image/png', 1.0);
+            a.href = document.querySelector('#canvasBar').toDataURL('image/png', 1.0);
             a.download = 'chart.png';
             a.click();
         }
@@ -557,30 +559,34 @@
         // Generate statistical table
         const Generate_table = () =>{
             document.querySelector('.chart-container .chart-result-table').innerHTML = `
-                <table class='table table-bordered'>
+                <h3>${data_year} 年 ${data_month_prev}月 ~ ${data_month_fol} 月統計表</h3>
+                <table class='table table-bordered table-striped'>
                     <thead>
                         <tr>
-                            <th>年份</th>
                             <th>月份</th>
-                            <th>收入</th>
-                            <th>支出</th>
-                            <th>結餘</th>
+                            <th>收入 (元)</th>
+                            <th>支出 (元)</th>
+                            <th>結餘 (元)</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>${myFunction()}</td>
-                        </tr>
+                        ${myFunction()}
                     </tbody>
                 </table>
             `
         }
 
         const myFunction = () =>{
-            income_data.forEach(element =>{
-                console.log(element.money)
-                return  (element.money).toString();
-            });
+            let x = '';
+            let tr = '';
+            for(let i in income_data){
+                tr += '<tr>';
+                tr += `<td>${income_month[i]}</td><td>${income_money[i]}</td><td>${expense_money[i]}</td><td>${income_money[i] - expense_money[i]}</td>`
+                tr += '</tr>';
+            }
+
+            x += tr;
+            return x;
         }
     </script>
 </body>
